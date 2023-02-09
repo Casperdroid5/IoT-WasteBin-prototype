@@ -1,0 +1,29 @@
+@startuml Waste Bin Use Case Diagram
+
+
+
+actor Gebruiker
+actor Ontwikkelaar
+
+rectangle WasteBin {
+  Gebruiker -right-> (Afvalwegwerpen) : Afval
+  (Afvalwegwerpen) --> (Afvalpreserveren) 
+
+  (Meettemperatuur) -[dashed]up-> Afvalpreserveren : gebruikt
+  (Meetluchtvochtigheid) -[dashed]up-> Afvalpreserveren : gebruikt
+  (Meetklepstand) -[dashed]up-> Afvalwegwerpen : gebruikt
+
+  (Afvalpreserveren) -[dashed]-> (Koelen) : bevat
+  (Meetluchtvochtigheid) --> (Visualiseren) 
+  (Meettemperatuur) --> (Visualiseren)
+  (Meetklepstand) --> (Visualiseren) 
+  (Visualiseren) -right-> Ontwikkelaar
+  
+  (Meetklepstand) --> (Indicatoren)
+  (Meetluchtvochtigheid) --> (Indicatoren)
+  (Meettemperatuur) --> (Indicatoren)
+  (Indicatoren) -left-> Gebruiker
+}
+
+
+@enduml
