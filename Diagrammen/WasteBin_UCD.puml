@@ -1,6 +1,7 @@
 @startuml Waste Bin Use Case Diagram
 
 
+
 actor Gebruiker
 actor Ontwikkelaar
 
