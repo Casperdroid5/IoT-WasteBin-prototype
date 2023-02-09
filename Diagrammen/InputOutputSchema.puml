@@ -1,0 +1,12 @@
+@startuml IO_Schema
+
+Title WasteBin IO Schema
+
+
+state Input : *Afval 
+Input ->  Process
+state Process : *PreserverenAfval \n*Metenluchtvochtigheid \n*Metenklepstand \n*Metentemperatuur
+Process ->  Output
+state Output : *Indicatoren \n*Gevisualiseerde Data 
+
+@enduml 
