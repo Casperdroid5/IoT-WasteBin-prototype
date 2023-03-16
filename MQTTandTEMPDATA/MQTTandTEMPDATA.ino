@@ -116,6 +116,8 @@ void loop() {
     Serial.println("Failed to perform reading :(");
     return;
   }
+
+  
   Serial.print("Temperature = ");
   Serial.print(bmp.temperature);
   Serial.println(" *C");
@@ -125,13 +127,11 @@ void loop() {
   //Serial.println(" hPa");
   
   delay(1500); // to stop the data flooding
-
-  Serial.println();
+  double tempd = bmp.readTemperature();
   client.loop();
-  if (Serial.available() > 0) {
-    char mun[501];
-    memset(mun, 0, 501);
-    Serial.readBytesUntil('\n', mun, 500);
-    publishSerialData(mun);
-  }
+  char temp[501];
+  snprintf(temp, sizeof temp, "tempd = %lf", tempd); // cast double to char
+  Serial.readBytesUntil('\n', temp, 500);
+  publishSerialData(temp);
+  
 }
