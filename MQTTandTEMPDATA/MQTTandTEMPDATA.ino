@@ -120,9 +120,9 @@ void loop() {
   Serial.print(bmp.temperature);
   Serial.println(" *C");
 
-  Serial.print("Pressure = ");
-  Serial.print(bmp.pressure / 100.0);
-  Serial.println(" hPa");
+  //Serial.print("Pressure = ");
+  //Serial.print(bmp.pressure / 100.0);
+  //Serial.println(" hPa");
   
   delay(1500); // to stop the data flooding
 
