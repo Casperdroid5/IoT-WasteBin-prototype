@@ -1,0 +1,23 @@
+@startuml Datastream
+
+skin rose
+
+title Datastream
+
+node Wastebin
+interface Dashboard
+database serverInsyte
+
+cloud Internet {
+    (Data Overdracht) -down-> (serverInsyte) : log data
+}
+
+(Wastebin) -up-> (Data Overdracht) : gemeten data
+(Data Overdracht) -down-> (Dashboard) : debug data
+
+
+
+@enduml
+
+
+
