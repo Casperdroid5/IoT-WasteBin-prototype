@@ -4,6 +4,7 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BMP3XX.h"
+#include <ArduinoJson.h>
 
 // Update these with values suitable for your network.
 const char* ssid = "WWegvanons3-guest";
@@ -13,7 +14,7 @@ const char* mqtt_server = "test.mosquitto.org";
 #define MQTT_USER ""
 #define MQTT_PASSWORD ""
 #define MQTT_SERIAL_PUBLISH_CH "ESEiot/test/"
-#define MQTT_SERIAL_RECEIVER_CH "ESEiot/test/"
+#define MQTT_SERIAL_RECEIVER_CH "" //ESEiot/test/
 
 #define BMP_SCK 13
 #define BMP_MISO 12
@@ -22,6 +23,7 @@ const char* mqtt_server = "test.mosquitto.org";
 //i2c pins are gpio 22 SCL, gpio 21SDA on esp32 devkitwroom
 #define SEALEVELPRESSURE_HPA (1013.25)
 
+StaticJsonDocument<200> doc;
 Adafruit_BMP3XX bmp;
 WiFiClient wifiClient;
 
@@ -105,33 +107,35 @@ void setup() {
   reconnect();
 }
 
-void publishSerialData(char* serialData) {
-  if (!client.connected()) {
-    reconnect();
-  }
-  client.publish(MQTT_SERIAL_PUBLISH_CH, serialData);
-}
+
 void loop() {
   if (!bmp.performReading()) {
     Serial.println("Failed to perform reading :(");
     return;
   }
 
-  
+
   Serial.print("Temperature = ");
   Serial.print(bmp.temperature);
   Serial.println(" *C");
 
+
+  float tempd = bmp.readTemperature();
+  float presd = bmp.readPressure();
   //Serial.print("Pressure = ");
   //Serial.print(bmp.pressure / 100.0);
   //Serial.println(" hPa");
-  
-  delay(1500); // to stop the data flooding
-  double tempd = bmp.readTemperature();
+
+  delay(1500);  // to stop the data flooding
+
   client.loop();
-  char temp[501];
-  snprintf(temp, sizeof temp, "tempd = %lf", tempd); // cast double to char
-  Serial.readBytesUntil('\n', temp, 500);
-  publishSerialData(temp);
-  
+  char buffer[500];
+  sprintf(buffer, "tempd = %lf, presd = %lf", tempd, presd);
+
+
+  //char buffer[40];
+  //sprintf(buffer, "The %d burritos are %s degrees F", numBurritos, tempStr);
+  //Serial.println(buffer);
+
+  client.publish(MQTT_SERIAL_PUBLISH_CH, buffer);
 }
