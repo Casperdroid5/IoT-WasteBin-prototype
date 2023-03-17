@@ -14,7 +14,7 @@ const char* mqtt_server = "test.mosquitto.org";
 #define MQTT_USER ""
 #define MQTT_PASSWORD ""
 #define MQTT_SERIAL_PUBLISH_CH "ESEiot/test/"
-#define MQTT_SERIAL_RECEIVER_CH "" //ESEiot/test/
+#define MQTT_SERIAL_RECEIVER_CH "ESEiot/test/" //required
 
 #define BMP_SCK 13
 #define BMP_MISO 12
