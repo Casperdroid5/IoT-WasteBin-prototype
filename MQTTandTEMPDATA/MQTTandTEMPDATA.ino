@@ -6,15 +6,20 @@
 #include "Adafruit_BMP3XX.h"
 #include <ArduinoJson.h>
 
+const int buttonPin = 2;  // the number of the pushbutton pin
+int buttonState = 0;      // variable for reading the pushbutton status
+bool litd = false;        // boolean for lit position
+
 // Update these with values suitable for your network.
 const char* ssid = "WWegvanons3-guest";
 const char* password = "super3333";
 const char* mqtt_server = "test.mosquitto.org";
+
 #define mqtt_port 1883
 #define MQTT_USER ""
 #define MQTT_PASSWORD ""
 #define MQTT_SERIAL_PUBLISH_CH "ESEiot/test/"
-#define MQTT_SERIAL_RECEIVER_CH "ESEiot/test/" //required
+#define MQTT_SERIAL_RECEIVER_CH "ESEiot/test/"  //required
 
 #define BMP_SCK 13
 #define BMP_MISO 12
@@ -57,8 +62,6 @@ void reconnect() {
     // Attempt to connect
     if (client.connect(clientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {
       Serial.println("connected");
-      //Once connected, publish an announcement...
-      client.publish("/icircuit/presence/ESP32/", "hello world");
       // ... and resubscribe
       client.subscribe(MQTT_SERIAL_RECEIVER_CH);
     } else {
@@ -81,6 +84,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 
 void setup() {
+
   Serial.begin(115200);
   while (!Serial)
     ;
@@ -93,7 +97,8 @@ void setup() {
     while (1)
       ;
   }
-
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
   // Set up oversampling and filter initialization
   bmp.setTemperatureOversampling(BMP3_OVERSAMPLING_8X);
   bmp.setPressureOversampling(BMP3_OVERSAMPLING_4X);
@@ -107,35 +112,39 @@ void setup() {
   reconnect();
 }
 
-
 void loop() {
   if (!bmp.performReading()) {
     Serial.println("Failed to perform reading :(");
     return;
   }
 
-
   Serial.print("Temperature = ");
   Serial.print(bmp.temperature);
   Serial.println(" *C");
 
+  Serial.print("Presure = ");
+  Serial.print(bmp.pressure);
+  Serial.println("hPa");
+
+  Serial.print("Litposition = ");
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == LOW) {
+    litd = false;  // lid is opened
+  } else {
+    litd = true;  // lid is closed
+  }
+
+  Serial.println(litd);
 
   float tempd = bmp.readTemperature();
   float presd = bmp.readPressure();
-  //Serial.print("Pressure = ");
-  //Serial.print(bmp.pressure / 100.0);
-  //Serial.println(" hPa");
 
   delay(1500);  // to stop the data flooding
 
   client.loop();
   char buffer[500];
-  sprintf(buffer, "tempd = %lf, presd = %lf", tempd, presd);
+  sprintf(buffer, "tempd = %lf, presd = %lf, litd = %s", tempd, presd, litd ? "true" : "false");
 
-
-  //char buffer[40];
-  //sprintf(buffer, "The %d burritos are %s degrees F", numBurritos, tempStr);
-  //Serial.println(buffer);
 
   client.publish(MQTT_SERIAL_PUBLISH_CH, buffer);
 }
