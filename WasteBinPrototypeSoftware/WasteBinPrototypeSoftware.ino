@@ -3,12 +3,12 @@
 
 
 //---- WiFi settings
-const char* ssid = "WWegvanons3"; // don't use guest networks! (firewall issue)
-const char* password = ""; 
+const char* ssid = "WWegvanons3";  // don't use guest network!
+const char* password = "";
 //---- MQTT Broker settings
 const char* mqtt_server = "192.168.111.237";  // replace with your broker url
-const char* mqtt_username = "";
-const char* mqtt_password = "";
+const char* mqtt_username = "mqtt";
+const char* mqtt_password = "WasteBin5#";
 const int mqtt_port = 1883;
 
 WiFiClient espClient;
@@ -18,8 +18,9 @@ unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE (50)
 char msg[MSG_BUFFER_SIZE];
 
-const char* sensor1_topic = "sensor1";
-const char* sensor2_topic = "sensor2";
+const char* temperaturesensor_topic = "/data/temperature";
+const char* humiditysensor_topic = "/data/humidity";
+const char* lidsensor_topic = "/data/lidposition";
 
 
 void setup() {
@@ -41,7 +42,7 @@ void setup() {
 
   while (!Serial) delay(1);
 
-  
+
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
 }
@@ -52,9 +53,10 @@ void loop() {
   client.loop();
 
 
-  publishMessage(sensor1_topic, String("sensor1_message"), true);
-  publishMessage(sensor2_topic, String("sensor2_message"), true);
-  delay(2000); // to prevent data flooding
+  publishMessage(temperaturesensor_topic, String("temperaturesensor_message"), true);
+  publishMessage(humiditysensor_topic, String("humiditysensor_message"), true);
+  publishMessage(lidsensor_topic, String("lidsensor_message"), true);
+  delay(2000);  // to prevent data flooding
 }
 
 //=======================================================================Function=================================================================================
