@@ -13,7 +13,7 @@ bool litd = false;        // boolean for lit position
 // Update these with values suitable for your network.
 const char* ssid = "WWegvanons3-guest";
 const char* password = "super3333";
-const char* mqtt_server = "test.mosquitto.org";
+const char* mqtt_server = "broker.hivemq.com";
 
 #define mqtt_port 1883
 #define MQTT_USER ""
