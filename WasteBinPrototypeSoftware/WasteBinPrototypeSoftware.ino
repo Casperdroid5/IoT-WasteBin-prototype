@@ -1,5 +1,4 @@
-#include <WiFi.h>
-#include <PubSubClient.h>
+#include "WasteBin.h"
 
 // WiFi settings
 const char* ssid = "WWegvanons3";  // avoid using guest network!
