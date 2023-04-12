@@ -1,3 +1,4 @@
+
 class main
 {
 private:
@@ -19,8 +20,6 @@ private:
 
 public:
     /// \brief get degrees celsius from temperature
-    void updateTemperature();
+    void updateTemperatureAndHumidity();
     /// \brief get %RH form humidity sensor
-    void updateHumidity();
-    /// \brief get ppm from gas sensor
 };
