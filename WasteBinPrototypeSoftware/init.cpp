@@ -48,37 +48,24 @@ void main::program()
     Payload_.StrictSetVersionControl(version);
 
     sensor_.updateBatteryState();
-    sensor_.updateTemperature();
+    sensor_.updateTemperatureAndHumidity();
     sensor_.updateHumidity();
     sensor_.updateGas();
     sensor_.updateCoordinates();
     sensor_.debugSerialSensorData();
-    delay(50);
+
 
     FireRisk = fireRisk_.getFireRisk();
 
     sendPayload();
 }
 
-void sensor::updateTemperature()
+void sensor::updateTemperatureAndHumidity()
 {
     Temperature = potmeter1.getValue();
     Payload_.StrictSetTemperature(Temperature);
     fireRisk_.setTemperatureState(Temperature);
 }
 
-void sensor::updateHumidity()
-{
-    if (redButton.isPressed() && !(Humidity >= 100.0f))
-    {
-        Humidity += 5.0f;
-    }
-    else if (blackButton.isPressed() && !(Humidity <= 0.0f))
-    {
-        Humidity -= 5.0f;
-    }
 
-    Payload_.StrictSetHumidity(Humidity);
-    fireRisk_.setHumidityState(Humidity);
-}
 }
