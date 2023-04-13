@@ -1,3 +1,0 @@
-#include "lidposition.h"
-
-
