@@ -1,19 +1,21 @@
-#include "WasteBin.h"
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <Adafruit_SHT4x.h>
 
 // WiFi settings
-const char* ssid = "WWegvanons3";  // avoid using guest network!
-const char* password = "---PASSWORD!!---";
+const char* SSID = "WWegvanons3";  // avoid using guest network!
+const char* PASSWORD = "JuCasSan27@#";
 
 // MQTT Broker settings
-const char* mqtt_server = "192.168.111.237";  // replace with your broker url
-const char* mqtt_username = "mqtt";
-const char* mqtt_password = "WasteBin5#";
-const int mqtt_port = 1883;
+const char* MQTT_SERVER = "192.168.111.237";  // replace with your broker url
+const char* MQTT_USERNAME = "mqtt";
+const char* MQTT_PASSWORD = "WasteBin5#";
+const int MQTT_PORT = 1883;
 
 // MQTT topics
-const char* temperature_sensor_topic = "WasteBin/Temp/";
-const char* humidity_sensor_topic = "WasteBin/Humid/";
-const char* lid_sensor_topic = "WasteBin/LidP/";
+const char* TEMPERATURE_SENSOR_TOPIC = "WasteBin/Temp/";
+const char* HUMIDITY_SENSOR_TOPIC = "WasteBin/Humid/";
+const char* LID_SENSOR_TOPIC = "WasteBin/LidP/";
 
 // PubSubClient setup
 WiFiClient wifi_client;
@@ -23,17 +25,26 @@ PubSubClient mqtt_client(wifi_client);
 unsigned long last_msg_sent = 0;
 const unsigned long msg_interval = 2000;  // send message every 2 seconds
 
+// Sensor pin
+const int BUTTON_PIN = 4;
 
-char msg_buffer[50];
+// Sensor values
+bool lid_position = false;
+float humidity_value = 0.0;
+float temperature_value = 0.0;
+
+// SHT4x sensor setup
+Adafruit_SHT4x sht4 = Adafruit_SHT4x();
 
 void setup() {
   Serial.begin(115200);
   Serial.print("Connecting to ");
-  Serial.println(ssid);
+  Serial.println(SSID);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.begin(SSID, PASSWORD);
 
+  // Wait for WiFi connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -47,64 +58,80 @@ void setup() {
     delay(1);
   }
 
-  mqtt_client.setServer(mqtt_server, mqtt_port);
+  // SHT4x sensor setup
+  Serial.println("Adafruit SHT4x test");
+  if (!sht4.begin()) {
+    Serial.println("Couldn't find SHT4x");
+    while (1);
+  }
+  Serial.println("Found SHT4x sensor");
+  Serial.print("Serial number 0x");
+  Serial.println(sht4.readSerial(), HEX);
+  sht4.setPrecision(SHT4X_HIGH_PRECISION);
+  sht4.setHeater(SHT4X_NO_HEATER);
+
+  // Initialize the pushbutton pin as an input
+  pinMode(BUTTON_PIN, INPUT);
+
+  // MQTT client setup
+  mqtt_client.setServer(MQTT_SERVER, MQTT_PORT);
   mqtt_client.setCallback(callback);
 }
 
 void loop() {
-  if (!mqtt_client.connected()) {
-    reconnect();
+  // Read sensor data
+  sensors_event_t humidity, temp;
+  uint32_t timestamp = millis();
+  sht4.getEvent(&humidity, &temp);
+  timestamp = millis() - timestamp;
+
+  // Update sensor values
+  humidity_value = humidity.relative_humidity;
+  temperature_value = temp.temperature;
+
+  // Get lid position
+  bool button_state = digitalRead(BUTTON_PIN);
+  if (button_state == LOW) {
+    lid_position = true;  // lid is closed
+  } else {
+    lid_position = false;  // lid is opened
   }
 
-  mqtt_client.loop();
-
-  if (millis() - last_msg_sent > msg_interval) {
-    publish_message(temperature_sensor_topic, "temperaturesensor_message");
-    publish_message(humidity_sensor_topic, "humiditysensor_message");
-    publish_message(lid_sensor_topic, "lidsensor_message");
-    last_msg_sent = millis();
-  }
-}
-
-void reconnect() {
-  while (!mqtt_client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    String client_id = "ESP32WasteBin1-";
-    client_id += String(random(0xFFFF), HEX);
-
-    if (mqtt_client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
-      Serial.println("connected");
-
-      // Subscribe to topics here
-      mqtt_client.subscribe("/ESEiot/test/");
-    } else {
-      Serial.print("failed, rc=");
-      Serial.print(mqtt_client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
+  // Publish sensor data to MQTT broker
+  if (mqtt_client.connected()) {
+    if (millis() - last_msg_sent > msg_interval) {
+      publish_message(TEMPERATURE_SENSOR_TOPIC, temperature_value);
+      publish_message(HUMIDITY_SENSOR_TOPIC, humidity_value);
+      publish_message(LID_SENSOR_TOPIC, lid_position);
+      last_msg_sent = millis();
+    }
+  } else {
+    // Attempt to reconnect to MQTT broker
+    if (!mqtt_client.connect("ESP32WasteBin1", MQTT_USERNAME, MQTT_PASSWORD)) {
+      Serial.println("Failed to connect to MQTT broker");
     }
   }
+
+  // Maintain MQTT connection
+  mqtt_client.loop();
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
+  // Handle incoming MQTT messages
   String incoming_message = "";
   for (int i = 0; i < length; i++) {
     incoming_message += (char)payload[i];
   }
   Serial.println("Message arrived [" + String(topic) + "]: " + incoming_message);
-
-  // Check for other commands
-  /*
-  if (strcmp(topic, command2_topic) == 0) {
-    if (incoming_message.equals("1")) {
-      // Do something else
-    }
-  }
-  */
 }
 
-void publish_message(const char* topic, const char* payload) {
-  if (mqtt_client.publish(topic, payload, true)) {
-    Serial.println("Message published [" + String(topic) + "]: " + String(payload));
+void publish_message(const char* topic, const float payload) {
+  // Publish sensor data to MQTT broker
+  char msg_buffer[20];
+  snprintf(msg_buffer, sizeof(msg_buffer), "%.2f", payload);
+  if (mqtt_client.publish(topic, msg_buffer, true)) {
+    Serial.println("Message published [" + String(topic) + "]: " + String(msg_buffer));
+  } else {
+    Serial.println("Failed to publish message [" + String(topic) + "]: " + String(msg_buffer));
   }
 }
