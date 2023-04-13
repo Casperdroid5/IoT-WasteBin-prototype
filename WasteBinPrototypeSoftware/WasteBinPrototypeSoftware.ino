@@ -2,7 +2,7 @@
 
 // WiFi settings
 const char* ssid = "WWegvanons3";  // avoid using guest network!
-const char* password = "your_wifi_password_here";
+const char* password = "---PASSWORD!!---";
 
 // MQTT Broker settings
 const char* mqtt_server = "192.168.111.237";  // replace with your broker url
@@ -11,15 +11,19 @@ const char* mqtt_password = "WasteBin5#";
 const int mqtt_port = 1883;
 
 // MQTT topics
-const char* temperature_sensor_topic = "/data/temperature";
-const char* humidity_sensor_topic = "/data/humidity";
-const char* lid_sensor_topic = "/data/lidposition";
+const char* temperature_sensor_topic = "WasteBin/Temp/";
+const char* humidity_sensor_topic = "WasteBin/Humid/";
+const char* lid_sensor_topic = "WasteBin/LidP/";
 
 // PubSubClient setup
 WiFiClient wifi_client;
 PubSubClient mqtt_client(wifi_client);
+
+// Other variables
 unsigned long last_msg_sent = 0;
 const unsigned long msg_interval = 2000;  // send message every 2 seconds
+
+
 char msg_buffer[50];
 
 void setup() {

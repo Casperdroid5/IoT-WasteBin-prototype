@@ -111,13 +111,13 @@ void setup() {
 
 void loop() {
 
- sensors_event_t humidity, temp;
-uint32_t timestamp = millis();
-sht4.getEvent(&humidity, &temp); // populate temp and humidity objects with fresh data
-timestamp = millis() - timestamp;
+  sensors_event_t humidity, temp;
+  uint32_t timestamp = millis();
+  sht4.getEvent(&humidity, &temp);  // populate temp and humidity objects with fresh data
+  timestamp = millis() - timestamp;
 
-float humidityValue = humidity.temperature;
-float tempValue = temp.temperature;
+  float humidityValue = humidity.temperature;
+  float tempValue = temp.temperature;
 
 
   Serial.print("Temperature: ");
