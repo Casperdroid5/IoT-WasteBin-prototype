@@ -19,7 +19,12 @@ const char* SENSOR_DATA_TOPIC = "/data/sensors/";
 
 
 // Device settings
-const char* CLIENT_NAME = "ESP32WasteBin1";
+const char* CLIENT_NAME = "ESP32WasteBin";
+const uint8_t peltierandfanpin = 3;
+const long interval = 20000;    // peltier and fan interval
+int peltierandfanstate = LOW;  // ledState used to set the LED
+
+unsigned long previousMillis = 0;  // will store last time LED was updated
 
 // PubSubClient setup
 WiFiClient wifi_client;
@@ -31,6 +36,7 @@ const unsigned long msg_interval = 2000;  // send message every 2 seconds
 
 // Sensor pin
 const int BUTTON_PIN = 4;
+
 
 // Sensor values
 bool lid_position = false;
@@ -57,6 +63,8 @@ void setup() {
   Serial.println("\nWiFi connected\nIP address: ");
   Serial.println(WiFi.localIP());
 
+  // Peltier + fan pin
+  pinMode(peltierandfanpin, OUTPUT);
 
 
   // SHT4x sensor setup
@@ -96,6 +104,23 @@ void loop() {
     lid_position = true;  // lid is closed
   } else {
     lid_position = false;  // lid is opened
+  }
+
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+
+    // if the LED is off turn it on and vice-versa:
+    if (peltierandfanstate == LOW) {
+      peltierandfanstate = HIGH;
+    } else {
+      peltierandfanstate = LOW;
+    }
+
+    // set the LED with the ledState of the variable:
+    digitalWrite(peltierandfanpin, peltierandfanstate);
   }
 
   // Publish sensor data to MQTT broker
