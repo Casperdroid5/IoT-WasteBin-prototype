@@ -2,13 +2,6 @@
 #include <PubSubClient.h>
 #include <Adafruit_SHT4x.h>
 #include <ArduinoJson.h>
-#include <Adafruit_NeoPixel.h>
-// Define the data pin and number of LEDs
-#define DATA_PIN 8
-#define NUM_LEDS 1
-
-Adafruit_NeoPixel strip(NUM_LEDS, DATA_PIN, NEO_GRB + NEO_KHZ800);
-
 
 // WiFi settings
 const char* SSID = "WWegvanons3";  // avoid using guest network!
@@ -28,7 +21,7 @@ const char* SENSOR_DATA_TOPIC = "/data/sensors/";
 // Device settings
 const char* CLIENT_NAME = "ESP32WasteBin";
 const uint8_t peltierandfanpin = 3;
-const long interval = 20000;   // peltier and fan interval
+const long interval = 20000;    // peltier and fan interval
 int peltierandfanstate = LOW;  // ledState used to set the LED
 
 unsigned long previousMillis = 0;  // will store last time LED was updated
@@ -73,8 +66,6 @@ void setup() {
   // Peltier + fan pin
   pinMode(peltierandfanpin, OUTPUT);
 
-  strip.begin();
-  strip.show();  // Initialize all pixels to 'off'
 
   // SHT4x sensor setup
   Serial.println("Adafruit SHT4x test");
@@ -111,7 +102,6 @@ void loop() {
   bool button_state = digitalRead(BUTTON_PIN);
   if (button_state == LOW) {
     lid_position = true;  // lid is closed
-
   } else {
     lid_position = false;  // lid is opened
   }
@@ -125,16 +115,8 @@ void loop() {
     // if the LED is off turn it on and vice-versa:
     if (peltierandfanstate == LOW) {
       peltierandfanstate = HIGH;
-      // Set the color of the LED
-      strip.setPixelColor(0, strip.Color(0, 0, 255));
-      // Show the updated LED
-      strip.show();
     } else {
       peltierandfanstate = LOW;
-      // Set the color of the LED to a different color
-      strip.setPixelColor(0, strip.Color(255, 0, 0));
-      // Show the updated LED
-      strip.show();
     }
 
     // set the LED with the ledState of the variable:
