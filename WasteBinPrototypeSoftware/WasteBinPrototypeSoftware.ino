@@ -58,7 +58,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
 
-  
+
   // SHT4x sensor setup
   Serial.println("Adafruit SHT4x test");
   if (!sht4.begin()) {
@@ -128,6 +128,7 @@ void publish_message(const char* topic, const float temperature, const float hum
   // Create JSON object
   auto macAdress = WiFi.macAddress();
   StaticJsonDocument<200> jsonDoc;
+
   jsonDoc["macAdress"] = macAdress;
   jsonDoc["temperature"] = temperature;
   jsonDoc["humidity"] = humidity;
