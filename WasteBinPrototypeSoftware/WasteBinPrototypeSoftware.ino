@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <Adafruit_SHT4x.h>
+#include <ArduinoJson.h>
 
 // WiFi settings
 const char* SSID = "WWegvanons3";  // avoid using guest network!
@@ -12,10 +13,13 @@ const char* MQTT_USERNAME = "mqtt";
 const char* MQTT_PASSWORD = "WasteBin5#";
 const int MQTT_PORT = 1883;
 
+
 // MQTT topics
-const char* TEMPERATURE_SENSOR_TOPIC = "WasteBin/Temp/";
-const char* HUMIDITY_SENSOR_TOPIC = "WasteBin/Humid/";
-const char* LID_SENSOR_TOPIC = "WasteBin/LidP/";
+const char* SENSOR_DATA_TOPIC = "/data/sensors/";
+
+
+// Device settings
+const char* CLIENT_NAME = "ESP32WasteBin1";
 
 // PubSubClient setup
 WiFiClient wifi_client;
@@ -47,22 +51,18 @@ void setup() {
   // Wait for WiFi connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    Serial.print("trying to connect... ");
   }
 
   Serial.println("\nWiFi connected\nIP address: ");
   Serial.println(WiFi.localIP());
 
-  // Wait for serial to be ready
-  while (!Serial) {
-    delay(1);
-  }
 
   // SHT4x sensor setup
   Serial.println("Adafruit SHT4x test");
   if (!sht4.begin()) {
     Serial.println("Couldn't find SHT4x");
-    while (1);
+    delay(1000);
   }
   Serial.println("Found SHT4x sensor");
   Serial.print("Serial number 0x");
@@ -100,14 +100,12 @@ void loop() {
   // Publish sensor data to MQTT broker
   if (mqtt_client.connected()) {
     if (millis() - last_msg_sent > msg_interval) {
-      publish_message(TEMPERATURE_SENSOR_TOPIC, temperature_value);
-      publish_message(HUMIDITY_SENSOR_TOPIC, humidity_value);
-      publish_message(LID_SENSOR_TOPIC, lid_position);
+      publish_message(SENSOR_DATA_TOPIC, temperature_value, humidity_value, lid_position);
       last_msg_sent = millis();
     }
   } else {
     // Attempt to reconnect to MQTT broker
-    if (!mqtt_client.connect("ESP32WasteBin1", MQTT_USERNAME, MQTT_PASSWORD)) {
+    if (!mqtt_client.connect(CLIENT_NAME, MQTT_USERNAME, MQTT_PASSWORD)) {
       Serial.println("Failed to connect to MQTT broker");
     }
   }
@@ -125,13 +123,21 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("Message arrived [" + String(topic) + "]: " + incoming_message);
 }
 
-void publish_message(const char* topic, const float payload) {
-  // Publish sensor data to MQTT broker
-  char msg_buffer[20];
-  snprintf(msg_buffer, sizeof(msg_buffer), "%.2f", payload);
-  if (mqtt_client.publish(topic, msg_buffer, true)) {
-    Serial.println("Message published [" + String(topic) + "]: " + String(msg_buffer));
+void publish_message(const char* topic, const float temperature, const float humidity, const bool lid_position) {
+  // Create JSON object
+  StaticJsonDocument<200> jsonDoc;
+  jsonDoc["temperature"] = temperature;
+  jsonDoc["humidity"] = humidity;
+  jsonDoc["lid_position"] = lid_position;
+
+  // Serialize JSON object to string
+  String message;
+  serializeJson(jsonDoc, message);
+
+  // Publish message to MQTT broker
+  if (mqtt_client.publish(topic, message.c_str())) {
+    Serial.println("Message published [" + String(topic) + "]: " + message);
   } else {
-    Serial.println("Failed to publish message [" + String(topic) + "]: " + String(msg_buffer));
+    Serial.println("Failed to publish message [" + String(topic) + "]: " + message);
   }
 }
