@@ -13,18 +13,16 @@ const char* MQTT_USERNAME = "mqtt";
 const char* MQTT_PASSWORD = "WasteBin5#";
 const int MQTT_PORT = 1883;
 
+const char* CLIENT_NAME = "ESP32WasteBin";
 
 // MQTT topics
 const char* SENSOR_DATA_TOPIC = "/data/sensors/";
 
 
 // Device settings
-const char* CLIENT_NAME = "ESP32WasteBin";
 const uint8_t peltierandfanpin = 3;
-const long interval = 20000;    // peltier and fan interval
+const long interval = 20000;   // peltier and fan interval
 int peltierandfanstate = LOW;  // ledState used to set the LED
-
-unsigned long previousMillis = 0;  // will store last time LED was updated
 
 // PubSubClient setup
 WiFiClient wifi_client;
@@ -33,6 +31,12 @@ PubSubClient mqtt_client(wifi_client);
 // Other variables
 unsigned long last_msg_sent = 0;
 const unsigned long msg_interval = 2000;  // send message every 2 seconds
+unsigned long previousMillis = 0;         // will store last time LED was updated
+
+const int setPoint = 12;  // Temperature set point in Celsius
+const int tolerance = 2;  // Temperature tolerance in Celsius
+const int pwmFreq = 1000;  // PWM frequency in Hz
+
 
 // Sensor pin
 const int BUTTON_PIN = 4;
@@ -47,6 +51,7 @@ float temperature_value = 0.0;
 Adafruit_SHT4x sht4 = Adafruit_SHT4x();
 
 void setup() {
+
   Serial.begin(115200);
   Serial.print("Connecting to ");
   Serial.println(SSID);
@@ -65,7 +70,7 @@ void setup() {
 
   // Peltier + fan pin
   pinMode(peltierandfanpin, OUTPUT);
-
+  analogWriteFrequency(pwmFreq);
 
   // SHT4x sensor setup
   Serial.println("Adafruit SHT4x test");
@@ -106,22 +111,23 @@ void loop() {
     lid_position = false;  // lid is opened
   }
 
-  unsigned long currentMillis = millis();
+  //unsigned long currentMillis = millis();
 
-  if (currentMillis - previousMillis >= interval) {
-    // save the last time you blinked the LED
-    previousMillis = currentMillis;
+  float error = setPoint - temperature_value;  // Calculate error
+  Serial.println(temperature_value);
+  Serial.println(error);
 
-    // if the LED is off turn it on and vice-versa:
-    if (peltierandfanstate == LOW) {
-      peltierandfanstate = HIGH;
-    } else {
-      peltierandfanstate = LOW;
-    }
 
-    // set the LED with the ledState of the variable:
-    digitalWrite(peltierandfanpin, peltierandfanstate);
+  if (error > tolerance) {
+    // If temperature is too HIGH, turn off Peltier module
+    analogWrite(peltierandfanpin, 0);  // Set maximum duty cycle
+  } else if (error < -tolerance) {
+    // If temperature is too LOW, turn on Peltier module
+    analogWrite(peltierandfanpin, 255);  // Set minimum duty cycle
   }
+  // Otherwise, maintain current state of Peltier module
+
+
 
   // Publish sensor data to MQTT broker
   if (mqtt_client.connected()) {
