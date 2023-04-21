@@ -33,14 +33,12 @@ unsigned long last_msg_sent = 0;
 const unsigned long msg_interval = 2000;  // send message every 2 seconds
 unsigned long previousMillis = 0;         // will store last time LED was updated
 
-const int setPoint = 12;  // Temperature set point in Celsius
+const int setPoint = 15;  // Temperature set point in Celsius
 const int tolerance = 2;  // Temperature tolerance in Celsius
-const int pwmFreq = 1000;  // PWM frequency in Hz
-
+const int pwmFreq = 200;  // PWM frequency in Hz
 
 // Sensor pin
 const int BUTTON_PIN = 4;
-
 
 // Sensor values
 bool lid_position = false;
