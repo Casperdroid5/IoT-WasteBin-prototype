@@ -1,0 +1,96 @@
+[
+    {
+        "id": "1c78410e593e0674",
+        "type": "tab",
+        "label": "DataBase",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "70b2bca10495fd1f",
+        "type": "sqlite",
+        "z": "1c78410e593e0674",
+        "mydb": "dd7f8134e015a1cb",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO Sensors (id, name, sensorvalue, unit, timestamp) VALUES ($val0, $val1, $val2, $val3, datetime(\"now\"))\n",
+        "name": "",
+        "x": 880,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3fa3842a32316b76",
+        "type": "function",
+        "z": "1c78410e593e0674",
+        "name": "function 3",
+        "func": "msg.topic = \"INSERT INTO Sensors(id, name, sensorvalue, unit, timestamp) VALUES($val0, $val1, $val2, $val3, datetime(\\\"now\\\"))\";\n\nvar obj = msg.payload;\nvar values = [obj.id, obj.name, obj.sensorvalue, obj.unit];\n\nmsg.params = values;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "70b2bca10495fd1f",
+                "196e1ffaeddefa85"
+            ]
+        ]
+    },
+    {
+        "id": "196e1ffaeddefa85",
+        "type": "debug",
+        "z": "1c78410e593e0674",
+        "name": "sql out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2935786c333e67d3",
+        "type": "inject",
+        "z": "1c78410e593e0674",
+        "name": "Insert JSON object",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"id\":\"T1\",\"name\":\"temperature\",\"sensorvalue\":25,\"unit\":\"C\",\"timestamp\":\"2023-04-24T12:34:56Z\"}",
+        "payloadType": "json",
+        "x": 270,
+        "y": 260,
+        "wires": [
+            [
+                "3fa3842a32316b76"
+            ]
+        ]
+    },
+    {
+        "id": "dd7f8134e015a1cb",
+        "type": "sqlitedb",
+        "db": "C:/Users/crtak/HAN/S6 projects 22-23 - Insyte - Insyte/ESE/Software/WasteBinData.db",
+        "mode": "RWC"
+    }
+]
