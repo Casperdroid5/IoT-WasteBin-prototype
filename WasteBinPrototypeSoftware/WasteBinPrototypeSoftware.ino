@@ -21,7 +21,7 @@ const char* SENSOR_DATA_TOPIC = "/data/sensors/";
 
 // Device settings
 const uint8_t peltierandfanpin = 3;
-const long interval = 5000;   // peltier and fan interval
+const long interval = 20000;   // peltier and fan interval
 int peltierandfanstate = LOW;  // ledState used to set the LED
 
 // PubSubClient setup
@@ -30,7 +30,7 @@ PubSubClient mqtt_client(wifi_client);
 
 // Other variables
 unsigned long last_msg_sent = 0;
-const unsigned long msg_interval = 20000;  // send message every 2 seconds
+const unsigned long msg_interval = 5000;  // send message every 2 seconds
 unsigned long previousMillis = 0;         // will store last time LED was updated
 
 const int setPoint = 15;  // Temperature set point in Celsius
