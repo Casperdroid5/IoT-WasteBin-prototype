@@ -17,7 +17,6 @@ const char* SENSOR_DATA_TOPIC = "/data/sensors/";  ///< Topic for sensor data
 
 // Device settings
 const uint8_t peltierandfanpin = 3;  ///< Pin for Peltier module and fan
-const uint8_t piezo_pin = 2;         ///< Pin for Piezo module
 const long interval = 20000;         ///< Interval for Peltier and fan control
 int peltierandfanstate = LOW;        ///< Current state of the Peltier module and fan
 
@@ -72,13 +71,6 @@ void setupPeltierAndFan() {
   // Peltier + fan pin
   pinMode(peltierandfanpin, OUTPUT);
   analogWriteFrequency(pwmFreq);
-}
-
-/**
- * @brief Set up the Piezo module.
- */
-void setupPiezo() {
-  pinMode(piezo_pin, OUTPUT);
 }
 
 /**
@@ -137,9 +129,7 @@ void updateLidPosition() {
 
 /**
  * @brief Control the Peltier module based on the temperature error.
- *        Beeps once every 2 seconds when the temperature is not within the threshold.
  */
-
 void controlPeltierModule() {
   float error = setPoint - temperature_value;  // Calculate error
   Serial.println(temperature_value);
@@ -148,23 +138,11 @@ void controlPeltierModule() {
   if (error > tolerance) {
     // If temperature is too HIGH, turn off Peltier module
     analogWrite(peltierandfanpin, 0);  // Set maximum duty cycle
-
-    // Beep every 2 seconds
-    if ((millis() / 2000) % 2 == 0) {
-      tone(piezo_pin, 50, 10);  // Beep for 50ms at 10Hz
-    }
   } else if (error < -tolerance) {
     // If temperature is too LOW, turn on Peltier module
     analogWrite(peltierandfanpin, 255);  // Set minimum duty cycle
-
-    // Beep every 2 seconds
-    if ((millis() / 2000) % 2 == 0) {
-      tone(piezo_pin, 50, 10);  // Beep for 50ms at 10Hz
-    }
-  } else {
-    // Otherwise, maintain current state of Peltier module
-    noTone(piezo_pin);  // Stop beeping
   }
+  // Otherwise, maintain current state of Peltier module
 }
 
 /**
