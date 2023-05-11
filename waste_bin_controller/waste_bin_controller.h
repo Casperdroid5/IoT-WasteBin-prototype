@@ -23,7 +23,6 @@ extern const char* SENSOR_DATA_TOPIC;
 
 // Device settings
 extern const uint8_t peltierandfanpin;
-extern const uint8_t piezo_pin;
 extern const long interval;
 extern int peltierandfanstate;
 

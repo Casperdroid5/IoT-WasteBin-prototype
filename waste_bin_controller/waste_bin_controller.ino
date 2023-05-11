@@ -116,16 +116,63 @@ void readSensorData() {
 
 /**
  * @brief Update the current lid position based on the button state.
+   @brief Whenever the lid is opened longer than threshold, sound will be played trough piezo and led will light up.
+
  */
+const int led_pin = 1;       // Pin for the LED
+const int piezo_pin = 5;     // Pin for the piezo speaker
+
+unsigned long lidOpenStartTime = 0;  // Variable to store the lid open start time
+bool isBeeping = false;               // Flag to track if the piezo speaker is beeping
+
 void updateLidPosition() {
   // Get lid position
   bool button_state = digitalRead(BUTTON_PIN);
   if (button_state == LOW) {
     lid_position = true;  // lid is closed
+    lidOpenStartTime = millis();  // Reset lid open start time
+    digitalWrite(led_pin, LOW);   // Turn off the LED
+
+    // Stop the piezo speaker from beeping
+    if (isBeeping) {
+      noTone(piezo_pin);
+      isBeeping = false;
+    }
   } else {
     lid_position = false;  // lid is opened
+
+    // Check if the lid has been opened for longer than 10 seconds
+    if (millis() - lidOpenStartTime >= 10000) {
+      // Blink the LED every 2 seconds
+      if ((millis() / 2000) % 2 == 0) {
+        digitalWrite(led_pin, HIGH);  // Turn on the LED
+
+        // Start the piezo speaker beeping if it's not already beeping
+        if (!isBeeping) {
+          tone(piezo_pin, 500, 750);  // Beep for 500ms at 750Hz
+          isBeeping = true;
+        }
+      } else {
+        digitalWrite(led_pin, LOW);   // Turn off the LED
+
+        // Stop the piezo speaker from beeping
+        if (isBeeping) {
+          noTone(piezo_pin);
+          isBeeping = false;
+        }
+      }
+    } else {
+      digitalWrite(led_pin, LOW);   // Turn off the LED
+
+      // Stop the piezo speaker from beeping
+      if (isBeeping) {
+        noTone(piezo_pin);
+        isBeeping = false;
+      }
+    }
   }
 }
+
 
 /**
  * @brief Control the Peltier module based on the temperature error.
