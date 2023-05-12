@@ -1,92 +1,125 @@
-Het Gebruik van Meerdere ESP32-Microcontrollers met Node-Red
-=========
+# Het Gebruik van Meerdere ESP32-Microcontrollers met Node-Red
+
+## Inleiding
 
 Meerdere ESP32-microcontrollers kunnen in combinatie met Node-Red worden gebruikt om een visuele interface te bouwen op basis van de gegevens die zijn gelogd door de ESP32. Elke ESP32 kan worden geconfigureerd om gegevens van een specifieke sensor of apparaat te loggen en deze via Wi-Fi naar Node-Red te verzenden. Node-Red kan vervolgens de gegevens ontvangen en verwerken met behulp van verschillende nodes.
 
-Bijvoorbeeld, als we drie ESP32-microcontrollers hebben die temperatuur- en luchtvochtigheidsgegevens registreren van drie verschillende locaties, kunnen we elke ESP32 configureren om de gegevens via Wi-Fi naar Node-Red te verzenden. Node-Red kan vervolgens de gegevens ontvangen en deze visualiseren door middel van bijvoorbeeld diagrammen of grafieken. Vervolgens kunnen de gegevens worden doorgestuurd naar een database.
+## Doelen
 
-### Onderbouwing keuze ESP32 C3
+### Doel #1
 
-Wij kiezen voor een ESP32 omdat deze:
+Het opzetten van een systeem waarbij meerdere ESP32-microcontrollers worden gebruikt om gegevens te loggen en deze naar Node-Red te verzenden voor visualisatie en verwerking.
 
-- Relatief goedkoop zijn (€2 per stuk).
-- Beschikbaar zijn (1300 in stock bij Mouser, afhankelijk van model).
-- Adequaat voor de taken die moeten worden uitgevoerd.
-- Klein formaat.
+## Onderbouwing keuze ESP32 C3
 
-### Waarom geen Arduino of Raspberry Pi als computer voor de WasteBin?
+Wij kiezen voor een ESP32 omdat deze de volgende voordelen biedt:
 
-Raspbery pi’s zijn op dit moment zeer lastig verkrijgbaar, erg duur in de aanschaf voor een testplatform en daarnaast veel tijdsintensiever om op te zetten. Hiernaast zijn deze veel te krachtig voor onze doeleinden en is zo’n Raspberry Pi erg overbodig op het gebied van rekenkracht.
-Arduino’s zijn redelijke alternatieven, maar duurder dan losse ESP32 modules. Los hiervan kan je een ESP32 wel programmeren via de Arduino IDE met de Arduino code librarys indien gewenst.
+- Relatief goedkoop (€2 per stuk).
+- Beschikbaarheid (1300 op voorraad bij Mouser, afhankelijk van het model).
+- Geschikt voor de taken die moeten worden uitgevoerd.
+- Compact formaat.
 
-### Data forwarding
+## Waarom geen Arduino of Raspberry Pi als computer voor de WasteBin?
 
-Data forwarding is de plek waar alle data van de ESP32’s (of wastebins) terecht komt. Het is een optie om daarvoor specifieke hardware te gebruiken zoals een raspberry pi met daarop een broker (zoals mosquitto) en een nodered dashboard).
-Wij kiezen ervoor om met het prototype de broker en dashboard op onze lokale laptop te installeren en geen raspberry pi te gebruiken. We hebben hiervoor meerdere redenen:
+Raspberry Pi's zijn momenteel moeilijk verkrijgbaar, duur in aanschaf voor een testplatform en vereisen meer inspanning om op te zetten. Bovendien zijn ze vaak te krachtig voor onze doeleinden en daardoor overbodig qua rekenkracht.
+Arduino's zijn redelijke alternatieven, maar duurder dan losse ESP32-modules. Desalniettemin kunnen ESP32-modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-codebibliotheken, indien gewenst.
 
-1. We hebben een extra platform nodig (raspberry pi). Alles op 1 apparaat vinden wij makkelijker. Raspberry pi’s zijn tevens lastig verkrijgbaar en een extra bron voor fouten in hardware (sd kaart corruptie) en software (Linux problemen) etc.
-2. Als wij fysiek ergens anders willen werken moeten wij iedere keer de raspberry pi via een beeldscherm en toetsenbord verbinden met het netwerk dat zich op die plek bevind.
-3. De raspberry pi is mogelijk een beveiligings risico.
+## Data forwarding
+
+Data forwarding is de plaats waar alle data van de ESP32's (of vuilnisbakken) wordt verzameld. Een mogelijke optie is het gebruik van specifieke hardware, zoals een Raspberry Pi met een broker (zoals Mosquitto) en een Node-Red-dashboard.
+Wij kiezen ervoor om de broker en het dashboard op onze lokale laptop te installeren in plaats van een Raspberry Pi te gebruiken. We hebben hiervoor meerdere redenen:
+
+1. We vermijden de noodzaak van een extra apparaat (Raspberry Pi). Alles op één apparaat maakt het eenvoudiger. Bovendien zijn Raspberry Pi's moeilijk verkrijgbaar en vormen ze een extra bron van potentiële hardwarefouten (zoals SD-kaartcorruptie) en softwareproblemen (Linux-problemen) enzovoort.
+2. Als we fysiek ergens anders willen werken, zouden we steeds de Raspberry Pi moeten verbinden met het netwerk op die locatie via een beeldscherm en toetsenbord.
+3. De Raspberry Pi kan een beveiligingsrisico vormen.
 
 Stappen:
 
-1. ESP32 data laten versturen (verbinden met internet)
-2. MQTT-broker opzetten
-3. MQTT-broker data van ESP32 accepteren
-4. MQTT-broker data doorsturen naar Node-Red (lokaal)
-5. Ingaande data van MQTT-broker omzetten naar dashboardweergave
-6. data van Node-Red doorsturen naar een database
+1. ESP32-gegevens laten versturen (verbinding maken met internet).
+2. Opzetten van een MQTT-broker.
+3. De MQTT-broker accepteert gegevens van de ESP32.
+4. De MQTT-broker stuurt gegevens door naar Node-Red (lokaal).
+5. Inkomende gegevens van de MQTT-broker worden omgezet naar een dashboardweergave.
+6. Data van Node-Red doorsturen naar een database.
 
-### De Data
+## De Data
 
-De data die wij willen versturen vanaf de ESP32:
-• Temperatuur (double)
-• Luchtvochtigheid (double)
-• Klepstand (boolean)
-• Error code(s) (int)
-• WasteBin-ID (macaddress)
+De volgende gegevens willen we versturen vanaf de ESP32:
 
-Deze data word via MQTT naar Node-Red verstuurd. Vanuit daar word de data weer doorgestuurd naar een SQLITE database. We kiezen voor SQLITE vanwege de SQLITEstudio omgeving waarin we makkelijker de database kunnen ontwerpen, opbouwen en testen.
+- Temperatuur (dubbel)
+- Luchtvochtigheid (dubbel)
+- Klepstand (boolean)
+- Foutcodes (integer)
+- WasteBin-ID (macadres)
 
-### Meldingen voor de gebruiker
+Deze gegevens worden via MQTT naar Node-Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-database. We hebben gekozen voor SQLite vanwege de handige SQLiteStudio-omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.
 
-Voor onze opstelling willen wij een speaker als indicator gebruiken, die verschillende waarschuwingen kan afgeven wanneer deze zich voordoen. Dit zijn:
+## Meldingen voor de gebruiker
 
-- De klep staat te lang open (misschien)
-- De binnenkant van de bak is te warm (vermoedelijk klep open of slechte koeling)
-- General error (Ander probleem)
+Voor onze opstelling willen we een luidspreker gebruiken als indicator die verschillende waarschuwingen kan afgeven wanneer dat nodig is. Deze waarschuwingen zijn onder andere:
 
-Wij kiezen ervoor om deze waarschuwingen ook mee te sturen naar ons dashboard mochten deze zich voordoen. Deze waarschuwingen worden weergegeven als een error code.
+- De klep staat te lang open (mogelijk)
+- De binnenkant van de bak is te warm (mogelijk klep open of slechte koeling)
+- Algemene fout (ander probleem)
 
-### Verstuur interval
+We hebben ervoor gekozen om deze waarschuwingen ook naar ons dashboard te sturen als ze zich voordoen. Deze waarschuwingen worden weergegeven als foutcodes.
 
-In principe word alle data verstuurd elke 15 minuten. Wij denken dat dit genoeg informatie is voor iedere vuilnisbak om te kunnen waarnemen dat er een probleem is ontstaan (te lage temperatuur bijvoorbeeld). Daarnaast word op deze manier de Database niet overvloed met data. Dit kan namelijk snel te veel worden met 30 vuilnisbakken.
+## Verstuur interval
 
-#### In geval van errors
+In principe worden alle gegevens elke 15 minuten verstuurd. We denken dat dit voldoende informatie is voor elke vuilnisbak om eventuele problemen te detecteren (bijvoorbeeld te lage temperatuur). Bovendien voorkomt dit dat de database overvol raakt met gegevens, vooral wanneer er 30 vuilnisbakken zijn.
 
-In het geval van een error zal dit interval worden genegeerd. Het interval, mochten één of meerdere errors zich blijven voordoen, bedraagt 2 minuten.
+### In geval van fouten
+
+In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 minuten, indien er zich één of meerdere fouten blijven voordoen.
 
 ## Node-Red
 
-Zoals benoemd gaan wij Node-Red gebruiken om alle data vanuit MQTT te ontvangen, verwerken en te weergeven. Alle ontvangen informatie word weergeven via een Node-Red UI tabblad. Deze UI tabblad of "dashboard" zoals Node-Red het noemt is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken zouden in real time weergeven kunnen worden indien dit gewenst zou zijn.
-De Node-Red UI ziet er voor twee vuilnisbakken als volgt uit: ![Node-Red UI](node-red-ui.png)
+We zullen Node-Red gebruiken om alle gegevens van MQTT te ontvangen, te verwerken en weer te geven. Alle ontvangen informatie wordt weergegeven via een Node-Red UI-tabblad. Dit UI-tabblad, ook wel "dashboard" genoemd in Node-Red, is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken kunnen in real-time worden weergegeven op het dashboard als dat gewenst is.
+
+De Node-Red UI ziet er als volgt uit voor twee vuilnisbakken: ![Node-Red UI](node-red-ui.png)
 
 ### Node-Red flow
 
-Om dit allemaal werkend te krijgen hebben wij een Node-Red flow gemaakt.
-De Node-Red flow ziet er als volgt uit: ![Node-Red setup](node-red-setup.png)
-In deze flow word via de eerste Node (paars) de MQTT data ontvangen. Vervolgens word er een timestamp toegevoegd aan het bericht en worden alle inkomende berichten van elkaar gescheiden via een switch. De data word gescheiden op basis van het macaddress (uniek) van de vuilnisbak.
+Om dit alles te laten werken, hebben we een Node-Red flow gemaakt. De Node-Red flow ziet er als volgt uit: ![Node-Red setup](node-red-setup.png)
 
-Als de berichten zijn afgesplitst komen ze in een groot functie blok (oranje) dat de het bericht uit elkaar trekt en verdeeld over de outputs van het functieblok. Ik kies hiervoor omdat op deze manier het functie blok modulair blijft en de output daarmee ook. De output word gestuurd naar dashboard blokken (blauw) en naar nieuwe functie blokken die de extra data toevoegen (sensoridnr) en het als query naar een SQLITE database stuurt.
+In deze flow ontvangt de eerste node (paars) de MQTT-gegevens. Vervolgens wordt er een tijdstempel aan het bericht toegevoegd en worden alle inkomende berichten gescheiden met behulp van een schakelaar (switch). De gegevens worden gescheiden op basis van het macadres (uniek) van de vuilnisbak.
 
-### DataBase
+Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-ID) en deze als query naar een SQLite-database sturen.
 
-Alle informatie word via Node-Red in het SQLITE blok doorgestuurd naar een database. Het doel van de database is een navigeerbare geschiedenis creëeren van alle data die de vuilnisbakken ontvangen en een overzicht creëeren van alle gebruikers (testpersonen) en hun gegevens.
+## Database
+
+Alle informatie wordt via Node-Red doorgestuurd naar een SQLite-database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
 
 De database is als volgt opgebouwd:
-![Database design](WasteBinDBER.png)
+![Databaseontwerp](WasteBinDBER.png)
 
-Hierbij zijn alle onderstreepte woorden sleutelwaardes. Helaas laat een DBER (DataBaseEntityRelationship diagram) niet alles zien. Dit is wel een juiste manier om een snel overzicht te geven van de database.
+Hierbij zijn alle onderstreepte woorden sleutelwaarden. Helaas toont het Database Entity Relationship-diagram (DBER) niet alle details, maar het geeft wel een goed overzicht van de databasestructuur.
 
 De tabellen en relaties in de database zijn als volgt:
-![Database tabellen](databaseexport.png)
+
+| Tabelnaam           | Veldnaam              | Type         | Relatie       |
+|---------------------|-----------------------|--------------|---------------|
+| Users               | UserID                | INTEGER      | PRIMARY KEY   |
+|                     | Name                  | TEXT         |               |
+|                     | Email                 | TEXT         |               |
+|                     | Phone                 | TEXT         |               |
+| WasteBins           | WasteBinID            | INTEGER      | PRIMARY KEY   |
+|                     | Location              | TEXT         |               |
+|                     | SensorID              | INTEGER      |               |
+|                     | UserID                | INTEGER      | FOREIGN KEY   |
+| SensorData          | SensorDataID          | INTEGER      | PRIMARY KEY   |
+|                     | WasteBinID            | INTEGER      | FOREIGN KEY   |
+|                     | Timestamp             | TIMESTAMP    |               |
+|                     | Temperature           | REAL         |               |
+|                     | Humidity              | REAL         |               |
+|                     | ValveStatus           | INTEGER      |               |
+|                     | ErrorCode             | INTEGER      |               |
+| SensorStatus        | SensorID              | INTEGER      | PRIMARY KEY   |
+|                     | Status                | TEXT         |               |
+|                     | LastUpdated           | TIMESTAMP    |               |
+
+Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende velden en datatypes bevat. De tabelrelaties zijn aangegeven met "PRIMARY KEY" en "FOREIGN KEY" om de verbanden tussen de tabellen weer te geven.
+
+De database kan worden doorzocht met behulp van "views" in SQLiteStudio. Deze kunnen door de gebruiker worden gemaakt en aangepast.
+
+Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-microcontrollers met Node-Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.
