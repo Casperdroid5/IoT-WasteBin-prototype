@@ -1,0 +1,314 @@
+\hypertarget{waste__bin__controller_8h}{}\doxysection{waste\+\_\+bin\+\_\+controller.\+h File Reference}
+\label{waste__bin__controller_8h}\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+{\ttfamily \#include $<$Wi\+Fi.\+h$>$}\newline
+{\ttfamily \#include $<$Pub\+Sub\+Client.\+h$>$}\newline
+{\ttfamily \#include $<$Adafruit\+\_\+\+SHT4x.\+h$>$}\newline
+{\ttfamily \#include $<$Arduino\+Json.\+h$>$}\newline
+Include dependency graph for waste\+\_\+bin\+\_\+controller.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{waste__bin__controller_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_ad2a97dbe5f144cd247e3b15c6af7c767}{setup\+Wi\+Fi}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a3e74f3bcf3d4133b97fdb068d51dfa3f}{setup\+Peltier\+And\+Fan}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a1e98402eebaa3ff30f3961ce7d964a47}{setup\+SHT4x}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}{setup\+MQTTClient}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_ac3a37446a712d9ae94e76304361d35d2}{read\+Sensor\+Data}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_afd93c7c05c87f78f968de8b870a8384a}{update\+Lid\+Position}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_aeba160d7d428f378ec5edd4f36d1246f}{control\+Peltier\+Module}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a9d23c1c2b3b5f9613a2215945494badb}{publish\+Sensor\+Data}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a077e1b87645b5bac09f44efbacddc016}{handle\+Incoming\+Message}} (char $\ast$topic, byte $\ast$payload, unsigned int length)
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a880b2ad326ec125058f25716339747e4}{publish\+Message}} (const char $\ast$topic, const float temperature, const float humidity, const bool \mbox{\hyperlink{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}{lid\+\_\+position}})
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{waste__bin__controller_8h_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a0bd682e71bad5172281d3ac1431d5736}{SSID}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_af83abf406808bc5d2465c2a1d48b7d27}{PASSWORD}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a8efceabccad60498b050829ff6a34bed}{MQTT\+\_\+\+SERVER}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a3d66ea8c358aa3e9058e447b74e36781}{MQTT\+\_\+\+USERNAME}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a171256120ce451554c1190d6706ff651}{MQTT\+\_\+\+PASSWORD}}
+\item 
+const int \mbox{\hyperlink{waste__bin__controller_8h_aa32e3aeeb7b509d0fa0bd31df3196101}{MQTT\+\_\+\+PORT}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a31230c39d8d355958c527c9b70c6fc29}{CLIENT\+\_\+\+NAME}}
+\item 
+const char $\ast$ \mbox{\hyperlink{waste__bin__controller_8h_a01ad5f341febd3c1090b7919442ce204}{SENSOR\+\_\+\+DATA\+\_\+\+TOPIC}}
+\item 
+const uint8\+\_\+t \mbox{\hyperlink{waste__bin__controller_8h_aa0faa6f4748fdd0cacecd90aa9eb44e8}{peltierandfanpin}}
+\item 
+const long \mbox{\hyperlink{waste__bin__controller_8h_afab23e0ee85e56261dace1dba900e39e}{interval}}
+\item 
+int \mbox{\hyperlink{waste__bin__controller_8h_aa6f9fedd7a4f12b9d8f70b5c36df1e20}{peltierandfanstate}}
+\item 
+Wi\+Fi\+Client \mbox{\hyperlink{waste__bin__controller_8h_afafd0fc922c17c38235820189e1d9b3b}{wifi\+\_\+client}}
+\item 
+Pub\+Sub\+Client \mbox{\hyperlink{waste__bin__controller_8h_a965861de1a367ef4c2b467de34de2683}{mqtt\+\_\+client}}
+\item 
+unsigned long \mbox{\hyperlink{waste__bin__controller_8h_a6456356e087b0f0d3b80b98f6ee96e22}{last\+\_\+msg\+\_\+sent}}
+\item 
+const unsigned long \mbox{\hyperlink{waste__bin__controller_8h_aa79406add29235b98d8fe3806815704d}{msg\+\_\+interval}}
+\item 
+unsigned long \mbox{\hyperlink{waste__bin__controller_8h_a86027ad9c9159f02624d136fb63364fe}{previous\+Millis}}
+\item 
+const int \mbox{\hyperlink{waste__bin__controller_8h_a0b52da4bc6b92ac2707094bc5040e0dc}{set\+Point}}
+\item 
+const int \mbox{\hyperlink{waste__bin__controller_8h_ae5341352446c96bd5aa1757fa5c69c8b}{tolerance}}
+\item 
+const int \mbox{\hyperlink{waste__bin__controller_8h_a589118c43a85f6cd95897f3f91d1657b}{pwm\+Freq}}
+\item 
+const int \mbox{\hyperlink{waste__bin__controller_8h_a4adb49baac164d761359c1af0d2c2bb2}{BUTTON\+\_\+\+PIN}}
+\item 
+bool \mbox{\hyperlink{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}{lid\+\_\+position}}
+\item 
+float \mbox{\hyperlink{waste__bin__controller_8h_af2660df8704e29daa7b4c2ff44f7d331}{humidity\+\_\+value}}
+\item 
+float \mbox{\hyperlink{waste__bin__controller_8h_a6a65fa08c80774ecd225f6150927cfcb}{temperature\+\_\+value}}
+\item 
+Adafruit\+\_\+\+SHT4x \mbox{\hyperlink{waste__bin__controller_8h_a3fab4f269a5ef03af4bddc378bcc1fb5}{sht4}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{waste__bin__controller_8h_aeba160d7d428f378ec5edd4f36d1246f}\label{waste__bin__controller_8h_aeba160d7d428f378ec5edd4f36d1246f}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!controlPeltierModule@{controlPeltierModule}}
+\index{controlPeltierModule@{controlPeltierModule}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{controlPeltierModule()}{controlPeltierModule()}}
+{\footnotesize\ttfamily void control\+Peltier\+Module (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a077e1b87645b5bac09f44efbacddc016}\label{waste__bin__controller_8h_a077e1b87645b5bac09f44efbacddc016}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!handleIncomingMessage@{handleIncomingMessage}}
+\index{handleIncomingMessage@{handleIncomingMessage}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{handleIncomingMessage()}{handleIncomingMessage()}}
+{\footnotesize\ttfamily void handle\+Incoming\+Message (\begin{DoxyParamCaption}\item[{char $\ast$}]{topic,  }\item[{byte $\ast$}]{payload,  }\item[{unsigned int}]{length }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_afe461d27b9c48d5921c00d521181f12f}\label{waste__bin__controller_8h_afe461d27b9c48d5921c00d521181f12f}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!loop@{loop}}
+\index{loop@{loop}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a880b2ad326ec125058f25716339747e4}\label{waste__bin__controller_8h_a880b2ad326ec125058f25716339747e4}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!publishMessage@{publishMessage}}
+\index{publishMessage@{publishMessage}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{publishMessage()}{publishMessage()}}
+{\footnotesize\ttfamily void publish\+Message (\begin{DoxyParamCaption}\item[{const char $\ast$}]{topic,  }\item[{const float}]{temperature,  }\item[{const float}]{humidity,  }\item[{const bool}]{lid\+\_\+position }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a9d23c1c2b3b5f9613a2215945494badb}\label{waste__bin__controller_8h_a9d23c1c2b3b5f9613a2215945494badb}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!publishSensorData@{publishSensorData}}
+\index{publishSensorData@{publishSensorData}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{publishSensorData()}{publishSensorData()}}
+{\footnotesize\ttfamily void publish\+Sensor\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_ac3a37446a712d9ae94e76304361d35d2}\label{waste__bin__controller_8h_ac3a37446a712d9ae94e76304361d35d2}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!readSensorData@{readSensorData}}
+\index{readSensorData@{readSensorData}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{readSensorData()}{readSensorData()}}
+{\footnotesize\ttfamily void read\+Sensor\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a4fc01d736fe50cf5b977f755b675f11d}\label{waste__bin__controller_8h_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setup@{setup}}
+\index{setup@{setup}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}\label{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setupMQTTClient@{setupMQTTClient}}
+\index{setupMQTTClient@{setupMQTTClient}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setupMQTTClient()}{setupMQTTClient()}}
+{\footnotesize\ttfamily void setup\+MQTTClient (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a3e74f3bcf3d4133b97fdb068d51dfa3f}\label{waste__bin__controller_8h_a3e74f3bcf3d4133b97fdb068d51dfa3f}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setupPeltierAndFan@{setupPeltierAndFan}}
+\index{setupPeltierAndFan@{setupPeltierAndFan}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setupPeltierAndFan()}{setupPeltierAndFan()}}
+{\footnotesize\ttfamily void setup\+Peltier\+And\+Fan (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a1e98402eebaa3ff30f3961ce7d964a47}\label{waste__bin__controller_8h_a1e98402eebaa3ff30f3961ce7d964a47}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setupSHT4x@{setupSHT4x}}
+\index{setupSHT4x@{setupSHT4x}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setupSHT4x()}{setupSHT4x()}}
+{\footnotesize\ttfamily void setup\+SHT4x (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_ad2a97dbe5f144cd247e3b15c6af7c767}\label{waste__bin__controller_8h_ad2a97dbe5f144cd247e3b15c6af7c767}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setupWiFi@{setupWiFi}}
+\index{setupWiFi@{setupWiFi}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setupWiFi()}{setupWiFi()}}
+{\footnotesize\ttfamily void setup\+Wi\+Fi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_afd93c7c05c87f78f968de8b870a8384a}\label{waste__bin__controller_8h_afd93c7c05c87f78f968de8b870a8384a}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!updateLidPosition@{updateLidPosition}}
+\index{updateLidPosition@{updateLidPosition}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{updateLidPosition()}{updateLidPosition()}}
+{\footnotesize\ttfamily void update\+Lid\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{waste__bin__controller_8h_a4adb49baac164d761359c1af0d2c2bb2}\label{waste__bin__controller_8h_a4adb49baac164d761359c1af0d2c2bb2}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!BUTTON\_PIN@{BUTTON\_PIN}}
+\index{BUTTON\_PIN@{BUTTON\_PIN}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_PIN}{BUTTON\_PIN}}
+{\footnotesize\ttfamily const int BUTTON\+\_\+\+PIN\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a31230c39d8d355958c527c9b70c6fc29}\label{waste__bin__controller_8h_a31230c39d8d355958c527c9b70c6fc29}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!CLIENT\_NAME@{CLIENT\_NAME}}
+\index{CLIENT\_NAME@{CLIENT\_NAME}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{CLIENT\_NAME}{CLIENT\_NAME}}
+{\footnotesize\ttfamily const char$\ast$ CLIENT\+\_\+\+NAME\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_af2660df8704e29daa7b4c2ff44f7d331}\label{waste__bin__controller_8h_af2660df8704e29daa7b4c2ff44f7d331}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!humidity\_value@{humidity\_value}}
+\index{humidity\_value@{humidity\_value}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{humidity\_value}{humidity\_value}}
+{\footnotesize\ttfamily float humidity\+\_\+value\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_afab23e0ee85e56261dace1dba900e39e}\label{waste__bin__controller_8h_afab23e0ee85e56261dace1dba900e39e}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!interval@{interval}}
+\index{interval@{interval}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{interval}{interval}}
+{\footnotesize\ttfamily const long interval\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a6456356e087b0f0d3b80b98f6ee96e22}\label{waste__bin__controller_8h_a6456356e087b0f0d3b80b98f6ee96e22}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!last\_msg\_sent@{last\_msg\_sent}}
+\index{last\_msg\_sent@{last\_msg\_sent}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{last\_msg\_sent}{last\_msg\_sent}}
+{\footnotesize\ttfamily unsigned long last\+\_\+msg\+\_\+sent\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}\label{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!lid\_position@{lid\_position}}
+\index{lid\_position@{lid\_position}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{lid\_position}{lid\_position}}
+{\footnotesize\ttfamily bool lid\+\_\+position\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a965861de1a367ef4c2b467de34de2683}\label{waste__bin__controller_8h_a965861de1a367ef4c2b467de34de2683}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!mqtt\_client@{mqtt\_client}}
+\index{mqtt\_client@{mqtt\_client}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{mqtt\_client}{mqtt\_client}}
+{\footnotesize\ttfamily Pub\+Sub\+Client mqtt\+\_\+client\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a171256120ce451554c1190d6706ff651}\label{waste__bin__controller_8h_a171256120ce451554c1190d6706ff651}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!MQTT\_PASSWORD@{MQTT\_PASSWORD}}
+\index{MQTT\_PASSWORD@{MQTT\_PASSWORD}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MQTT\_PASSWORD}{MQTT\_PASSWORD}}
+{\footnotesize\ttfamily const char$\ast$ MQTT\+\_\+\+PASSWORD\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_aa32e3aeeb7b509d0fa0bd31df3196101}\label{waste__bin__controller_8h_aa32e3aeeb7b509d0fa0bd31df3196101}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!MQTT\_PORT@{MQTT\_PORT}}
+\index{MQTT\_PORT@{MQTT\_PORT}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MQTT\_PORT}{MQTT\_PORT}}
+{\footnotesize\ttfamily const int MQTT\+\_\+\+PORT\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a8efceabccad60498b050829ff6a34bed}\label{waste__bin__controller_8h_a8efceabccad60498b050829ff6a34bed}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!MQTT\_SERVER@{MQTT\_SERVER}}
+\index{MQTT\_SERVER@{MQTT\_SERVER}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MQTT\_SERVER}{MQTT\_SERVER}}
+{\footnotesize\ttfamily const char$\ast$ MQTT\+\_\+\+SERVER\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a3d66ea8c358aa3e9058e447b74e36781}\label{waste__bin__controller_8h_a3d66ea8c358aa3e9058e447b74e36781}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!MQTT\_USERNAME@{MQTT\_USERNAME}}
+\index{MQTT\_USERNAME@{MQTT\_USERNAME}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MQTT\_USERNAME}{MQTT\_USERNAME}}
+{\footnotesize\ttfamily const char$\ast$ MQTT\+\_\+\+USERNAME\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_aa79406add29235b98d8fe3806815704d}\label{waste__bin__controller_8h_aa79406add29235b98d8fe3806815704d}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!msg\_interval@{msg\_interval}}
+\index{msg\_interval@{msg\_interval}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{msg\_interval}{msg\_interval}}
+{\footnotesize\ttfamily const unsigned long msg\+\_\+interval\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_af83abf406808bc5d2465c2a1d48b7d27}\label{waste__bin__controller_8h_af83abf406808bc5d2465c2a1d48b7d27}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!PASSWORD@{PASSWORD}}
+\index{PASSWORD@{PASSWORD}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{PASSWORD}{PASSWORD}}
+{\footnotesize\ttfamily const char$\ast$ PASSWORD\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_aa0faa6f4748fdd0cacecd90aa9eb44e8}\label{waste__bin__controller_8h_aa0faa6f4748fdd0cacecd90aa9eb44e8}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!peltierandfanpin@{peltierandfanpin}}
+\index{peltierandfanpin@{peltierandfanpin}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{peltierandfanpin}{peltierandfanpin}}
+{\footnotesize\ttfamily const uint8\+\_\+t peltierandfanpin\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_aa6f9fedd7a4f12b9d8f70b5c36df1e20}\label{waste__bin__controller_8h_aa6f9fedd7a4f12b9d8f70b5c36df1e20}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!peltierandfanstate@{peltierandfanstate}}
+\index{peltierandfanstate@{peltierandfanstate}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{peltierandfanstate}{peltierandfanstate}}
+{\footnotesize\ttfamily int peltierandfanstate\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a86027ad9c9159f02624d136fb63364fe}\label{waste__bin__controller_8h_a86027ad9c9159f02624d136fb63364fe}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!previousMillis@{previousMillis}}
+\index{previousMillis@{previousMillis}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{previousMillis}{previousMillis}}
+{\footnotesize\ttfamily unsigned long previous\+Millis\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a589118c43a85f6cd95897f3f91d1657b}\label{waste__bin__controller_8h_a589118c43a85f6cd95897f3f91d1657b}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!pwmFreq@{pwmFreq}}
+\index{pwmFreq@{pwmFreq}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{pwmFreq}{pwmFreq}}
+{\footnotesize\ttfamily const int pwm\+Freq\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a01ad5f341febd3c1090b7919442ce204}\label{waste__bin__controller_8h_a01ad5f341febd3c1090b7919442ce204}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!SENSOR\_DATA\_TOPIC@{SENSOR\_DATA\_TOPIC}}
+\index{SENSOR\_DATA\_TOPIC@{SENSOR\_DATA\_TOPIC}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{SENSOR\_DATA\_TOPIC}{SENSOR\_DATA\_TOPIC}}
+{\footnotesize\ttfamily const char$\ast$ SENSOR\+\_\+\+DATA\+\_\+\+TOPIC\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a0b52da4bc6b92ac2707094bc5040e0dc}\label{waste__bin__controller_8h_a0b52da4bc6b92ac2707094bc5040e0dc}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!setPoint@{setPoint}}
+\index{setPoint@{setPoint}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{setPoint}{setPoint}}
+{\footnotesize\ttfamily const int set\+Point\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a3fab4f269a5ef03af4bddc378bcc1fb5}\label{waste__bin__controller_8h_a3fab4f269a5ef03af4bddc378bcc1fb5}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!sht4@{sht4}}
+\index{sht4@{sht4}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{sht4}{sht4}}
+{\footnotesize\ttfamily Adafruit\+\_\+\+SHT4x sht4\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a0bd682e71bad5172281d3ac1431d5736}\label{waste__bin__controller_8h_a0bd682e71bad5172281d3ac1431d5736}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!SSID@{SSID}}
+\index{SSID@{SSID}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{SSID}{SSID}}
+{\footnotesize\ttfamily const char$\ast$ SSID\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_a6a65fa08c80774ecd225f6150927cfcb}\label{waste__bin__controller_8h_a6a65fa08c80774ecd225f6150927cfcb}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!temperature\_value@{temperature\_value}}
+\index{temperature\_value@{temperature\_value}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{temperature\_value}{temperature\_value}}
+{\footnotesize\ttfamily float temperature\+\_\+value\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_ae5341352446c96bd5aa1757fa5c69c8b}\label{waste__bin__controller_8h_ae5341352446c96bd5aa1757fa5c69c8b}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!tolerance@{tolerance}}
+\index{tolerance@{tolerance}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{tolerance}{tolerance}}
+{\footnotesize\ttfamily const int tolerance\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{waste__bin__controller_8h_afafd0fc922c17c38235820189e1d9b3b}\label{waste__bin__controller_8h_afafd0fc922c17c38235820189e1d9b3b}} 
+\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}!wifi\_client@{wifi\_client}}
+\index{wifi\_client@{wifi\_client}!waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_client}{wifi\_client}}
+{\footnotesize\ttfamily Wi\+Fi\+Client wifi\+\_\+client\hspace{0.3cm}{\ttfamily [extern]}}
+

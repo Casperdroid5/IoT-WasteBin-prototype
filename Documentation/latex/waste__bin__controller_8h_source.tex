@@ -1,0 +1,74 @@
+\hypertarget{waste__bin__controller_8h_source}{}\doxysection{waste\+\_\+bin\+\_\+controller.\+h}
+\label{waste__bin__controller_8h_source}\index{waste\_bin\_controller.h@{waste\_bin\_controller.h}}
+\mbox{\hyperlink{waste__bin__controller_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef WASTE\_BIN\_CONTROLLER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define WASTE\_BIN\_CONTROLLER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <WiFi.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <PubSubClient.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <Adafruit\_SHT4x.h>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <ArduinoJson.h>}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{// WiFi settings}}
+\DoxyCodeLine{10 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a0bd682e71bad5172281d3ac1431d5736}{SSID}};}
+\DoxyCodeLine{11 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_af83abf406808bc5d2465c2a1d48b7d27}{PASSWORD}};}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{comment}{// MQTT Broker settings}}
+\DoxyCodeLine{14 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a8efceabccad60498b050829ff6a34bed}{MQTT\_SERVER}};}
+\DoxyCodeLine{15 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a3d66ea8c358aa3e9058e447b74e36781}{MQTT\_USERNAME}};}
+\DoxyCodeLine{16 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a171256120ce451554c1190d6706ff651}{MQTT\_PASSWORD}};}
+\DoxyCodeLine{17 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_aa32e3aeeb7b509d0fa0bd31df3196101}{MQTT\_PORT}};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a31230c39d8d355958c527c9b70c6fc29}{CLIENT\_NAME}};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{comment}{// MQTT topics}}
+\DoxyCodeLine{22 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a01ad5f341febd3c1090b7919442ce204}{SENSOR\_DATA\_TOPIC}};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{comment}{// Device settings}}
+\DoxyCodeLine{25 \textcolor{keyword}{extern} \textcolor{keyword}{const} uint8\_t \mbox{\hyperlink{waste__bin__controller_8h_aa0faa6f4748fdd0cacecd90aa9eb44e8}{peltierandfanpin}};}
+\DoxyCodeLine{26 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{long} \mbox{\hyperlink{waste__bin__controller_8h_afab23e0ee85e56261dace1dba900e39e}{interval}};}
+\DoxyCodeLine{27 \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_aa6f9fedd7a4f12b9d8f70b5c36df1e20}{peltierandfanstate}};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{comment}{// PubSubClient setup}}
+\DoxyCodeLine{30 \textcolor{keyword}{extern} WiFiClient \mbox{\hyperlink{waste__bin__controller_8h_afafd0fc922c17c38235820189e1d9b3b}{wifi\_client}};}
+\DoxyCodeLine{31 \textcolor{keyword}{extern} PubSubClient \mbox{\hyperlink{waste__bin__controller_8h_a965861de1a367ef4c2b467de34de2683}{mqtt\_client}};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{comment}{// Other variables}}
+\DoxyCodeLine{34 \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{waste__bin__controller_8h_a6456356e087b0f0d3b80b98f6ee96e22}{last\_msg\_sent}};}
+\DoxyCodeLine{35 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{waste__bin__controller_8h_aa79406add29235b98d8fe3806815704d}{msg\_interval}};}
+\DoxyCodeLine{36 \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{waste__bin__controller_8h_a86027ad9c9159f02624d136fb63364fe}{previousMillis}};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_a0b52da4bc6b92ac2707094bc5040e0dc}{setPoint}};}
+\DoxyCodeLine{39 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_ae5341352446c96bd5aa1757fa5c69c8b}{tolerance}};}
+\DoxyCodeLine{40 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_a589118c43a85f6cd95897f3f91d1657b}{pwmFreq}};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{comment}{// Sensor pin}}
+\DoxyCodeLine{43 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_a4adb49baac164d761359c1af0d2c2bb2}{BUTTON\_PIN}};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{comment}{// Sensor values}}
+\DoxyCodeLine{46 \textcolor{keyword}{extern} \textcolor{keywordtype}{bool} \mbox{\hyperlink{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}{lid\_position}};}
+\DoxyCodeLine{47 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{waste__bin__controller_8h_af2660df8704e29daa7b4c2ff44f7d331}{humidity\_value}};}
+\DoxyCodeLine{48 \textcolor{keyword}{extern} \textcolor{keywordtype}{float} \mbox{\hyperlink{waste__bin__controller_8h_a6a65fa08c80774ecd225f6150927cfcb}{temperature\_value}};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{comment}{// SHT4x sensor setup}}
+\DoxyCodeLine{51 \textcolor{keyword}{extern} Adafruit\_SHT4x \mbox{\hyperlink{waste__bin__controller_8h_a3fab4f269a5ef03af4bddc378bcc1fb5}{sht4}};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_ad2a97dbe5f144cd247e3b15c6af7c767}{setupWiFi}}();}
+\DoxyCodeLine{54 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a3e74f3bcf3d4133b97fdb068d51dfa3f}{setupPeltierAndFan}}();}
+\DoxyCodeLine{55 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a1e98402eebaa3ff30f3961ce7d964a47}{setupSHT4x}}();}
+\DoxyCodeLine{56 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}{setupMQTTClient}}();}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_ac3a37446a712d9ae94e76304361d35d2}{readSensorData}}();}
+\DoxyCodeLine{59 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_afd93c7c05c87f78f968de8b870a8384a}{updateLidPosition}}();}
+\DoxyCodeLine{60 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_aeba160d7d428f378ec5edd4f36d1246f}{controlPeltierModule}}();}
+\DoxyCodeLine{61 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a9d23c1c2b3b5f9613a2215945494badb}{publishSensorData}}();}
+\DoxyCodeLine{62 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a077e1b87645b5bac09f44efbacddc016}{handleIncomingMessage}}(\textcolor{keywordtype}{char}* topic, \textcolor{keywordtype}{byte}* payload, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} length);}
+\DoxyCodeLine{63 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a880b2ad326ec125058f25716339747e4}{publishMessage}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* topic, \textcolor{keyword}{const} \textcolor{keywordtype}{float} temperature, \textcolor{keyword}{const} \textcolor{keywordtype}{float} humidity, \textcolor{keyword}{const} \textcolor{keywordtype}{bool} \mbox{\hyperlink{waste__bin__controller_8h_a4ed67d40ad80e8586606d4f5a0f9d701}{lid\_position}});}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_a4fc01d736fe50cf5b977f755b675f11d}{setup}}();}
+\DoxyCodeLine{66 \textcolor{keywordtype}{void} \mbox{\hyperlink{waste__bin__controller_8h_afe461d27b9c48d5921c00d521181f12f}{loop}}();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// WASTE\_BIN\_CONTROLLER\_H}}
+
+\end{DoxyCode}

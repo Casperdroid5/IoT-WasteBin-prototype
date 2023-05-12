@@ -1,0 +1,110 @@
+\hypertarget{md__io_t_oplossing_autotoc_md19}{}\doxysection{Inleiding}\label{md__io_t_oplossing_autotoc_md19}
+Meerdere ESP32-\/microcontrollers kunnen in combinatie met Node-\/\+Red worden gebruikt om een visuele interface te bouwen op basis van de gegevens die zijn gelogd door de ESP32. Elke ESP32 kan worden geconfigureerd om gegevens van een specifieke sensor of apparaat te loggen en deze via Wi-\/\+Fi naar Node-\/\+Red te verzenden. Node-\/\+Red kan vervolgens de gegevens ontvangen en verwerken met behulp van verschillende nodes.\hypertarget{md__io_t_oplossing_autotoc_md20}{}\doxysection{Doelen}\label{md__io_t_oplossing_autotoc_md20}
+\hypertarget{md__io_t_oplossing_autotoc_md21}{}\doxysubsection{Doel \#1}\label{md__io_t_oplossing_autotoc_md21}
+Het opzetten van een systeem waarbij meerdere ESP32-\/microcontrollers worden gebruikt om gegevens te loggen en deze naar Node-\/\+Red te verzenden voor visualisatie en verwerking.\hypertarget{md__io_t_oplossing_autotoc_md22}{}\doxysection{Onderbouwing keuze ESP32 C3}\label{md__io_t_oplossing_autotoc_md22}
+Wij kiezen voor een ESP32 omdat deze de volgende voordelen biedt\+:
+
+
+\begin{DoxyItemize}
+\item Relatief goedkoop (€2 per stuk).
+\item Beschikbaarheid (1300 op voorraad bij Mouser, afhankelijk van het model).
+\item Geschikt voor de taken die moeten worden uitgevoerd.
+\item Compact formaat.
+\end{DoxyItemize}\hypertarget{md__io_t_oplossing_autotoc_md23}{}\doxysection{Waarom geen Arduino of Raspberry Pi als computer voor de Waste\+Bin?}\label{md__io_t_oplossing_autotoc_md23}
+Raspberry Pi\textquotesingle{}s zijn momenteel moeilijk verkrijgbaar, duur in aanschaf voor een testplatform en vereisen meer inspanning om op te zetten. Bovendien zijn ze vaak te krachtig voor onze doeleinden en daardoor overbodig qua rekenkracht. Arduino\textquotesingle{}s zijn redelijke alternatieven, maar duurder dan losse ESP32-\/modules. Desalniettemin kunnen ESP32-\/modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-\/codebibliotheken, indien gewenst.\hypertarget{md__io_t_oplossing_autotoc_md24}{}\doxysection{Data forwarding}\label{md__io_t_oplossing_autotoc_md24}
+Data forwarding is de plaats waar alle data van de ESP32\textquotesingle{}s (of vuilnisbakken) wordt verzameld. Een mogelijke optie is het gebruik van specifieke hardware, zoals een Raspberry Pi met een broker (zoals Mosquitto) en een Node-\/\+Red-\/dashboard. Wij kiezen ervoor om de broker en het dashboard op onze lokale laptop te installeren in plaats van een Raspberry Pi te gebruiken. We hebben hiervoor meerdere redenen\+:
+
+
+\begin{DoxyEnumerate}
+\item We vermijden de noodzaak van een extra apparaat (Raspberry Pi). Alles op één apparaat maakt het eenvoudiger. Bovendien zijn Raspberry Pi\textquotesingle{}s moeilijk verkrijgbaar en vormen ze een extra bron van potentiële hardwarefouten (zoals SD-\/kaartcorruptie) en softwareproblemen (Linux-\/problemen) enzovoort.
+\item Als we fysiek ergens anders willen werken, zouden we steeds de Raspberry Pi moeten verbinden met het netwerk op die locatie via een beeldscherm en toetsenbord.
+\item De Raspberry Pi kan een beveiligingsrisico vormen.
+\end{DoxyEnumerate}
+
+Stappen\+:
+
+
+\begin{DoxyEnumerate}
+\item ESP32-\/gegevens laten versturen (verbinding maken met internet).
+\item Opzetten van een MQTT-\/broker.
+\item De MQTT-\/broker accepteert gegevens van de ESP32.
+\item De MQTT-\/broker stuurt gegevens door naar Node-\/\+Red (lokaal).
+\item Inkomende gegevens van de MQTT-\/broker worden omgezet naar een dashboardweergave.
+\item Data van Node-\/\+Red doorsturen naar een database.
+\end{DoxyEnumerate}\hypertarget{md__io_t_oplossing_autotoc_md25}{}\doxysection{De Data}\label{md__io_t_oplossing_autotoc_md25}
+De volgende gegevens willen we versturen vanaf de ESP32\+:
+
+
+\begin{DoxyItemize}
+\item Temperatuur (dubbel)
+\item Luchtvochtigheid (dubbel)
+\item Klepstand (boolean)
+\item Foutcodes (integer)
+\item Waste\+Bin-\/\+ID (macadres)
+\end{DoxyItemize}
+
+Deze gegevens worden via MQTT naar Node-\/\+Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-\/database. We hebben gekozen voor SQLite vanwege de handige SQLite\+Studio-\/omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.\hypertarget{md__io_t_oplossing_autotoc_md26}{}\doxysection{Meldingen voor de gebruiker}\label{md__io_t_oplossing_autotoc_md26}
+Voor onze opstelling willen we een luidspreker gebruiken als indicator die verschillende waarschuwingen kan afgeven wanneer dat nodig is. Deze waarschuwingen zijn onder andere\+:
+
+
+\begin{DoxyItemize}
+\item De klep staat te lang open (mogelijk)
+\item De binnenkant van de bak is te warm (mogelijk klep open of slechte koeling)
+\item Algemene fout (ander probleem)
+\end{DoxyItemize}
+
+We hebben ervoor gekozen om deze waarschuwingen ook naar ons dashboard te sturen als ze zich voordoen. Deze waarschuwingen worden weergegeven als foutcodes.\hypertarget{md__io_t_oplossing_autotoc_md27}{}\doxysection{Verstuur interval}\label{md__io_t_oplossing_autotoc_md27}
+In principe worden alle gegevens elke 15 minuten verstuurd. We denken dat dit voldoende informatie is voor elke vuilnisbak om eventuele problemen te detecteren (bijvoorbeeld te lage temperatuur). Bovendien voorkomt dit dat de database overvol raakt met gegevens, vooral wanneer er 30 vuilnisbakken zijn.\hypertarget{md__io_t_oplossing_autotoc_md28}{}\doxysubsection{In geval van fouten}\label{md__io_t_oplossing_autotoc_md28}
+In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 minuten, indien er zich één of meerdere fouten blijven voordoen.\hypertarget{md__io_t_oplossing_autotoc_md29}{}\doxysection{Node-\/\+Red}\label{md__io_t_oplossing_autotoc_md29}
+We zullen Node-\/\+Red gebruiken om alle gegevens van MQTT te ontvangen, te verwerken en weer te geven. Alle ontvangen informatie wordt weergegeven via een Node-\/\+Red UI-\/tabblad. Dit UI-\/tabblad, ook wel \char`\"{}dashboard\char`\"{} genoemd in Node-\/\+Red, is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken kunnen in real-\/time worden weergegeven op het dashboard als dat gewenst is.
+
+De Node-\/\+Red UI ziet er als volgt uit voor twee vuilnisbakken\+: \hypertarget{md__io_t_oplossing_autotoc_md30}{}\doxysubsection{Node-\/\+Red flow}\label{md__io_t_oplossing_autotoc_md30}
+Om dit alles te laten werken, hebben we een Node-\/\+Red flow gemaakt. De Node-\/\+Red flow ziet er als volgt uit\+: 
+
+In deze flow ontvangt de eerste node (paars) de MQTT-\/gegevens. Vervolgens wordt er een tijdstempel aan het bericht toegevoegd en worden alle inkomende berichten gescheiden met behulp van een schakelaar (switch). De gegevens worden gescheiden op basis van het macadres (uniek) van de vuilnisbak.
+
+Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-\/\+ID) en deze als query naar een SQLite-\/database sturen.\hypertarget{md__io_t_oplossing_autotoc_md31}{}\doxysection{Database}\label{md__io_t_oplossing_autotoc_md31}
+Alle informatie wordt via Node-\/\+Red doorgestuurd naar een SQLite-\/database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
+
+De database is als volgt opgebouwd\+: 
+
+Hierbij zijn alle onderstreepte woorden sleutelwaarden. Helaas toont het Database Entity Relationship-\/diagram (DBER) niet alle details, maar het geeft wel een goed overzicht van de databasestructuur.
+
+De tabellen en relaties in de database zijn als volgt\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Tabelnaam   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Veldnaam   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Relatie    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Tabelnaam   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Veldnaam   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Relatie    }\\\cline{1-4}
+\endhead
+Users   &User\+ID   &INTEGER   &PRIMARY KEY    \\\cline{1-4}
+&Name   &TEXT   &\\\cline{1-4}
+&Email   &TEXT   &\\\cline{1-4}
+&Phone   &TEXT   &\\\cline{1-4}
+Waste\+Bins   &Waste\+Bin\+ID   &INTEGER   &PRIMARY KEY    \\\cline{1-4}
+&Location   &TEXT   &\\\cline{1-4}
+&Sensor\+ID   &INTEGER   &\\\cline{1-4}
+&User\+ID   &INTEGER   &FOREIGN KEY    \\\cline{1-4}
+Sensor\+Data   &Sensor\+Data\+ID   &INTEGER   &PRIMARY KEY    \\\cline{1-4}
+&Waste\+Bin\+ID   &INTEGER   &FOREIGN KEY    \\\cline{1-4}
+&Timestamp   &TIMESTAMP   &\\\cline{1-4}
+&Temperature   &REAL   &\\\cline{1-4}
+&Humidity   &REAL   &\\\cline{1-4}
+&Valve\+Status   &INTEGER   &\\\cline{1-4}
+&Error\+Code   &INTEGER   &\\\cline{1-4}
+Sensor\+Status   &Sensor\+ID   &INTEGER   &PRIMARY KEY    \\\cline{1-4}
+&Status   &TEXT   &\\\cline{1-4}
+&Last\+Updated   &TIMESTAMP   &\\\cline{1-4}
+\end{longtabu}
+
+
+Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende velden en datatypes bevat. De tabelrelaties zijn aangegeven met \char`\"{}\+PRIMARY KEY\char`\"{} en \char`\"{}\+FOREIGN KEY\char`\"{} om de verbanden tussen de tabellen weer te geven.
+
+De database kan worden doorzocht met behulp van \char`\"{}views\char`\"{} in SQLite\+Studio. Deze kunnen door de gebruiker worden gemaakt en aangepast.
+
+Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-\/microcontrollers met Node-\/\+Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer. 
