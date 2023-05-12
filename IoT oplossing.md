@@ -80,3 +80,13 @@ In deze flow word via de eerste Node (paars) de MQTT data ontvangen. Vervolgens 
 Als de berichten zijn afgesplitst komen ze in een groot functie blok (oranje) dat de het bericht uit elkaar trekt en verdeeld over de outputs van het functieblok. Ik kies hiervoor omdat op deze manier het functie blok modulair blijft en de output daarmee ook. De output word gestuurd naar dashboard blokken (blauw) en naar nieuwe functie blokken die de extra data toevoegen (sensoridnr) en het als query naar een SQLITE database stuurt.
 
 ### DataBase
+
+Alle informatie word via Node-Red in het SQLITE blok doorgestuurd naar een database. Het doel van de database is een navigeerbare geschiedenis creëeren van alle data die de vuilnisbakken ontvangen en een overzicht creëeren van alle gebruikers (testpersonen) en hun gegevens.
+
+De database is als volgt opgebouwd:
+![Database design](WasteBinDBER.png)
+
+Hierbij zijn alle onderstreepte woorden sleutelwaardes. Helaas laat een DBER (DataBaseEntityRelationship diagram) niet alles zien. Dit is wel een juiste manier om een snel overzicht te geven van de database.
+
+De tabellen en relaties in de database zijn als volgt:
+![Database tabellen](databaseexport.png)
