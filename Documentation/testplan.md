@@ -88,8 +88,7 @@ Een tijdsopname van de data die door de vuilnisbak is opgeslagen, is in ondersta
 | ---------- | ------------------------ | ------------------------------ | ----------------------- |
 | 00:00:00   | 20°C                     | 50%                            | Gesloten                |
 | 00:05:00   | 18°C                     | 48%                            | Open                    |
-| 00:10:00   | 16°C                     | 45%| Tijd       | Sensoridnr 1 (temperatuur) | Sensoridnr 2 (luchtvochtigheid) | Sensoridnr 3 (klepstand) |
-| ---------- | ------------------------ | ------------------------------ | ----------------------- |
+| 00:10:00   | 16°C                     | 45%                            | Open                    |
 | 00:00:00   | 20°C                     | 50%                            | Gesloten                |
 | 00:05:00   | 18°C                     | 48%                            | Open                    |
 | 00:10:00   | 16°C                     | 45%                            | Open                    |
