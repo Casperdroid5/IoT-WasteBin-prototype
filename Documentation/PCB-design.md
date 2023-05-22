@@ -29,6 +29,3 @@ Een alternatieve benadering is om een coöperatieve PCB te gebruiken. Hierbij wo
 - Het hergebruiken van de 30 prototype-printplaten voor het uiteindelijke ontwerp kan kosteneffectiever zijn voor de prototypes.
 - Het tegenargument is dat dit punt bij een grootschalige productie van bijvoorbeeld 1000 vuilnisbakken bijna verwaarloosbaar kan worden en daarmee het argument niet meer van toepassing is.
 - Het kan zo zijn dat het ontdekken van fouten in de hardware makkelijker is als de printplaten los van elkaar te koppelen zijn.
-
-## Ontwerpkeuzes
-

@@ -1,0 +1,21 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 5677e03e-b94e-4097-bc9d-29617699ff29)
+
+  (paper "A4")
+
+  (title_block
+    (title "WasteBinPrototypePCB")
+    (date "2023-05-22")
+    (rev "V0.1")
+    (comment 1 "Designed by: Casper R. Tak")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
