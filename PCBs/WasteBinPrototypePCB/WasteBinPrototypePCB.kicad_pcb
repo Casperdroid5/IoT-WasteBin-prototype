@@ -217,10 +217,10 @@
       (net 2 "GND") (pintype "passive") (tstamp 2760b208-aeac-4019-b36b-a0659b526aa6))
     (pad "3" thru_hole oval (at 4.8 3 180) (size 4 1.8) (drill oval 3 0.8) (layers *.Cu *.Mask)
       (net 2 "GND") (pintype "passive") (tstamp 678ccfae-5224-4c5a-8dd9-7abe0f98f417))
-    (model "${KICAD6_3DMODEL_DIR}/Connector_BarrelJack.3dshapes/BarrelJack_Wuerth_6941xx301002.wrl"
-      (offset (xyz 0 0 0))
+    (model "C:/Users/crtak/Documents/KiCad/SamacSys_Parts.3dshapes/DC Power Jack 5.5mm x 2.1mm.STEP"
+      (offset (xyz 0 -10.5 6))
       (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (rotate (xyz -90 0 0))
     )
   )
 
@@ -853,7 +853,12 @@
     (pad "3" smd rect locked (at -3.15 2.3 270) (size 0.95 1.75) (layers "F.Cu" "F.Paste" "F.Mask")
       (net 1 "12V") (pinfunction "VI") (pintype "power_in") (tstamp 20d971d5-8b35-461e-a322-0fa78f9a7e50))
     (pad "4" smd rect locked (at 3.15 0 180) (size 1.75 3.2) (layers "F.Cu" "F.Paste" "F.Mask") (tstamp d2aa8ad1-71e7-4473-9941-da00db1af45a))
-    (model "TLV1117LV33DCYT.stp"
+    (model "${KICAD6_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-223.step"
+      (offset (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+    (model "${KIPRJMOD}/packages3D/SOT-223.step"
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
@@ -1086,6 +1091,11 @@
       (net 2 "GND") (pinfunction "SHIELD") (pintype "passive") (tstamp 2205f916-68c4-412d-8424-809ee827af66))
     (pad "S2" smd rect locked (at 2.8 3.875 180) (size 1.2 1.8) (layers "F.Cu" "F.Paste" "F.Mask")
       (net 2 "GND") (pinfunction "SHIELD") (pintype "passive") (tstamp 51d9616d-cd21-43ea-a55a-79fb05e5b85e))
+    (model "C:/Users/crtak/Documents/KiCad/SamacSys_Parts.3dshapes/SM04B-SRSS-TB(LF)(SN)--3DModel-STEP-56544 (1).STEP"
+      (offset (xyz 0 -0.5 -0.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz -90 0 0))
+    )
   )
 
   (footprint "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" (layer "F.Cu")
@@ -1128,10 +1138,10 @@
       (net 1 "12V") (pintype "passive") (tstamp f4ff1a56-8a56-4f7f-a6d5-232aea936751))
     (pad "2" thru_hole circle (at 5.08 0) (size 3 3) (drill 1.52) (layers *.Cu *.Mask)
       (net 4 "Net-(D1-Pad2)") (pintype "passive") (tstamp 9e262c0b-cff2-40ce-8577-1b870fc8c5cc))
-    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock.3dshapes/TerminalBlock_bornier-2_P5.08mm.wrl"
-      (offset (xyz 2.539999962 0 0))
+    (model "${KICAD6_3DMODEL_DIR}/TerminalBlock_Altech.3dshapes/Screw Terminal Block 5mm 2-way.step"
+      (offset (xyz 2.54 0 0))
       (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (rotate (xyz -90 0 0))
     )
   )
 
@@ -1361,9 +1371,9 @@
       (net 9 "Net-(F1-Pad1)") (pintype "passive") (tstamp c1cb0865-8c01-42e1-b214-aca62c64845f))
     (pad "2" smd roundrect (at 2.3375 0 90) (size 1.525 2.65) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.163934)
       (net 1 "12V") (pintype "passive") (tstamp a8a91fa0-8564-4895-813b-182b18465575))
-    (model "${KICAD6_3DMODEL_DIR}/Fuse.3dshapes/Fuse_2010_5025Metric.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Fuse.3dshapes/Fuse_1206_3216Metric.step"
       (offset (xyz 0 0 0))
-      (scale (xyz 1 1 1))
+      (scale (xyz 1.2 1.2 1.2))
       (rotate (xyz 0 0 0))
     )
   )
@@ -1501,6 +1511,16 @@
       (net 10 "GPIO29") (pinfunction "GPIO0/XTAL_32K_P") (pintype "bidirectional") (tstamp aa596ce1-9708-459e-bfc8-c9d0e1c6cc5f))
     (pad "30" thru_hole circle locked (at 11.43 -17.3922) (size 1.53 1.53) (drill 1.02) (layers *.Cu *.Mask)
       (net 2 "GND") (pinfunction "GND__9") (pintype "power_in") (tstamp 91eef0d9-5f3c-49cc-bea6-dedd517c847f))
+    (model "C:/Users/crtak/Documents/KiCad/SamacSys_Parts.3dshapes/ESP32-C3-DEVKITC-02.step"
+      (offset (xyz 0 -1 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 90 -180 0))
+    )
+    (model "C:/Users/crtak/Documents/KiCad/SamacSys_Parts.3dshapes/ESP32-C3-DevKitC-02--3DModel-STEP-269445.STEP" hide
+      (offset (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (footprint "Diode_SMD:D_SOD-123" (layer "F.Cu")
