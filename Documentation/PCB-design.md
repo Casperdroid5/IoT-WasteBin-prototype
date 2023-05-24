@@ -29,3 +29,7 @@ Een alternatieve benadering is om een coöperatieve PCB te gebruiken. Hierbij wo
 - Het hergebruiken van de 30 prototype-printplaten voor het uiteindelijke ontwerp kan kosteneffectiever zijn voor de prototypes.
 - Het tegenargument is dat dit punt bij een grootschalige productie van bijvoorbeeld 1000 vuilnisbakken bijna verwaarloosbaar kan worden en daarmee het argument niet meer van toepassing is.
 - Het kan zo zijn dat het ontdekken van fouten in de hardware makkelijker is als de printplaten los van elkaar te koppelen zijn.
+
+**Keuze voor printplaten:**
+
+Na een gesprek met de opdrachtgever is het akkoord gegeven om vanuit optie 1 te werk te gaan. Het prototype printplaat word ontworpen op de ESP32 C3 Devkit module. Deze module is gemakkelijk op de printplaat te schuiven door middel van de 2 headers. De printplaat is volledig afgestemd op het prototype en word ontworpen als een proof of concept voor het uiteindelijke resultaat. De printplaat voor het eindproduct zal immers meerdere testfases heen moeten voordat deze in productie kan. Vandaar dat wij ons hier nu niet op focussen.

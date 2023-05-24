@@ -30,11 +30,11 @@ In dit document worden de functionele en technische specificaties besproken voor
 
 | # | Beschrijving |
 |---|------------|
-| 1 | Het koelen van het product wordt gedaan met behulp van een Peltier-module. |
-| 2 | D.m.v. LED-lampjes toont het product of de temperatuur te warm of te koud is. |
-| 3 | Het product gebruikt een Piezo-speaker om de gebruiker te waarschuwen wanneer de klep te lang openstaat. |
-| 4 | De klepstand wordt gemeten d.m.v. een Hall-effectsensor of een knop. |
-| 5 | Bij logfuncties in het eindproduct is een externe EEPROM een optie. |
-| 6 | Het product krijgt een externe voeding om de repareerbaarheid te verbeteren en de complexiteit te verminderen. |
-| 7 | Het product gebruikt een Microchip ATTINY 13A als eindproduct microcontroller vanwege zijn kosten en tot nu toe voorziene geschiktheid. Ook beschikt hij over een programming lock voor extra beveiliging van het product. |
-| 8 | De SHT40 wordt gebruikt om de temperatuur en luchtvochtigheid in het systeem te meten. Er bestaan goedkopere sensoren zoals de LM35, DHT22 of LM75 (communiceert via I2C). Deze goedkopere alternatieven of derden zijn te overwegen voor het eindproduct. |
+| 1 | Het koelen van het product wordt gedaan met behulp van een Peltier-module.
+| 2 | Het product gebruikt een Piezo-speaker om de gebruiker te waarschuwen wanneer de klep te lang openstaat. |
+| 3 | De klepstand wordt gemeten d.m.v. een Hall-effectsensor of een reed switch. |
+| 4 | Bij logfuncties in het eindproduct is een externe EEPROM een optie. |
+| 5 | Het product krijgt een externe voeding om de repareerbaarheid te verbeteren en de complexiteit te verminderen. |
+| 6 | Het prototype gebruik de ESP32 C3 Devkit module als processor en IoT module. Voor het eindproduct raden wij een Microchip ATTINY 13A aan i.v.m. de adequaatheid, lage kosten en de beschikbaarheid van de chip. |
+| 7 | De SHT40 wordt gebruikt om de temperatuur en luchtvochtigheid in het systeem te meten. Er bestaan goedkopere sensoren zoals de LM35, DHT22 of LM75 (communiceert via I2C). Deze goedkopere alternatieven of derden zijn te overwegen voor het eindproduct. |
+| 8 | We ontwerpen onze eigen buck converter voor de ESP32 C3 Devkit module. |
