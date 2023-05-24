@@ -9,6 +9,7 @@
     (date "2023-05-22")
     (rev "V0.1")
     (comment 1 "Designed by: Casper R. Tak")
+    (comment 2 "Designed for Insyte Technology")
   )
 
   (lib_symbols
