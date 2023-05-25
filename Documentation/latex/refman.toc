@@ -1,0 +1,46 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}File Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}File List}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}File Documentation}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}waste\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bin\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Function Documentation}{4}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}controlPeltierModule()}{4}{subsubsection.2.1.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}handleIncomingMessage()}{4}{subsubsection.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.1.3}loop()}{4}{subsubsection.2.1.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.1.4}publishMessage()}{5}{subsubsection.2.1.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.1.5}publishSensorData()}{5}{subsubsection.2.1.1.5}%
+\contentsline {subsubsection}{\numberline {2.1.1.6}readSensorData()}{5}{subsubsection.2.1.1.6}%
+\contentsline {subsubsection}{\numberline {2.1.1.7}setup()}{5}{subsubsection.2.1.1.7}%
+\contentsline {subsubsection}{\numberline {2.1.1.8}setupMQTTClient()}{5}{subsubsection.2.1.1.8}%
+\contentsline {subsubsection}{\numberline {2.1.1.9}setupPeltierAndFan()}{5}{subsubsection.2.1.1.9}%
+\contentsline {subsubsection}{\numberline {2.1.1.10}setupSHT4x()}{5}{subsubsection.2.1.1.10}%
+\contentsline {subsubsection}{\numberline {2.1.1.11}setupWiFi()}{6}{subsubsection.2.1.1.11}%
+\contentsline {subsubsection}{\numberline {2.1.1.12}updateLidPosition()}{6}{subsubsection.2.1.1.12}%
+\contentsline {subsection}{\numberline {2.1.2}Variable Documentation}{6}{subsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}BUTTON\_PIN}{6}{subsubsection.2.1.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.2.2}CLIENT\_NAME}{6}{subsubsection.2.1.2.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}humidity\_value}{6}{subsubsection.2.1.2.3}%
+\contentsline {subsubsection}{\numberline {2.1.2.4}interval}{6}{subsubsection.2.1.2.4}%
+\contentsline {subsubsection}{\numberline {2.1.2.5}last\_msg\_sent}{6}{subsubsection.2.1.2.5}%
+\contentsline {subsubsection}{\numberline {2.1.2.6}lid\_position}{7}{subsubsection.2.1.2.6}%
+\contentsline {subsubsection}{\numberline {2.1.2.7}mqtt\_client}{7}{subsubsection.2.1.2.7}%
+\contentsline {subsubsection}{\numberline {2.1.2.8}MQTT\_PASSWORD}{7}{subsubsection.2.1.2.8}%
+\contentsline {subsubsection}{\numberline {2.1.2.9}MQTT\_PORT}{7}{subsubsection.2.1.2.9}%
+\contentsline {subsubsection}{\numberline {2.1.2.10}MQTT\_SERVER}{7}{subsubsection.2.1.2.10}%
+\contentsline {subsubsection}{\numberline {2.1.2.11}MQTT\_USERNAME}{7}{subsubsection.2.1.2.11}%
+\contentsline {subsubsection}{\numberline {2.1.2.12}msg\_interval}{7}{subsubsection.2.1.2.12}%
+\contentsline {subsubsection}{\numberline {2.1.2.13}PASSWORD}{7}{subsubsection.2.1.2.13}%
+\contentsline {subsubsection}{\numberline {2.1.2.14}peltierandfanpin}{8}{subsubsection.2.1.2.14}%
+\contentsline {subsubsection}{\numberline {2.1.2.15}peltierandfanstate}{8}{subsubsection.2.1.2.15}%
+\contentsline {subsubsection}{\numberline {2.1.2.16}previousMillis}{8}{subsubsection.2.1.2.16}%
+\contentsline {subsubsection}{\numberline {2.1.2.17}pwmFreq}{8}{subsubsection.2.1.2.17}%
+\contentsline {subsubsection}{\numberline {2.1.2.18}SENSOR\_DATA\_TOPIC}{8}{subsubsection.2.1.2.18}%
+\contentsline {subsubsection}{\numberline {2.1.2.19}setPoint}{8}{subsubsection.2.1.2.19}%
+\contentsline {subsubsection}{\numberline {2.1.2.20}sht4}{8}{subsubsection.2.1.2.20}%
+\contentsline {subsubsection}{\numberline {2.1.2.21}SSID}{8}{subsubsection.2.1.2.21}%
+\contentsline {subsubsection}{\numberline {2.1.2.22}temperature\_value}{9}{subsubsection.2.1.2.22}%
+\contentsline {subsubsection}{\numberline {2.1.2.23}tolerance}{9}{subsubsection.2.1.2.23}%
+\contentsline {subsubsection}{\numberline {2.1.2.24}wifi\_client}{9}{subsubsection.2.1.2.24}%
+\contentsline {section}{\numberline {2.2}waste\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bin\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}waste\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bin\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ino File Reference}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}waste\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}bin\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}ino}{10}{section.2.4}%

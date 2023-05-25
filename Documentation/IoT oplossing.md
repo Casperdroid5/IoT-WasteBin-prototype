@@ -1,4 +1,4 @@
-# Het Gebruik van Meerdere ESP32-Microcontrollers met Node-Red
+# Het Gebruik van meerdere ESP32-Microcontrollers met Node-Red
 
 ## Inleiding
 
@@ -123,3 +123,63 @@ Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende ve
 De database kan worden doorzocht met behulp van "views" in SQLiteStudio. Deze kunnen door de gebruiker worden gemaakt en aangepast.
 
 Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-microcontrollers met Node-Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.
+
+### Views
+
+Er zijn 3 views beschikbaar gemaakt voor de database.
+
+Deze views zijn gemaakt om een sneller en beter inzicht te krijgen in bepaalde data combinaties.
+
+Hier is een Markdown representatie van de drie views:
+
+### View 1 : view_al_testpersons_with_wastebinnr
+
+```
+SELECT tp.*,
+       wb.wastebinnr
+  FROM testperson AS tp
+       JOIN
+       wastebin AS wb ON tp.idnr = wb.testperson
+```
+
+Deze query selecteert alle kolommen (`*`) uit de `testperson`-tabel en voegt de kolom `wastebinnr` uit de `wastebin`-tabel toe. De JOIN-operatie wordt uitgevoerd op basis van de overeenkomstige `idnr`-kolommen tussen de `testperson`- en `wastebin`-tabellen.
+
+### View 2: view_all_sensors_data
+
+```
+SELECT s.sensor_type,
+       CASE WHEN sensor_type = "lidposition" AND 
+                 sd.sensor_value = 1 THEN 'closed' WHEN sensor_type = "lidposition" AND 
+                                                        sd.sensor_value = 0 THEN 'open' ELSE sd.sensor_value END AS sensorvalue,
+       sd.timestamp,
+       sd.mac_address
+  FROM sensor AS s
+       JOIN
+       sensordata AS sd ON s.sensor_idnr = sd.sensor_idnr
+```
+
+Deze query selecteert de kolommen `sensor_type`, `sensorvalue`, `timestamp` en `mac_address`. De `CASE`-expressie wordt gebruikt om de waarde van `sensorvalue` te bepalen op basis van voorwaarden. De JOIN-operatie wordt uitgevoerd op basis van de overeenkomstige `sensor_idnr`-kolommen tussen de `sensor`- en `sensordata`-tabellen.
+
+### View 3: view_all_wastebin_settings
+
+```
+SELECT w.wastebinnr,
+       w.mac_adress,
+       s.SSID,
+       s.password,
+       s.mqtt_server,
+       s.mqtt_username,
+       s.mqtt_password,
+       s.mqtt_port,
+       s.sensor_data_topic,
+       w.testperson
+  FROM wastebin AS w
+       JOIN
+       settings AS s ON w.mac_adress = s.mac_adress
+```
+
+Deze query selecteert verschillende kolommen uit de `wastebin`- en `settings`-tabellen. De JOIN-operatie wordt uitgevoerd op basis van de overeenkomstige `mac_address`-kolommen tussen de twee tabellen.
+
+De bovenstaande weergave is bedoeld om de query's in een leesbare vorm te presenteren.
+
+Er word aangemoedigd om de views uit te breiden of aan te passen naar wens van de gebruiker.

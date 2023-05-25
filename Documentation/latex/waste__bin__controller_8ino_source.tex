@@ -1,0 +1,299 @@
+\hypertarget{waste__bin__controller_8ino_source}{}\doxysection{waste\+\_\+bin\+\_\+controller.\+ino}
+\label{waste__bin__controller_8ino_source}\index{waste\_bin\_controller.ino@{waste\_bin\_controller.ino}}
+\mbox{\hyperlink{waste__bin__controller_8ino}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00001}00001 \#include "{}waste\_bin\_controller.h"{}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00003}00003 // WiFi settings}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00004}00004 const char* SSID = "{}WWegvanons3"{};       ///< SSID of the WiFi network}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00005}00005 const char* PASSWORD = "{}JuCasSan27@\#"{};  ///< Password for the WiFi network}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00007}00007 // MQTT Broker settings}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00008}00008 const char* MQTT\_SERVER = "{}192.168.111.237"{};  ///< MQTT broker server IP address}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00009}00009 const char* MQTT\_USERNAME = "{}mqtt"{};           ///< MQTT broker username}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00010}00010 const char* MQTT\_PASSWORD = "{}WasteBin5\#"{};     ///< MQTT broker password}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00011}00011 const int MQTT\_PORT = 1883;                   ///< MQTT broker port number}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00013}00013 const char* CLIENT\_NAME = "{}ESP32WasteBin"{};  ///< Name of the MQTT client}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00014}00014 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00015}00015 // MQTT topics}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00016}00016 const char* SENSOR\_DATA\_TOPIC = "{}/data/sensors/"{};  ///< Topic for sensor data}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00018}00018 // Device settings}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00019}00019 const uint8\_t peltierandfanpin = 3;  ///< Pin for Peltier module and fan}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00020}00020 const long interval = 20000;         ///< Interval for Peltier and fan control}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00021}00021 int peltierandfanstate = LOW;        ///< Current state of the Peltier module and fan}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00023}00023 // PubSubClient setup}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00024}00024 WiFiClient wifi\_client;                 ///< WiFi client for MQTT connection}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00025}00025 PubSubClient mqtt\_client(wifi\_client);  ///< MQTT client}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00026}00026 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00027}00027 // Other variables}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00028}00028 unsigned long last\_msg\_sent = 0;           ///< Time when the last MQTT message was sent}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00029}00029 const unsigned long msg\_interval = 15000;  ///< Interval for sending MQTT messages}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00030}00030 unsigned long previousMillis = 0;          ///< Previous timestamp for interval calculations}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00032}00032 const int setPoint = 15;  ///< Temperature set point in Celsius}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00033}00033 const int tolerance = 2;  ///< Temperature tolerance in Celsius}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00034}00034 const int pwmFreq = 200;  ///< PWM frequency in Hz}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00036}00036 // Sensor pin}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00037}00037 const int BUTTON\_PIN = 4;  ///< Pin for the lid position sensor}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00039}00039 // Sensor values}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00040}00040 bool lid\_position = false;      ///< Current state of the lid position}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00041}00041 float humidity\_value = 0.0;     ///< Current humidity value}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00042}00042 float temperature\_value = 0.0;  ///< Current temperature value}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00044}00044 // SHT4x sensor setup}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00045}00045 Adafruit\_SHT4x sht4 = Adafruit\_SHT4x();  ///< SHT4x sensor object}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00047}00047 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00048}00048  * @brief Set up the WiFi connection.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00049}00049  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00050}00050 void setupWiFi() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00051}00051   Serial.print("{}Connecting to "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00052}00052   Serial.println(SSID);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00053}00053 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00054}00054   WiFi.mode(WIFI\_STA);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00055}00055   WiFi.begin(SSID, PASSWORD);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00057}00057   // Wait for WiFi connection}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00058}00058   while (WiFi.status() != WL\_CONNECTED) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00059}00059     delay(500);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00060}00060     Serial.print("{}trying to connect... "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00061}00061   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00062}00062 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00063}00063   Serial.println("{}\(\backslash\)nWiFi connected\(\backslash\)nIP address: "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00064}00064   Serial.println(WiFi.localIP());}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00065}00065 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00067}00067 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00068}00068  * @brief Set up the Peltier module and fan pin.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00069}00069  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00070}00070 void setupPeltierAndFan() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00071}00071   // Peltier + fan pin}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00072}00072   pinMode(peltierandfanpin, OUTPUT);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00073}00073   analogWriteFrequency(pwmFreq);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00074}00074 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00076}00076 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00077}00077  * @brief Set up the SHT4x sensor.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00078}00078  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00079}00079 void setupSHT4x() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00080}00080   // SHT4x sensor setup}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00081}00081   Serial.println("{}Adafruit SHT4x test"{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00082}00082   if (!sht4.begin()) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00083}00083     Serial.println("{}Couldn't find SHT4x"{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00084}00084     delay(1000);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00085}00085   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00086}00086   Serial.println("{}Found SHT4x sensor"{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00087}00087   Serial.print("{}Serial number 0x"{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00088}00088   Serial.println(sht4.readSerial(), HEX);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00089}00089   sht4.setPrecision(SHT4X\_HIGH\_PRECISION);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00090}00090   sht4.setHeater(SHT4X\_NO\_HEATER);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00091}00091 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00092}00092 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00093}00093 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00094}00094  * @brief Set up the MQTT client.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00095}00095  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00096}00096 void setupMQTTClient() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00097}00097   // MQTT client setup}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00098}00098   mqtt\_client.setServer(MQTT\_SERVER, MQTT\_PORT);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00099}00099   mqtt\_client.setCallback(handleIncomingMessage);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00100}00100 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00101}00101 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00102}00102 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00103}00103  * @brief Read sensor data from the SHT4x sensor.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00104}00104  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00105}00105 void readSensorData() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00106}00106   // Read sensor data}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00107}00107   sensors\_event\_t humidity, temp;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00108}00108   uint32\_t timestamp = millis();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00109}00109   sht4.getEvent(\&humidity, \&temp);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00110}00110   timestamp = millis() -\/ timestamp;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00111}00111 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00112}00112   // Update sensor values}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00113}00113   humidity\_value = humidity.relative\_humidity;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00114}00114   temperature\_value = temp.temperature;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00115}00115 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00116}00116 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00117}00117 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00118}00118  * @brief Update the current lid position based on the button state.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00119}00119    @brief Whenever the lid is opened longer than threshold, sound will be played trough piezo and led will light up.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00120}00120 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00121}00121  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00122}00122 const int led\_pin = 1;       // Pin for the LED}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00123}00123 const int piezo\_pin = 5;     // Pin for the piezo speaker}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00124}00124 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00125}00125 unsigned long lidOpenStartTime = 0;  // Variable to store the lid open start time}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00126}00126 bool isBeeping = false;               // Flag to track if the piezo speaker is beeping}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00127}00127 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00128}00128 void updateLidPosition() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00129}00129   // Get lid position}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00130}00130   bool button\_state = digitalRead(BUTTON\_PIN);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00131}00131   if (button\_state == LOW) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00132}00132     lid\_position = true;  // lid is closed}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00133}00133     lidOpenStartTime = millis();  // Reset lid open start time}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00134}00134     digitalWrite(led\_pin, LOW);   // Turn off the LED}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00135}00135 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00136}00136     // Stop the piezo speaker from beeping}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00137}00137     if (isBeeping) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00138}00138       noTone(piezo\_pin);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00139}00139       isBeeping = false;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00140}00140     \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00141}00141   \} else \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00142}00142     lid\_position = false;  // lid is opened}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00143}00143 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00144}00144     // Check if the lid has been opened for longer than 10 seconds}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00145}00145     if (millis() -\/ lidOpenStartTime >= 10000) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00146}00146       // Blink the LED every 2 seconds}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00147}00147       if ((millis() / 2000) \% 2 == 0) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00148}00148         digitalWrite(led\_pin, HIGH);  // Turn on the LED}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00149}00149 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00150}00150         // Start the piezo speaker beeping if it's not already beeping}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00151}00151         if (!isBeeping) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00152}00152           tone(piezo\_pin, 500, 750);  // Beep for 500ms at 750Hz}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00153}00153           isBeeping = true;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00154}00154         \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00155}00155       \} else \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00156}00156         digitalWrite(led\_pin, LOW);   // Turn off the LED}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00157}00157 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00158}00158         // Stop the piezo speaker from beeping}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00159}00159         if (isBeeping) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00160}00160           noTone(piezo\_pin);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00161}00161           isBeeping = false;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00162}00162         \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00163}00163       \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00164}00164     \} else \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00165}00165       digitalWrite(led\_pin, LOW);   // Turn off the LED}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00167}00167       // Stop the piezo speaker from beeping}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00168}00168       if (isBeeping) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00169}00169         noTone(piezo\_pin);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00170}00170         isBeeping = false;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00171}00171       \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00172}00172     \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00173}00173   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00174}00174 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00175}00175 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00176}00176 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00177}00177 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00178}00178  * @brief Control the Peltier module based on the temperature error.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00179}00179  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00180}00180 void controlPeltierModule() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00181}00181   float error = setPoint -\/ temperature\_value;  // Calculate error}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00182}00182   Serial.println(temperature\_value);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00183}00183   Serial.println(error);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00184}00184 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00185}00185   if (error > tolerance) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00186}00186     // If temperature is too HIGH, turn off Peltier module}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00187}00187     analogWrite(peltierandfanpin, 0);  // Set maximum duty cycle}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00188}00188   \} else if (error < -\/tolerance) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00189}00189     // If temperature is too LOW, turn on Peltier module}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00190}00190     analogWrite(peltierandfanpin, 255);  // Set minimum duty cycle}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00191}00191   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00192}00192   // Otherwise, maintain current state of Peltier module}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00193}00193 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00194}00194 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00195}00195 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00196}00196  * @brief Publish sensor data to the MQTT broker.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00197}00197  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00198}00198 void publishSensorData() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00199}00199   // Publish sensor data to MQTT broker}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00200}00200   if (mqtt\_client.connected()) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00201}00201     if (millis() -\/ last\_msg\_sent > msg\_interval) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00202}00202       publishMessage(SENSOR\_DATA\_TOPIC, temperature\_value, humidity\_value, lid\_position);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00203}00203       last\_msg\_sent = millis();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00204}00204     \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00205}00205   \} else \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00206}00206     // Attempt to reconnect to MQTT broker}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00207}00207     if (!mqtt\_client.connect(CLIENT\_NAME, MQTT\_USERNAME, MQTT\_PASSWORD)) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00208}00208       Serial.println("{}Failed to connect to MQTT broker"{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00209}00209     \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00210}00210   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00211}00211 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00212}00212   // Maintain MQTT connection}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00213}00213   mqtt\_client.loop();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00214}00214 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00215}00215 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00216}00216 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00217}00217  * @brief Handle incoming MQTT messages.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00218}00218  * @param topic The topic of the incoming message.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00219}00219  * @param payload The payload of the incoming message.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00220}00220  * @param length The length of the payload.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00221}00221  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00222}00222 void handleIncomingMessage(char* topic, byte* payload, unsigned int length) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00223}00223   // Handle incoming MQTT messages}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00224}00224   String incoming\_message = "{}"{};}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00225}00225   for (int i = 0; i < length; i++) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00226}00226     incoming\_message += (char)payload[i];}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00227}00227   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00228}00228   Serial.println("{}Message arrived ["{} + String(topic) + "{}]: "{} + incoming\_message);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00229}00229 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00230}00230 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00231}00231 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00232}00232  * @brief Publish a message to the MQTT broker.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00233}00233  * @param topic The topic to publish the message to.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00234}00234  * @param temperature The temperature value to include in the message.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00235}00235  * @param humidity The humidity value to include in the message.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00236}00236  * @param lid\_position The lid position value to include in the message.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00237}00237  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00238}00238 void publishMessage(const char* topic, const float temperature, const float humidity, const bool lid\_position) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00239}00239   // Create JSON object}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00240}00240   auto macAdress = WiFi.macAddress();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00241}00241   StaticJsonDocument<200> jsonDoc;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00242}00242 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00243}00243   jsonDoc["{}macAdress"{}] = macAdress;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00244}00244   jsonDoc["{}temperature"{}] = temperature;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00245}00245   jsonDoc["{}humidity"{}] = humidity;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00246}00246   jsonDoc["{}lid\_position"{}] = lid\_position;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00247}00247 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00248}00248   // Serialize JSON object to string}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00249}00249   String message;}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00250}00250   serializeJson(jsonDoc, message);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00251}00251 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00252}00252   // Publish message to MQTT broker}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00253}00253   if (mqtt\_client.publish(topic, message.c\_str())) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00254}00254     Serial.println("{}Message published ["{} + String(topic) + "{}]: "{} + message);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00255}00255   \} else \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00256}00256     Serial.println("{}Failed to publish message ["{} + String(topic) + "{}]: "{} + message);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00257}00257   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00258}00258 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00259}00259 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00260}00260 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00261}00261  * @brief Perform the initial setup of the system.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00262}00262  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00263}00263 void setup() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00264}00264   Serial.begin(115200);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00265}00265   Serial.print("{}Connecting to "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00266}00266   Serial.println(SSID);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00267}00267 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00268}00268   WiFi.mode(WIFI\_STA);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00269}00269   WiFi.begin(SSID, PASSWORD);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00270}00270 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00271}00271   // Wait for WiFi connection}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00272}00272   while (WiFi.status() != WL\_CONNECTED) \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00273}00273     delay(500);}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00274}00274     Serial.print("{}trying to connect... "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00275}00275   \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00276}00276 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00277}00277   Serial.println("{}\(\backslash\)nWiFi connected\(\backslash\)nIP address: "{});}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00278}00278   Serial.println(WiFi.localIP());}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00279}00279 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00280}00280   setupPeltierAndFan();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00281}00281   setupSHT4x();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00282}00282   setupMQTTClient();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00283}00283 \}}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00284}00284 }
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00285}00285 /**}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00286}00286  * @brief The main program loop.}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00287}00287  */}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00288}00288 void loop() \{}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00289}00289   readSensorData();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00290}00290   updateLidPosition();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00291}00291   controlPeltierModule();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00292}00292   publishSensorData();}
+\DoxyCodeLine{\Hypertarget{waste__bin__controller_8ino_source_l00293}00293 \}}
+
+\end{DoxyCode}
