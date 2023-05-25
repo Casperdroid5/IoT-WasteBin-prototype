@@ -48,7 +48,14 @@ De volgende gegevens willen we versturen vanaf de ESP32\+:
 \item Waste\+Bin-\/\+ID (macadres)
 \end{DoxyItemize}
 
-Deze gegevens worden via MQTT naar Node-\/\+Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-\/database. We hebben gekozen voor SQLite vanwege de handige SQLite\+Studio-\/omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.\hypertarget{md__io_t_oplossing_autotoc_md23}{}\doxysection{Meldingen voor de gebruiker}\label{md__io_t_oplossing_autotoc_md23}
+Deze gegevens worden via MQTT naar Node-\/\+Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-\/database. We hebben gekozen voor SQLite vanwege de handige SQLite\+Studio-\/omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{Datastream.png}
+\doxyfigcaption{Datastream}
+\end{DoxyImage}
+   \hypertarget{md__io_t_oplossing_autotoc_md23}{}\doxysection{Meldingen voor de gebruiker}\label{md__io_t_oplossing_autotoc_md23}
 Voor onze opstelling willen we een luidspreker gebruiken als indicator die verschillende waarschuwingen kan afgeven wanneer dat nodig is. Deze waarschuwingen zijn onder andere\+:
 
 
