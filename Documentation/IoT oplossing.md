@@ -76,11 +76,15 @@ In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 min
 
 We zullen Node-Red gebruiken om alle gegevens van MQTT te ontvangen, te verwerken en weer te geven. Alle ontvangen informatie wordt weergegeven via een Node-Red UI-tabblad. Dit UI-tabblad, ook wel "dashboard" genoemd in Node-Red, is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken kunnen in real-time worden weergegeven op het dashboard als dat gewenst is.
 
-De Node-Red UI ziet er als volgt uit voor twee vuilnisbakken: ![Node-Red UI](node-red-ui.png)
+De Node-Red UI ziet er als volgt uit voor twee vuilnisbakken:
+
+![Node-Red UI](node-red-ui.png)
 
 ### Node-Red flow
 
-Om dit alles te laten werken, hebben we een Node-Red flow gemaakt. De Node-Red flow ziet er als volgt uit: ![Node-Red setup](node-red-setup.png)
+Om dit alles te laten werken, hebben we een Node-Red flow gemaakt. De Node-Red flow ziet er als volgt uit:
+
+![Node-Red setup](node-red-setup.png)
 
 In deze flow ontvangt de eerste node (paars) de MQTT-gegevens. Vervolgens wordt er een tijdstempel aan het bericht toegevoegd en worden alle inkomende berichten gescheiden met behulp van een schakelaar (switch). De gegevens worden gescheiden op basis van het macadres (uniek) van de vuilnisbak.
 
@@ -91,6 +95,7 @@ Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) d
 Alle informatie wordt via Node-Red doorgestuurd naar een SQLite-database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
 
 De database is als volgt opgebouwd:
+
 ![Databaseontwerp](WasteBinDBER.png)
 
 Hierbij zijn alle onderstreepte woorden sleutelwaarden. Helaas toont het Database Entity Relationship-diagram (DBER) niet alle details, maar het geeft wel een goed overzicht van de databasestructuur.

@@ -26,6 +26,7 @@ In dit document worden de functionele en technische specificaties besproken voor
 | F11 | S | Het product moet zou energie moeten "terugwinnen" (door GFE-preservatie). |
 | F12 | C | Het product (prototype) moet een logfunctie hebben voor diagnose. |
 
+
 ## Technische specificaties
 
 | # | Beschrijving |

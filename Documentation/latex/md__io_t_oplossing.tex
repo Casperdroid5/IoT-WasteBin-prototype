@@ -58,15 +58,21 @@ In principe worden alle gegevens elke 15 minuten verstuurd. We denken dat dit vo
 In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 minuten, indien er zich één of meerdere fouten blijven voordoen.\hypertarget{md__io_t_oplossing_autotoc_md28}{}\doxysection{Node-\/\+Red}\label{md__io_t_oplossing_autotoc_md28}
 We zullen Node-\/\+Red gebruiken om alle gegevens van MQTT te ontvangen, te verwerken en weer te geven. Alle ontvangen informatie wordt weergegeven via een Node-\/\+Red UI-\/tabblad. Dit UI-\/tabblad, ook wel \char`\"{}dashboard\char`\"{} genoemd in Node-\/\+Red, is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken kunnen in real-\/time worden weergegeven op het dashboard als dat gewenst is.
 
-De Node-\/\+Red UI ziet er als volgt uit voor twee vuilnisbakken\+: 
-\begin{DoxyInlineImage}
-\includegraphics[height=\baselineskip,keepaspectratio=true]{node-red-ui.png}%Node-\/\+Red UI
-\end{DoxyInlineImage}
+De Node-\/\+Red UI ziet er als volgt uit voor twee vuilnisbakken\+:
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{node-red-ui.png}
+\doxyfigcaption{Node-\/\+Red UI}
+\end{DoxyImage}
    \hypertarget{md__io_t_oplossing_autotoc_md29}{}\doxysubsection{Node-\/\+Red flow}\label{md__io_t_oplossing_autotoc_md29}
-Om dit alles te laten werken, hebben we een Node-\/\+Red flow gemaakt. De Node-\/\+Red flow ziet er als volgt uit\+: 
-\begin{DoxyInlineImage}
-\includegraphics[height=\baselineskip,keepaspectratio=true]{node-red-setup.png}%Node-\/\+Red setup
-\end{DoxyInlineImage}
+Om dit alles te laten werken, hebben we een Node-\/\+Red flow gemaakt. De Node-\/\+Red flow ziet er als volgt uit\+:
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{node-red-setup.png}
+\doxyfigcaption{Node-\/\+Red setup}
+\end{DoxyImage}
    
 
 In deze flow ontvangt de eerste node (paars) de MQTT-\/gegevens. Vervolgens wordt er een tijdstempel aan het bericht toegevoegd en worden alle inkomende berichten gescheiden met behulp van een schakelaar (switch). De gegevens worden gescheiden op basis van het macadres (uniek) van de vuilnisbak.
@@ -119,4 +125,61 @@ Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende ve
 
 De database kan worden doorzocht met behulp van \char`\"{}views\char`\"{} in SQLite\+Studio. Deze kunnen door de gebruiker worden gemaakt en aangepast.
 
-Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-\/microcontrollers met Node-\/\+Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer. 
+Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-\/microcontrollers met Node-\/\+Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.\hypertarget{md__io_t_oplossing_autotoc_md31}{}\doxysubsection{Views}\label{md__io_t_oplossing_autotoc_md31}
+Er zijn 3 views beschikbaar gemaakt voor de database.
+
+Deze views zijn gemaakt om een sneller en beter inzicht te krijgen in bepaalde data combinaties.
+
+Hier is een Markdown representatie van de drie views\+:\hypertarget{md__io_t_oplossing_autotoc_md32}{}\doxysubsection{View 1 \+: view\+\_\+al\+\_\+testpersons\+\_\+with\+\_\+wastebinnr}\label{md__io_t_oplossing_autotoc_md32}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SELECT tp.*,}
+\DoxyCodeLine{       wb.wastebinnr}
+\DoxyCodeLine{  FROM testperson AS tp}
+\DoxyCodeLine{       JOIN}
+\DoxyCodeLine{       wastebin AS wb ON tp.idnr = wb.testperson}
+
+\end{DoxyCode}
+
+
+Deze query selecteert alle kolommen ({\ttfamily $\ast$}) uit de {\ttfamily testperson}-\/tabel en voegt de kolom {\ttfamily wastebinnr} uit de {\ttfamily wastebin}-\/tabel toe. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily idnr}-\/kolommen tussen de {\ttfamily testperson}-\/ en {\ttfamily wastebin}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md33}{}\doxysubsection{View 2\+: view\+\_\+all\+\_\+sensors\+\_\+data}\label{md__io_t_oplossing_autotoc_md33}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SELECT s.sensor\_type,}
+\DoxyCodeLine{       CASE WHEN sensor\_type = "{}lidposition"{} AND }
+\DoxyCodeLine{                 sd.sensor\_value = 1 THEN 'closed' WHEN sensor\_type = "{}lidposition"{} AND }
+\DoxyCodeLine{                                                        sd.sensor\_value = 0 THEN 'open' ELSE sd.sensor\_value END AS sensorvalue,}
+\DoxyCodeLine{       sd.timestamp,}
+\DoxyCodeLine{       sd.mac\_address}
+\DoxyCodeLine{  FROM sensor AS s}
+\DoxyCodeLine{       JOIN}
+\DoxyCodeLine{       sensordata AS sd ON s.sensor\_idnr = sd.sensor\_idnr}
+
+\end{DoxyCode}
+
+
+Deze query selecteert de kolommen {\ttfamily sensor\+\_\+type}, {\ttfamily sensorvalue}, {\ttfamily timestamp} en {\ttfamily mac\+\_\+address}. De {\ttfamily CASE}-\/expressie wordt gebruikt om de waarde van {\ttfamily sensorvalue} te bepalen op basis van voorwaarden. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily sensor\+\_\+idnr}-\/kolommen tussen de {\ttfamily sensor}-\/ en {\ttfamily sensordata}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md34}{}\doxysubsection{View 3\+: view\+\_\+all\+\_\+wastebin\+\_\+settings}\label{md__io_t_oplossing_autotoc_md34}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SELECT w.wastebinnr,}
+\DoxyCodeLine{       w.mac\_adress,}
+\DoxyCodeLine{       s.SSID,}
+\DoxyCodeLine{       s.password,}
+\DoxyCodeLine{       s.mqtt\_server,}
+\DoxyCodeLine{       s.mqtt\_username,}
+\DoxyCodeLine{       s.mqtt\_password,}
+\DoxyCodeLine{       s.mqtt\_port,}
+\DoxyCodeLine{       s.sensor\_data\_topic,}
+\DoxyCodeLine{       w.testperson}
+\DoxyCodeLine{  FROM wastebin AS w}
+\DoxyCodeLine{       JOIN}
+\DoxyCodeLine{       settings AS s ON w.mac\_adress = s.mac\_adress}
+
+\end{DoxyCode}
+
+
+Deze query selecteert verschillende kolommen uit de {\ttfamily wastebin}-\/ en {\ttfamily settings}-\/tabellen. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily mac\+\_\+address}-\/kolommen tussen de twee tabellen.
+
+De bovenstaande weergave is bedoeld om de query\textquotesingle{}s in een leesbare vorm te presenteren.
+
+Er word aangemoedigd om de views uit te breiden of aan te passen naar wens van de gebruiker. 
