@@ -1,7 +1,7 @@
-\hypertarget{md__io_t_oplossing_autotoc_md18}{}\doxysection{Inleiding}\label{md__io_t_oplossing_autotoc_md18}
-Meerdere ESP32-\/microcontrollers kunnen in combinatie met Node-\/\+Red worden gebruikt om een visuele interface te bouwen op basis van de gegevens die zijn gelogd door de ESP32. Elke ESP32 kan worden geconfigureerd om gegevens van een specifieke sensor of apparaat te loggen en deze via Wi-\/\+Fi naar Node-\/\+Red te verzenden. Node-\/\+Red kan vervolgens de gegevens ontvangen en verwerken met behulp van verschillende nodes.\hypertarget{md__io_t_oplossing_autotoc_md19}{}\doxysection{Doelen}\label{md__io_t_oplossing_autotoc_md19}
-\hypertarget{md__io_t_oplossing_autotoc_md20}{}\doxysubsection{Doel \#1}\label{md__io_t_oplossing_autotoc_md20}
-Het opzetten van een systeem waarbij meerdere ESP32-\/microcontrollers worden gebruikt om gegevens te loggen en deze naar Node-\/\+Red te verzenden voor visualisatie en verwerking.\hypertarget{md__io_t_oplossing_autotoc_md21}{}\doxysection{Onderbouwing keuze ESP32 C3}\label{md__io_t_oplossing_autotoc_md21}
+\hypertarget{md__io_t_oplossing_autotoc_md17}{}\doxysection{Inleiding}\label{md__io_t_oplossing_autotoc_md17}
+Meerdere ESP32-\/microcontrollers kunnen in combinatie met Node-\/\+Red worden gebruikt om een visuele interface te bouwen op basis van de gegevens die zijn gelogd door de ESP32. Elke ESP32 kan worden geconfigureerd om gegevens van een specifieke sensor of apparaat te loggen en deze via Wi-\/\+Fi naar Node-\/\+Red te verzenden. Node-\/\+Red kan vervolgens de gegevens ontvangen en verwerken met behulp van verschillende nodes.\hypertarget{md__io_t_oplossing_autotoc_md18}{}\doxysection{Doelen}\label{md__io_t_oplossing_autotoc_md18}
+\hypertarget{md__io_t_oplossing_autotoc_md19}{}\doxysubsection{Doel \#1}\label{md__io_t_oplossing_autotoc_md19}
+Het opzetten van een systeem waarbij meerdere ESP32-\/microcontrollers worden gebruikt om gegevens te loggen en deze naar Node-\/\+Red te verzenden voor visualisatie en verwerking.\hypertarget{md__io_t_oplossing_autotoc_md20}{}\doxysection{Onderbouwing keuze ESP32 C3}\label{md__io_t_oplossing_autotoc_md20}
 Wij kiezen voor een ESP32 omdat deze de volgende voordelen biedt\+:
 
 
@@ -10,8 +10,8 @@ Wij kiezen voor een ESP32 omdat deze de volgende voordelen biedt\+:
 \item Beschikbaarheid (1300 op voorraad bij Mouser, afhankelijk van het model).
 \item Geschikt voor de taken die moeten worden uitgevoerd.
 \item Compact formaat.
-\end{DoxyItemize}\hypertarget{md__io_t_oplossing_autotoc_md22}{}\doxysection{Waarom geen Arduino of Raspberry Pi als computer voor de Waste\+Bin?}\label{md__io_t_oplossing_autotoc_md22}
-Raspberry Pi\textquotesingle{}s zijn momenteel moeilijk verkrijgbaar, duur in aanschaf voor een testplatform en vereisen meer inspanning om op te zetten. Bovendien zijn ze vaak te krachtig voor onze doeleinden en daardoor overbodig qua rekenkracht. Arduino\textquotesingle{}s zijn redelijke alternatieven, maar duurder dan losse ESP32-\/modules. Desalniettemin kunnen ESP32-\/modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-\/codebibliotheken, indien gewenst.\hypertarget{md__io_t_oplossing_autotoc_md23}{}\doxysection{Data forwarding}\label{md__io_t_oplossing_autotoc_md23}
+\end{DoxyItemize}\hypertarget{md__io_t_oplossing_autotoc_md21}{}\doxysection{Waarom geen Arduino of Raspberry Pi als computer voor de Waste\+Bin?}\label{md__io_t_oplossing_autotoc_md21}
+Raspberry Pi\textquotesingle{}s zijn momenteel moeilijk verkrijgbaar, duur in aanschaf voor een testplatform en vereisen meer inspanning om op te zetten. Bovendien zijn ze vaak te krachtig voor onze doeleinden en daardoor overbodig qua rekenkracht. Arduino\textquotesingle{}s zijn redelijke alternatieven, maar duurder dan losse ESP32-\/modules. Desalniettemin kunnen ESP32-\/modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-\/codebibliotheken, indien gewenst.\hypertarget{md__io_t_oplossing_autotoc_md22}{}\doxysection{Data forwarding}\label{md__io_t_oplossing_autotoc_md22}
 Data forwarding is de plaats waar alle data van de ESP32\textquotesingle{}s (of vuilnisbakken) wordt verzameld. Een mogelijke optie is het gebruik van specifieke hardware, zoals een Raspberry Pi met een broker (zoals Mosquitto) en een Node-\/\+Red-\/dashboard. Wij kiezen ervoor om de broker en het dashboard op onze lokale laptop te installeren in plaats van een Raspberry Pi te gebruiken. We hebben hiervoor meerdere redenen\+:
 
 
@@ -31,7 +31,7 @@ Stappen\+:
 \item De MQTT-\/broker stuurt gegevens door naar Node-\/\+Red (lokaal).
 \item Inkomende gegevens van de MQTT-\/broker worden omgezet naar een dashboardweergave.
 \item Data van Node-\/\+Red doorsturen naar een database.
-\end{DoxyEnumerate}\hypertarget{md__io_t_oplossing_autotoc_md24}{}\doxysection{De Data}\label{md__io_t_oplossing_autotoc_md24}
+\end{DoxyEnumerate}\hypertarget{md__io_t_oplossing_autotoc_md23}{}\doxysection{De Data}\label{md__io_t_oplossing_autotoc_md23}
 De volgende gegevens willen we versturen vanaf de ESP32\+:
 
 
@@ -43,7 +43,7 @@ De volgende gegevens willen we versturen vanaf de ESP32\+:
 \item Waste\+Bin-\/\+ID (macadres)
 \end{DoxyItemize}
 
-Deze gegevens worden via MQTT naar Node-\/\+Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-\/database. We hebben gekozen voor SQLite vanwege de handige SQLite\+Studio-\/omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.\hypertarget{md__io_t_oplossing_autotoc_md25}{}\doxysection{Meldingen voor de gebruiker}\label{md__io_t_oplossing_autotoc_md25}
+Deze gegevens worden via MQTT naar Node-\/\+Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-\/database. We hebben gekozen voor SQLite vanwege de handige SQLite\+Studio-\/omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.\hypertarget{md__io_t_oplossing_autotoc_md24}{}\doxysection{Meldingen voor de gebruiker}\label{md__io_t_oplossing_autotoc_md24}
 Voor onze opstelling willen we een luidspreker gebruiken als indicator die verschillende waarschuwingen kan afgeven wanneer dat nodig is. Deze waarschuwingen zijn onder andere\+:
 
 
@@ -53,9 +53,9 @@ Voor onze opstelling willen we een luidspreker gebruiken als indicator die versc
 \item Algemene fout (ander probleem)
 \end{DoxyItemize}
 
-We hebben ervoor gekozen om deze waarschuwingen ook naar ons dashboard te sturen als ze zich voordoen. Deze waarschuwingen worden weergegeven als foutcodes.\hypertarget{md__io_t_oplossing_autotoc_md26}{}\doxysection{Verstuur interval}\label{md__io_t_oplossing_autotoc_md26}
-In principe worden alle gegevens elke 15 minuten verstuurd. We denken dat dit voldoende informatie is voor elke vuilnisbak om eventuele problemen te detecteren (bijvoorbeeld te lage temperatuur). Bovendien voorkomt dit dat de database overvol raakt met gegevens, vooral wanneer er 30 vuilnisbakken zijn.\hypertarget{md__io_t_oplossing_autotoc_md27}{}\doxysubsection{In geval van fouten}\label{md__io_t_oplossing_autotoc_md27}
-In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 minuten, indien er zich één of meerdere fouten blijven voordoen.\hypertarget{md__io_t_oplossing_autotoc_md28}{}\doxysection{Node-\/\+Red}\label{md__io_t_oplossing_autotoc_md28}
+We hebben ervoor gekozen om deze waarschuwingen ook naar ons dashboard te sturen als ze zich voordoen. Deze waarschuwingen worden weergegeven als foutcodes.\hypertarget{md__io_t_oplossing_autotoc_md25}{}\doxysection{Verstuur interval}\label{md__io_t_oplossing_autotoc_md25}
+In principe worden alle gegevens elke 15 minuten verstuurd. We denken dat dit voldoende informatie is voor elke vuilnisbak om eventuele problemen te detecteren (bijvoorbeeld te lage temperatuur). Bovendien voorkomt dit dat de database overvol raakt met gegevens, vooral wanneer er 30 vuilnisbakken zijn.\hypertarget{md__io_t_oplossing_autotoc_md26}{}\doxysubsection{In geval van fouten}\label{md__io_t_oplossing_autotoc_md26}
+In geval van een fout wordt dit interval genegeerd. Het interval wordt dan 2 minuten, indien er zich één of meerdere fouten blijven voordoen.\hypertarget{md__io_t_oplossing_autotoc_md27}{}\doxysection{Node-\/\+Red}\label{md__io_t_oplossing_autotoc_md27}
 We zullen Node-\/\+Red gebruiken om alle gegevens van MQTT te ontvangen, te verwerken en weer te geven. Alle ontvangen informatie wordt weergegeven via een Node-\/\+Red UI-\/tabblad. Dit UI-\/tabblad, ook wel \char`\"{}dashboard\char`\"{} genoemd in Node-\/\+Red, is uitbreidbaar indien gewenst. Alle prototype vuilnisbakken kunnen in real-\/time worden weergegeven op het dashboard als dat gewenst is.
 
 De Node-\/\+Red UI ziet er als volgt uit voor twee vuilnisbakken\+:
@@ -65,7 +65,7 @@ De Node-\/\+Red UI ziet er als volgt uit voor twee vuilnisbakken\+:
 \includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{node-red-ui.png}
 \doxyfigcaption{Node-\/\+Red UI}
 \end{DoxyImage}
-   \hypertarget{md__io_t_oplossing_autotoc_md29}{}\doxysubsection{Node-\/\+Red flow}\label{md__io_t_oplossing_autotoc_md29}
+   \hypertarget{md__io_t_oplossing_autotoc_md28}{}\doxysubsection{Node-\/\+Red flow}\label{md__io_t_oplossing_autotoc_md28}
 Om dit alles te laten werken, hebben we een Node-\/\+Red flow gemaakt. De Node-\/\+Red flow ziet er als volgt uit\+:
 
  
@@ -77,7 +77,7 @@ Om dit alles te laten werken, hebben we een Node-\/\+Red flow gemaakt. De Node-\
 
 In deze flow ontvangt de eerste node (paars) de MQTT-\/gegevens. Vervolgens wordt er een tijdstempel aan het bericht toegevoegd en worden alle inkomende berichten gescheiden met behulp van een schakelaar (switch). De gegevens worden gescheiden op basis van het macadres (uniek) van de vuilnisbak.
 
-Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-\/\+ID) en deze als query naar een SQLite-\/database sturen.\hypertarget{md__io_t_oplossing_autotoc_md30}{}\doxysection{Database}\label{md__io_t_oplossing_autotoc_md30}
+Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-\/\+ID) en deze als query naar een SQLite-\/database sturen.\hypertarget{md__io_t_oplossing_autotoc_md29}{}\doxysection{Database}\label{md__io_t_oplossing_autotoc_md29}
 Alle informatie wordt via Node-\/\+Red doorgestuurd naar een SQLite-\/database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
 
 De database is als volgt opgebouwd\+:
@@ -128,12 +128,12 @@ Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende ve
 
 De database kan worden doorzocht met behulp van \char`\"{}views\char`\"{} in SQLite\+Studio. Deze kunnen door de gebruiker worden gemaakt en aangepast.
 
-Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-\/microcontrollers met Node-\/\+Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.\hypertarget{md__io_t_oplossing_autotoc_md31}{}\doxysubsection{Views}\label{md__io_t_oplossing_autotoc_md31}
+Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-\/microcontrollers met Node-\/\+Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.\hypertarget{md__io_t_oplossing_autotoc_md30}{}\doxysubsection{Views}\label{md__io_t_oplossing_autotoc_md30}
 Er zijn 3 views beschikbaar gemaakt voor de database.
 
 Deze views zijn gemaakt om een sneller en beter inzicht te krijgen in bepaalde data combinaties.
 
-Hier is een Markdown representatie van de drie views\+:\hypertarget{md__io_t_oplossing_autotoc_md32}{}\doxysubsection{View 1 \+: view\+\_\+al\+\_\+testpersons\+\_\+with\+\_\+wastebinnr}\label{md__io_t_oplossing_autotoc_md32}
+Hier is een Markdown representatie van de drie views\+:\hypertarget{md__io_t_oplossing_autotoc_md31}{}\doxysubsection{View 1 \+: view\+\_\+al\+\_\+testpersons\+\_\+with\+\_\+wastebinnr}\label{md__io_t_oplossing_autotoc_md31}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{SELECT tp.*,}
@@ -145,7 +145,7 @@ Hier is een Markdown representatie van de drie views\+:\hypertarget{md__io_t_opl
 \end{DoxyCode}
 
 
-Deze query selecteert alle kolommen ({\ttfamily $\ast$}) uit de {\ttfamily testperson}-\/tabel en voegt de kolom {\ttfamily wastebinnr} uit de {\ttfamily wastebin}-\/tabel toe. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily idnr}-\/kolommen tussen de {\ttfamily testperson}-\/ en {\ttfamily wastebin}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md33}{}\doxysubsection{View 2\+: view\+\_\+all\+\_\+sensors\+\_\+data}\label{md__io_t_oplossing_autotoc_md33}
+Deze query selecteert alle kolommen ({\ttfamily $\ast$}) uit de {\ttfamily testperson}-\/tabel en voegt de kolom {\ttfamily wastebinnr} uit de {\ttfamily wastebin}-\/tabel toe. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily idnr}-\/kolommen tussen de {\ttfamily testperson}-\/ en {\ttfamily wastebin}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md32}{}\doxysubsection{View 2\+: view\+\_\+all\+\_\+sensors\+\_\+data}\label{md__io_t_oplossing_autotoc_md32}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{SELECT s.sensor\_type,}
@@ -161,7 +161,7 @@ Deze query selecteert alle kolommen ({\ttfamily $\ast$}) uit de {\ttfamily testp
 \end{DoxyCode}
 
 
-Deze query selecteert de kolommen {\ttfamily sensor\+\_\+type}, {\ttfamily sensorvalue}, {\ttfamily timestamp} en {\ttfamily mac\+\_\+address}. De {\ttfamily CASE}-\/expressie wordt gebruikt om de waarde van {\ttfamily sensorvalue} te bepalen op basis van voorwaarden. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily sensor\+\_\+idnr}-\/kolommen tussen de {\ttfamily sensor}-\/ en {\ttfamily sensordata}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md34}{}\doxysubsection{View 3\+: view\+\_\+all\+\_\+wastebin\+\_\+settings}\label{md__io_t_oplossing_autotoc_md34}
+Deze query selecteert de kolommen {\ttfamily sensor\+\_\+type}, {\ttfamily sensorvalue}, {\ttfamily timestamp} en {\ttfamily mac\+\_\+address}. De {\ttfamily CASE}-\/expressie wordt gebruikt om de waarde van {\ttfamily sensorvalue} te bepalen op basis van voorwaarden. De JOIN-\/operatie wordt uitgevoerd op basis van de overeenkomstige {\ttfamily sensor\+\_\+idnr}-\/kolommen tussen de {\ttfamily sensor}-\/ en {\ttfamily sensordata}-\/tabellen.\hypertarget{md__io_t_oplossing_autotoc_md33}{}\doxysubsection{View 3\+: view\+\_\+all\+\_\+wastebin\+\_\+settings}\label{md__io_t_oplossing_autotoc_md33}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{SELECT w.wastebinnr,}

@@ -4,7 +4,6 @@
 
 ### Inhoud
 
-- [Tabellen](#tabellen)
 - [Achtergrond informatie](#achtergrond-informatie)
 - [Feiten](#feiten)
 - [Hypotheses](#hypotheses)
@@ -13,9 +12,7 @@
 - [Uitwerking vragen](#uitwerking-vragen)
 - [Bibliografie](#bibliografie)
 
-## Tabellen
 
-Tabel 1: Hypotheses
 
 ## Achtergrond informatie
 
