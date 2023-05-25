@@ -1,11 +1,11 @@
 #include "waste_bin_controller.h"
 
 // WiFi settings
-const char* SSID = "WWegvanons3";       ///< SSID of the WiFi network
-const char* PASSWORD = "JuCasSan27@#";  ///< Password for the WiFi network
+const char* SSID = "ENTER SSID HERE";       ///< SSID of the WiFi network
+const char* PASSWORD = "ENTER PASSWORD HERE";  ///< Password for the WiFi network
 
 // MQTT Broker settings
-const char* MQTT_SERVER = "192.168.111.237";  ///< MQTT broker server IP address
+const char* MQTT_SERVER = "ENTER MQTT BROKER SERVER IP ADRESS HERE";  ///< MQTT broker server IP address
 const char* MQTT_USERNAME = "mqtt";           ///< MQTT broker username
 const char* MQTT_PASSWORD = "WasteBin5#";     ///< MQTT broker password
 const int MQTT_PORT = 1883;                   ///< MQTT broker port number
