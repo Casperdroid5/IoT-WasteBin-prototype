@@ -1,6 +1,6 @@
 # Bureaubladonderzoek
 
-## Hypotheses en feiten die baat hebben bij de ontwikkeling van de Waste Bin
+## Hypotheses en feiten die baat hebben bij de ontwikkeling van de WasteBin
 
 ### Inhoud
 

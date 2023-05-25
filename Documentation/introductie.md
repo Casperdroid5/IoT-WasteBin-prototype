@@ -2,7 +2,7 @@
 
 ## Inleiding
 
-Het WasteBin Project heeft tot doel het probleem van onaangename geuren in kleine leefruimtes, zoals appartementen, aan te pakken, terwijl het efficiënte afvalscheiding en milieubehoud bevordert. Door de ontwikkeling van een uniek apparaat voorkomt dit project niet alleen onaangename geuren, maar stimuleert het ook gebruikers om verschillende soorten afval te scheiden, wat leidt tot effectievere recycling en een verminderde milieubelasting.
+Het WasteBin Project of de slimme vuilnisbak heeft als doel het probleem van onaangename geuren in kleine leefruimtes, zoals appartementen, aan te pakken, terwijl het efficiënte afvalscheiding en milieubehoud bevordert. Door de ontwikkeling van een uniek apparaat voorkomt dit project niet alleen onaangename geuren, maar stimuleert het ook gebruikers om verschillende soorten afval te scheiden, wat leidt tot effectievere recycling en een verminderde milieubelasting.
 
 Op dit moment wordt afval helaas niet goed gescheden en uit onderzoek van de HvA blijkt dat hier een aantal redenen voor zijn.
 

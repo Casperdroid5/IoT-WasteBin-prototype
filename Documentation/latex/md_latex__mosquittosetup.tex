@@ -1,10 +1,10 @@
-Deze handleiding biedt begeleiding bij het instellen en gebruiken van de Mosquitto broker met het meegeleverde Arduino-\/script. De Mosquitto broker maakt communicatie mogelijk tussen het Arduino-\/apparaat en andere MQTT-\/clients. Volg de onderstaande instructies om de benodigde instellingen te configureren voor succesvolle communicatie.\hypertarget{md_latex__mosquittosetup_autotoc_md39}{}\doxysection{Vereisten}\label{md_latex__mosquittosetup_autotoc_md39}
+Deze handleiding biedt begeleiding bij het instellen en gebruiken van de Mosquitto broker met het meegeleverde Arduino-\/script. De Mosquitto broker maakt communicatie mogelijk tussen het Arduino-\/apparaat en andere MQTT-\/clients. Volg de onderstaande instructies om de benodigde instellingen te configureren voor succesvolle communicatie.\hypertarget{md_latex__mosquittosetup_autotoc_md40}{}\doxysection{Vereisten}\label{md_latex__mosquittosetup_autotoc_md40}
 
 \begin{DoxyItemize}
 \item Arduino-\/bord (bijv. ESP32)
 \item Arduino IDE (Integrated Development Environment)
 \item Geïnstalleerde en actieve Mosquitto broker
-\end{DoxyItemize}\hypertarget{md_latex__mosquittosetup_autotoc_md40}{}\doxysection{Configuratie van het Arduino-\/script}\label{md_latex__mosquittosetup_autotoc_md40}
+\end{DoxyItemize}\hypertarget{md_latex__mosquittosetup_autotoc_md41}{}\doxysection{Configuratie van het Arduino-\/script}\label{md_latex__mosquittosetup_autotoc_md41}
 Open het Arduino-\/script ({\ttfamily .ino}-\/bestand) in de Arduino IDE en zoek het volgende gedeelte\+:
 
 
@@ -26,7 +26,7 @@ Open het Arduino-\/script ({\ttfamily .ino}-\/bestand) in de Arduino IDE en zoek
 \begin{DoxyEnumerate}
 \item {\bfseries{Wi\+Fi-\/instellingen}}\+: Werk de {\ttfamily SSID}-\/ en {\ttfamily PASSWORD}-\/variabelen bij met de gegevens van jouw Wi\+Fi-\/netwerk.
 \item {\bfseries{MQTT Broker-\/instellingen}}\+: Wijzig de {\ttfamily MQTT\+\_\+\+SERVER}, {\ttfamily MQTT\+\_\+\+USERNAME}, {\ttfamily MQTT\+\_\+\+PASSWORD} en {\ttfamily MQTT\+\_\+\+PORT}-\/variabelen om overeen te komen met jouw Mosquitto broker-\/configuratie. De {\ttfamily MQTT\+\_\+\+SERVER} moet het IP-\/adres of de hostnaam van jouw MQTT broker bevatten.
-\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md41}{}\doxysection{Verbinding maken met de Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md41}
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md42}{}\doxysection{Verbinding maken met de Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md42}
 Om het Arduino-\/apparaat met de Mosquitto broker te verbinden, zorg ervoor dat de broker actief is en toegankelijk is vanaf het netwerk van de Arduino. Volg deze stappen\+:
 
 
@@ -35,7 +35,7 @@ Om het Arduino-\/apparaat met de Mosquitto broker te verbinden, zorg ervoor dat 
 \item {\bfseries{MQTT-\/client configureren}}\+: Het script heeft een {\ttfamily \mbox{\hyperlink{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}{setup\+MQTTClient()}}}-\/functie die de MQTT-\/client configureert met de opgegeven broker-\/instellingen. Controleer of de {\ttfamily MQTT\+\_\+\+SERVER}, {\ttfamily MQTT\+\_\+\+USERNAME}, {\ttfamily MQTT\+\_\+\+PASSWORD} en {\ttfamily MQTT\+\_\+\+PORT}-\/variabelen overeenkomen met jouw Mosquitto broker-\/configuratie.
 \item {\bfseries{Uploaden en uitvoeren}}\+: Upload het aangepaste Arduino-\/script naar jouw Arduino-\/bord en bekijk de Seriële Monitor voor de verbindingsstatus en eventuele foutmeldingen.
 \item {\bfseries{Verbinding verifiëren}}\+: Nadat het script succesvol is geüpload, zou het Arduino-\/apparaat proberen verbinding te maken met de Mosquitto broker. Controleer de Seriële Monitor op het bericht \char`\"{}  \+Wi\+Fi connected\char`\"{} gevolgd door het toegewezen IP-\/adres van de Arduino. Als de verbinding mislukt, zorg er dan voor dat de broker-\/instellingen en Wi\+Fi-\/inloggegevens correct zijn.
-\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md42}{}\doxysection{Interactie met de Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md42}
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md43}{}\doxysection{Interactie met de Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md43}
 Het Arduino-\/script voert de volgende taken uit\+:
 
 
@@ -53,5 +53,5 @@ Om te communiceren met de Mosquitto broker en gegevens te ontvangen die door de 
 \item {\bfseries{Inschrijven op sensordata}}\+: Abonneer je in jouw MQTT-\/client op het onderwerp dat is gespecificeerd in de {\ttfamily SENSOR\+\_\+\+DATA\+\_\+\+TOPIC}-\/variabele (\char`\"{}/data/sensors/\char`\"{}). Hiermee kun je sensordata ontvangen die door de Arduino is gepubliceerd.
 \item {\bfseries{Berichten publiceren om Arduino te besturen}}\+: Om berichten naar het Arduino-\/apparaat te sturen en het gedrag ervan te besturen, publiceer je berichten naar specifieke onderwerpen die het Arduino-\/script kan verwerken. Raadpleeg de code van het script voor beschikbare onderwerpen en hun overeenkomstige acties.
 \item {\bfseries{MQTT-\/berichten controleren}}\+: Bekijk in jouw MQTT-\/client de inkomende berichten van de Arduino op het geabonneerde onderwerp. De Arduino zal periodiek sensordata publiceren op basis van de {\ttfamily msg\+\_\+interval}-\/variabele.
-\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md43}{}\doxysection{Conclusie}\label{md_latex__mosquittosetup_autotoc_md43}
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md44}{}\doxysection{Conclusie}\label{md_latex__mosquittosetup_autotoc_md44}
 Door de instructies in deze handleiding te volgen, kun je de Mosquitto broker en het Arduino-\/script configureren om communicatie tot stand te brengen tussen jouw Arduino-\/apparaat en MQTT-\/clients. 

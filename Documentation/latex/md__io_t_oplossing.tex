@@ -242,4 +242,93 @@ Deze query selecteert verschillende kolommen uit de {\ttfamily wastebin}-\/ en {
 
 De bovenstaande weergave is bedoeld om de query\textquotesingle{}s in een leesbare vorm te presenteren.
 
-Er word aangemoedigd om de views uit te breiden of aan te passen naar wens van de gebruiker. 
+Er word aangemoedigd om de views uit te breiden of aan te passen naar wens van de gebruiker.\hypertarget{md__io_t_oplossing_autotoc_md38}{}\doxysection{Alle Query\textquotesingle{}s}\label{md__io_t_oplossing_autotoc_md38}
+Met al deze Query\textquotesingle{}s is de database opnieuw op te bouwen mocht dit gewenst zijn.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/ WasteBinData Database}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Tabel: sensor}
+\DoxyCodeLine{CREATE TABLE sensor (}
+\DoxyCodeLine{  sensor\_idnr INTEGER PRIMARY KEY,}
+\DoxyCodeLine{  sensor\_type TEXT NOT NULL UNIQUE,}
+\DoxyCodeLine{  sensor\_unit TEXT NOT NULL}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Tabel: sensordata}
+\DoxyCodeLine{CREATE TABLE sensordata (}
+\DoxyCodeLine{  mac\_address TEXT NOT NULL REFERENCES wastebin (mac\_adress),}
+\DoxyCodeLine{  sensor\_idnr INTEGER NOT NULL,}
+\DoxyCodeLine{  sensor\_value INTEGER NOT NULL,}
+\DoxyCodeLine{  timestamp TEXT NOT NULL}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Tabel: settings}
+\DoxyCodeLine{CREATE TABLE settings (}
+\DoxyCodeLine{  mac\_adress TEXT REFERENCES wastebin (mac\_adress),}
+\DoxyCodeLine{  SSID TEXT NOT NULL,}
+\DoxyCodeLine{  password TEXT,}
+\DoxyCodeLine{  mqtt\_server TEXT NOT NULL,}
+\DoxyCodeLine{  mqtt\_username TEXT,}
+\DoxyCodeLine{  mqtt\_password TEXT,}
+\DoxyCodeLine{  mqtt\_port INTEGER NOT NULL,}
+\DoxyCodeLine{  sensor\_data\_topic TEXT NOT NULL}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Tabel: testperson}
+\DoxyCodeLine{CREATE TABLE testperson (}
+\DoxyCodeLine{  idnr INTEGER PRIMARY KEY,}
+\DoxyCodeLine{  surname TEXT NOT NULL,}
+\DoxyCodeLine{  birthyear INTEGER,}
+\DoxyCodeLine{  nrofroommates INTEGER,}
+\DoxyCodeLine{  postalcode TEXT NOT NULL,}
+\DoxyCodeLine{  housenr TEXT NOT NULL,}
+\DoxyCodeLine{  streetname TEXT NOT NULL}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Tabel: wastebin}
+\DoxyCodeLine{CREATE TABLE wastebin (}
+\DoxyCodeLine{  mac\_adress TEXT REFERENCES testperson (idnr),}
+\DoxyCodeLine{  testperson INTEGER PRIMARY KEY,}
+\DoxyCodeLine{  wastebinnr INTEGER UNIQUE NOT NULL}
+\DoxyCodeLine{);}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ WasteBin Views}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ View: view\_al\_testpersons\_with\_wastebinnr}
+\DoxyCodeLine{CREATE VIEW view\_al\_testpersons\_with\_wastebinnr AS}
+\DoxyCodeLine{SELECT tp.*, wb.wastebinnr}
+\DoxyCodeLine{FROM testperson AS tp}
+\DoxyCodeLine{JOIN wastebin AS wb ON tp.idnr = wb.testperson;}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ View: view\_all\_sensors\_data}
+\DoxyCodeLine{CREATE VIEW view\_all\_sensors\_data AS}
+\DoxyCodeLine{SELECT s.sensor\_type,}
+\DoxyCodeLine{  CASE}
+\DoxyCodeLine{    WHEN sensor\_type = 'lidposition' AND sd.sensor\_value = 1 THEN 'closed'}
+\DoxyCodeLine{    WHEN sensor\_type = 'lidposition' AND sd.sensor\_value = 0 THEN 'open'}
+\DoxyCodeLine{    ELSE sd.sensor\_value}
+\DoxyCodeLine{  END AS sensorvalue,}
+\DoxyCodeLine{  sd.timestamp,}
+\DoxyCodeLine{  sd.mac\_address}
+\DoxyCodeLine{FROM sensor AS s}
+\DoxyCodeLine{JOIN sensordata AS sd ON s.sensor\_idnr = sd.sensor\_idnr;}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ View: view\_all\_wastebin\_settings}
+\DoxyCodeLine{CREATE VIEW view\_all\_wastebin\_settings AS}
+\DoxyCodeLine{SELECT w.wastebinnr,}
+\DoxyCodeLine{  w.mac\_adress,}
+\DoxyCodeLine{  s.SSID,}
+\DoxyCodeLine{  s.password,}
+\DoxyCodeLine{  s.mqtt\_server,}
+\DoxyCodeLine{  s.mqtt\_username,}
+\DoxyCodeLine{  s.mqtt\_password,}
+\DoxyCodeLine{  s.mqtt\_port,}
+\DoxyCodeLine{  s.sensor\_data\_topic,}
+\DoxyCodeLine{  w.testperson}
+\DoxyCodeLine{FROM wastebin AS w}
+\DoxyCodeLine{JOIN settings AS s ON w.mac\_adress = s.mac\_adress;}
+
+\end{DoxyCode}
+ 
