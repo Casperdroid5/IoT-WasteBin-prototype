@@ -8,7 +8,7 @@ node Wastebin
 interface Dashboard
 database serverInsyte
 
-cloud Internet {
+cloud Node-Red {
     (Data Overdracht) -down-> (serverInsyte) : log data
 }
 

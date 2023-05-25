@@ -22,6 +22,8 @@ Om deze motivatie te vergroten hebben wij daarom de volgende doelen opgesteld.
 
 3. Milieueffect: Het WasteBin Project draagt bij aan milieubehoud door de hoeveelheid afval die op de vuilnisbelt terechtkomt te minimaliseren. Door een betere scheiding van afval kunnen waardevolle recyclebare materialen gemakkelijker worden teruggewonnen, wat de winning van ruwe materialen vermindert en natuurlijke hulpbronnen beschermt.
 
+![IO schema](IO_schema.png)
+
 ## Kenmerken en functionaliteit van het apparaat
 
 Het WasteBin-apparaat heeft verschillende innovatieve kenmerken om zijn doelstellingen te bereiken:
@@ -31,6 +33,8 @@ Het WasteBin-apparaat heeft verschillende innovatieve kenmerken om zijn doelstel
 2. Hulp bij afvalscheiding: Het apparaat bevat een intuïtieve interface die gebruikers informeert over afvalscheidingspraktijken. Het biedt visuele indicatoren en herinneringen voor het scheiden van recyclebaar materiaal, organisch afval en andere categorieën, waardoor het proces gemakkelijk en gebruiksvriendelijk wordt.
 
 3. Gebruiksvriendelijk ontwerp: Het WasteBin-apparaat is ontworpen om compact, esthetisch aantrekkelijk en gemakkelijk te gebruiken te zijn. Het past naadloos in kleine leefruimtes en vormt een aanvulling op het algehele interieurontwerp. De verwijderbare compartiment van het apparaat vereenvoudigd het afvalbeheer en de schoonmaakproces.
+
+![WasteBin Use Case Diagram](WasteBinUseCaseDiagram.png)
 
 ## Voordelen en impact
 
