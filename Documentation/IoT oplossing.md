@@ -1,14 +1,16 @@
-# Het Gebruik van meerdere ESP32-Microcontrollers met Node-Red
+# Het Gebruik van meerdere ESP32-Microcontrollers met Node-Red en een Database
 
 ## Inleiding
 
 Meerdere ESP32-microcontrollers kunnen in combinatie met Node-Red worden gebruikt om een visuele interface te bouwen op basis van de gegevens die zijn gelogd door de ESP32. Elke ESP32 kan worden geconfigureerd om gegevens van een specifieke sensor of apparaat te loggen en deze via Wi-Fi naar Node-Red te verzenden. Node-Red kan vervolgens de gegevens ontvangen en verwerken met behulp van verschillende nodes.
 
-## Doelen
+Al deze informatie moet vervolgens worden opgeslagen in een database, zodat de gegevens kunnen worden opgevraagd van de testpersonen en sensoren.
 
-### Doel #1
+## Doel
 
-Het opzetten van een systeem waarbij meerdere ESP32-microcontrollers worden gebruikt om gegevens te loggen en deze naar Node-Red te verzenden voor visualisatie en verwerking.
+Het opzetten van een systeem waarbij meerdere ESP32-microcontrollers worden gebruikt om gegevens naar Node-Red te verzenden voor visualisatie en verwerking.
+
+Het vervolg hierop is alle gegevens vanaf Node-Red weer door te sturen naar een database.
 
 ## Onderbouwing keuze ESP32 C3
 
@@ -22,7 +24,7 @@ Wij kiezen voor een ESP32 omdat deze de volgende voordelen biedt:
 ## Waarom geen Arduino of Raspberry Pi als computer voor de WasteBin?
 
 Raspberry Pi's zijn momenteel moeilijk verkrijgbaar, duur in aanschaf voor een testplatform en vereisen meer inspanning om op te zetten. Bovendien zijn ze vaak te krachtig voor onze doeleinden en daardoor overbodig qua rekenkracht.
-Arduino's zijn redelijke alternatieven, maar duurder dan losse ESP32-modules. Desalniettemin kunnen ESP32-modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-codebibliotheken, indien gewenst.
+Arduino's zijn redelijke alternatieven, maar duurder en beperkter dan  ESP32-modules. Desalniettemin kunnen ESP32-modules via de Arduino IDE worden geprogrammeerd met behulp van de Arduino-codebibliotheken, indien gewenst.
 
 ## Data forwarding
 
@@ -32,15 +34,17 @@ Wij kiezen ervoor om de broker en het dashboard op onze lokale laptop te install
 1. We vermijden de noodzaak van een extra apparaat (Raspberry Pi). Alles op één apparaat maakt het eenvoudiger. Bovendien zijn Raspberry Pi's moeilijk verkrijgbaar en vormen ze een extra bron van potentiële hardwarefouten (zoals SD-kaartcorruptie) en softwareproblemen (Linux-problemen) enzovoort.
 2. Als we fysiek ergens anders willen werken, zouden we steeds de Raspberry Pi moeten verbinden met het netwerk op die locatie via een beeldscherm en toetsenbord.
 3. De Raspberry Pi kan een beveiligingsrisico vormen.
+4. Op het moment van schrijven is het erg lastig om aan Raspberry Pi's te komen i.v.m. het chip te kort.
 
-Stappen:
+Stappenplan:
 
 1. ESP32-gegevens laten versturen (verbinding maken met internet).
-2. Opzetten van een MQTT-broker.
-3. De MQTT-broker accepteert gegevens van de ESP32.
+2. Opzetten van een MQTT-broker om de gegevens door te sturen.
+3. De MQTT-broker accepteert de gegevens van de ESP32.
 4. De MQTT-broker stuurt gegevens door naar Node-Red (lokaal).
 5. Inkomende gegevens van de MQTT-broker worden omgezet naar een dashboardweergave.
 6. Data van Node-Red doorsturen naar een database.
+7. De broker word op een externe computer gedraaid die dag en nacht gegevens doorzend naar Node-Red en de database
 
 ## De Data
 
