@@ -58,6 +58,8 @@ De volgende gegevens willen we versturen vanaf de ESP32:
 
 Deze gegevens worden via MQTT naar Node-Red verzonden. Van daaruit worden de gegevens doorgestuurd naar een SQLite-database. We hebben gekozen voor SQLite vanwege de handige SQLiteStudio-omgeving waarin we de database gemakkelijk kunnen ontwerpen, opbouwen en testen.
 
+![Datastream](Datastream.png)
+
 ## Meldingen voor de gebruiker
 
 Voor onze opstelling willen we een luidspreker gebruiken als indicator die verschillende waarschuwingen kan afgeven wanneer dat nodig is. Deze waarschuwingen zijn onder andere:
@@ -67,6 +69,7 @@ Voor onze opstelling willen we een luidspreker gebruiken als indicator die versc
 - Algemene fout (ander probleem)
 
 We hebben ervoor gekozen om deze waarschuwingen ook naar ons dashboard te sturen als ze zich voordoen. Deze waarschuwingen worden weergegeven als foutcodes.
+
 
 ## Verstuur interval
 
