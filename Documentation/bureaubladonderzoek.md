@@ -40,24 +40,28 @@ Voor het WasteBin project zijn we gevraagd om een GFE-bak te ontwerpen die GFE-a
 
 Hoofd- en deelvragen:
 
+Hier zijn de regels in Markdown-formaat:
+
 1. Wat heeft de grootste invloed op het rottingsproces?
-   a. Welk effect heeft de omgevingstemperatuur op het rottingsproces?
-      i. Hoeveel invloed heeft een negatieve temperatuur op het rottingsproces?
-   b. Welk effect heeft luchtvochtigheid op het rottingsproces?
-      i. Hoeveel effect heeft een lagere luchtvochtigheid op het rottingsproces?
-   c. Welk effect heeft zuurstof op het rottingsproces?
-      i. Welk effect heeft de aanwezigheid van zuurstof in een ruimte op het rottingsproces?
-      ii. Hoeveel effect heeft zuurstof op het rottingsproces?
-   d. Wat is de maximale tijd waarop het rottingsproces kan worden uitgesteld of vertraagd rekening houdend met de drie eerder genoemde factoren?
-   e. Is het mogelijk om het effect van ozon-generatie te compenseren met koeling (tot en op het vriespunt)?
+   - a. Welk effect heeft de omgevingstemperatuur op het rottingsproces?
+      - i. Hoeveel invloed heeft een negatieve temperatuur op het rottingsproces?
+   - b. Welk effect heeft luchtvochtigheid op het rottingsproces?
+      - i. Hoeveel effect heeft een lagere luchtvochtigheid op het rottingsproces?
+   - c. Welk effect heeft zuurstof op het rottingsproces?
+      - i. Welk effect heeft de aanwezigheid van zuurstof in een ruimte op het rottingsproces?
+      - ii. Hoeveel effect heeft zuurstof op het rottingsproces?
+   - d. Wat is de maximale tijd waarop het rottingsproces kan worden uitgesteld of vertraagd rekening houdend met de drie eerder genoemde factoren?
+   - e. Is het mogelijk om het effect van ozon-generatie te compenseren met koeling (tot en op het vriespunt)?
 
 2. Hoeveel liter GFE-afval moet de WasteBin kunnen opslaan?
-   a. Hoeveel liter GFE-afval produceert een gemiddeld huishouden per dag? (stedelijk gebied)
-   b. Wat is het maximale volume van de prullenbak en is dit haalbaar?
-   c. Wat verstaan we onder een huishouden?
+   - a. Hoeveel liter GFE-afval produceert een gemiddeld huishouden per dag? (stedelijk gebied)
+   - b. Wat is het maximale volume van de prullenbak en is dit haalbaar?
+   - c. Wat verstaan we onder een huishouden?
 
 3. Wat weerhoudt veel bewoners van hoogbouwwoningen ervan om hun GFE-afval te scheiden?
-   a. Welke drempels kunnen we realistisch gezien verlagen om het scheidingssproces te bevorderen?
+   - a. Welke drempels kunnen we realistisch gezien verlagen om het scheidingssproces te bevorderen?
+
+Let op: Markdown is een opmaaktaal voor tekst en kan geen interactieve elementen zoals genummerde lijsten met subonderdelen weergeven. Bovenstaande weergave is een benadering van de gewenste opmaak in Markdown-formaat.
 
 ## Aanpak onderzoek en bronanalyse
 
@@ -68,32 +72,32 @@ Ons onderzoek, testen en documentatie zijn gebaseerd op het prototype dat ESE on
 **1. Wat heeft de grootste invloed op het rottingsproces?**
    De grootste invloed op het rottingsprocess is temperatuur.
 
-   a. **Welk effect heeft de omgevingstemperatuur op het rottingsproces?**
+- a. **Welk effect heeft de omgevingstemperatuur op het rottingsproces?**
    Volgens onderstaande grafiek neemt de afbraak van planten toe wanneer de temperatuur stijgt. Dit kan worden verklaard doordat veel bacteriën beter functioneren bij hogere temperaturen (broeien). Bij lagere temperaturen wordt het voor deze bacteriën moeilijker om te functioneren, waardoor het rottingsproces van planten vertraagt. Bij 40 graden Fahrenheit (4 graden Celsius) hebben deze groenten ongeveer 400 uur (16 dagen) nodig om het rottingsproces goed te starten. Het is gunstig om de omgevingstemperatuur laag te houden om het rottingsproces te vertragen.
 
    ![Figuur 2 Tijd-temperatuur bogen op basis van opslag kamer temperatuur(Platenius, 1939)](figure2storage.png)
 
-   b. **Welk effect heeft luchtvochtigheid op het rottingsproces?**
+- b. **Welk effect heeft luchtvochtigheid op het rottingsproces?**
    Bij een hoge luchtvochtigheid (vooral in combinatie met een hoge omgevingstemperatuur) kan er broei ontstaan in een bak, wat leidt tot de vorming van schimmels. Schimmels spelen ook een rol in het rottingsproces en kunnen onaangename geuren veroorzaken. Het is daarom belangrijk om de luchtvochtigheid zo laag mogelijk te houden.
 
-   c. **Welk effect heeft zuurstof op het rottingsproces?**
+  - c. **Welk effect heeft zuurstof op het rottingsproces?**
    Schimmels zijn aerobe organismen, maar zelfs bij zeer lage zuurstofconcentraties is groei mogelijk (Wösten, 2017). Dit betekent dat het gunstig is om een omgeving met weinig zuurstof te creëren, maar het is niet het enige middel om het rottingsproces te voorkomen.
 
-   d. **Wat is de maximale tijd waarop het rottingsproces kan worden uitgesteld of vertraagd rekening houdend met de drie eerder genoemde factoren?**
+  - d. **Wat is de maximale tijd waarop het rottingsproces kan worden uitgesteld of vertraagd rekening houdend met de drie eerder genoemde factoren?**
    Dit is afhankelijk van onder andere de inhoudsgrootte van de vuilnisbak, de staat van het GFE-afval tijdens wegwerpen en het gewenste energielabel in combinatie met de isolatie van de vuilnisbak.
 
-   e. **Is het mogelijk om het effect van ozon-generatie te compenseren met koeling (tot en met het vriespunt)?**
+  - e. **Is het mogelijk om het effect van ozon-generatie te compenseren met koeling (tot en met het vriespunt)?**
    Op internet hebben we meerdere keren gelezen dat onjuist gebruik van ozongeneratoren kan leiden tot hoge concentraties ozon (O3), wat schadelijk is voor de gezondheid van organismen. Sommige mensen zijn gevoeliger dan anderen en kunnen negatieve gezondheidseffecten ervaren. Mensen die bijzonder kwetsbaar zijn, zijn onder andere kinderen, ouderen en mensen met astma (Government, 2015).
 
 **2. Hoeveel liter GFE-afval moet de WasteBin kunnen opslaan?**
    De WasteBin moet zoveel liter GFE-afval kunnen opslaan.
 
-   a. **Hoeveel liter GFE-afval produceert een gemiddeld huishouden per dag? (stedelijk)**
+- a. **Hoeveel liter GFE-afval produceert een gemiddeld huishouden per dag? (stedelijk)**
    Vanuit de gemeente Amsterdam is bekend dat er jaarlijks ongeveer tachtig kilo GFE-afval per persoon wordt weggegooid. Dit komt neer op ongeveer 200 gram per dag. Deze cijfers gelden specifiek voor stedelijke gebieden, waar het scheiden van dit afval moeilijker is vanwege de grote hoeveelheid hoogbouw.
 
    Jaarlijks produceert een gemiddeld persoon ongeveer tachtig kilo GFE-afval, maar hiervan belandt ongeveer 70 kilo bij het restafval omdat het niet gescheiden wordt (Schoonvelde, sd).
 
-   b. **Wat is het maximale volume van de prullenbak en is dit realistisch?**
+- b. **Wat is het maximale volume van de prullenbak en is dit realistisch?**
    Het optimale volume van de prullenbak moet afgestemd zijn op de grootte van de prullenbak die huishoudens al gebruiken. Op die manier zal de gebruiker, samen met het andere afval, ook het GFE-afval scheiden en de prullenbak volledig benutten. Volgens verschillende websites (Fonq.nl, brabantia.nl, prullenbak-expert.nl) is een 30-liter prullenbak geschikt voor één persoon, dus we gaan hier in dit geval van uit.
 
    In 2020 produceerde één persoon gemiddeld 140 kilo afval per jaar (totaal). Als we rekening houden met het feit dat er jaarlijks 70 tot 80 kilo GFE-afval wordt geproduceerd (waarvan slechts een deel van ongeveer 10 kilo wordt gescheiden), kunnen we stellen dat het volume van de GFE-afvalbak maximaal de helft zou moeten zijn (Rijksoverheid, sd).
@@ -101,7 +105,7 @@ Ons onderzoek, testen en documentatie zijn gebaseerd op het prototype dat ESE on
 **3. Wat weerhoudt veel bewoners van hoogbouwwoningen ervan om hun GFE-afval te scheiden?**
    Er zijn verschillende drempels die veel bewoners van hoogbouwwoningen ervan weerhouden om hun GFE-afval te scheiden.
 
-   a. **Welke drempels kunnen realistisch gezien verlaagd worden zodat het scheidingsproces wel wordt uitgevoerd?**
+- a. **Welke drempels kunnen realistisch gezien verlaagd worden zodat het scheidingsproces wel wordt uitgevoerd?**
    Er kunnen verschillende drempels worden verlaagd om het scheiden van GFE-afval te bevorderen. Enkele mogelijke drempels zijn de beschikbaarheid van aparte GFE-afvalbakken in hoogbouwwoningen, onduidelijkheid over wat wel en niet bij GFE-afval hoort en het gebrek aan bewustzijn en educatie over het belang van het scheiden van GFE-afval.
 
 Om deze drempels te verlagen en het scheidingsproces te bevorderen, kunnen de volgende maatregelen worden genomen:
