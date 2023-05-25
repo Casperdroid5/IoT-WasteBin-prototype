@@ -8,168 +8,6 @@
         "env": []
     },
     {
-        "id": "8ad8dfc7397ae9ed",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-dark",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#7a0de7",
-                "baseFont": "Times New Roman,Times,serif",
-                "edited": true,
-                "reset": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#097479",
-                    "value": "#7a0de7",
-                    "edited": true
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#7a0de7",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#a04cf5",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#555555",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#eeeeee",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#7a0de7",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "Times New Roman,Times,serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "WasteBinDashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "lockMenu": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "b924d64887cda7b3",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "192.168.111.237",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "6c548a6d.a13c28",
-        "type": "ui_group",
-        "name": "WasteBin1",
-        "tab": "cfab1c69.f6155",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "cfab1c69.f6155",
-        "type": "ui_tab",
-        "name": "Home",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "dd7f8134e015a1cb",
-        "type": "sqlitedb",
-        "db": "C:/Users/crtak/HAN/S6 projects 22-23 - Insyte - Insyte/ESE/Software/WasteBinData.db",
-        "mode": "RWC"
-    },
-    {
-        "id": "13f9f82a3f9e1545",
-        "type": "ui_group",
-        "name": "WasteBin2",
-        "tab": "cfab1c69.f6155",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "30ebf3a3fb5c10be",
         "type": "mqtt in",
         "z": "d2a6041049ed0690",
@@ -182,11 +20,10 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 110,
-        "y": 440,
+        "x": 130,
+        "y": 400,
         "wires": [
             [
-                "d769c1a01246e70e",
                 "6896f9f165fc2c02"
             ]
         ]
@@ -241,28 +78,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 480,
+        "x": 820,
+        "y": 620,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "d769c1a01246e70e",
-        "type": "debug",
-        "z": "d2a6041049ed0690",
-        "name": "RAW INPUT",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 110,
-        "y": 400,
-        "wires": []
     },
     {
         "id": "a7fbf22f726c53fb",
@@ -277,8 +97,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 120,
+        "x": 1070,
+        "y": 180,
         "wires": []
     },
     {
@@ -294,8 +114,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 160,
+        "x": 1070,
+        "y": 220,
         "wires": []
     },
     {
@@ -311,8 +131,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 820,
-        "y": 200,
+        "x": 1060,
+        "y": 260,
         "wires": []
     },
     {
@@ -328,8 +148,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 240,
+        "x": 1070,
+        "y": 300,
         "wires": []
     },
     {
@@ -341,7 +161,7 @@
         "order": 8,
         "width": 0,
         "height": 0,
-        "label": "Temperature",
+        "label": "temperaturechart",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -370,8 +190,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 990,
-        "y": 180,
+        "x": 1250,
+        "y": 240,
         "wires": [
             []
         ]
@@ -385,7 +205,7 @@
         "order": 9,
         "width": 0,
         "height": 0,
-        "label": "Humidity",
+        "label": "humiditychart",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -414,8 +234,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 980,
-        "y": 220,
+        "x": 1230,
+        "y": 280,
         "wires": [
             []
         ]
@@ -431,8 +251,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 200,
+        "x": 840,
+        "y": 260,
         "wires": [
             [
                 "a7fbf22f726c53fb"
@@ -490,12 +310,12 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Timestamp",
+        "label": "timestamp",
         "format": "{{msg.payload}}",
         "layout": "col-center",
         "className": "",
-        "x": 830,
-        "y": 280,
+        "x": 1070,
+        "y": 340,
         "wires": []
     },
     {
@@ -505,9 +325,9 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 140,
+        "y": 200,
         "wires": [
             []
         ]
@@ -523,8 +343,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 140,
+        "x": 1480,
+        "y": 200,
         "wires": [
             [
                 "6ef8959c9ce8745f"
@@ -542,8 +362,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 200,
+        "x": 1480,
+        "y": 260,
         "wires": [
             [
                 "e6f97a3deb857ad2"
@@ -557,9 +377,9 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 200,
+        "y": 260,
         "wires": [
             []
         ]
@@ -575,8 +395,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 260,
+        "x": 1480,
+        "y": 320,
         "wires": [
             [
                 "64539fa3019ae922"
@@ -590,9 +410,9 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 260,
+        "y": 320,
         "wires": [
             []
         ]
@@ -610,8 +430,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 480,
+        "x": 1070,
+        "y": 400,
         "wires": []
     },
     {
@@ -627,8 +447,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 520,
+        "x": 1070,
+        "y": 440,
         "wires": []
     },
     {
@@ -644,8 +464,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 820,
-        "y": 560,
+        "x": 1060,
+        "y": 480,
         "wires": []
     },
     {
@@ -661,8 +481,8 @@
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
-        "x": 830,
-        "y": 600,
+        "x": 1070,
+        "y": 520,
         "wires": []
     },
     {
@@ -674,7 +494,7 @@
         "order": 11,
         "width": 0,
         "height": 0,
-        "label": "Temperature",
+        "label": "temperaturechart",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -703,8 +523,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 990,
-        "y": 540,
+        "x": 1250,
+        "y": 460,
         "wires": [
             []
         ]
@@ -718,7 +538,7 @@
         "order": 12,
         "width": 0,
         "height": 0,
-        "label": "Humidity",
+        "label": "humiditychart",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -747,8 +567,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 980,
-        "y": 580,
+        "x": 1230,
+        "y": 500,
         "wires": [
             []
         ]
@@ -764,8 +584,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
-        "y": 560,
+        "x": 840,
+        "y": 480,
         "wires": [
             [
                 "286e1cc5395287cd"
@@ -804,12 +624,12 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Timestamp",
+        "label": "timestamp",
         "format": "{{msg.payload}}",
         "layout": "col-center",
         "className": "",
-        "x": 830,
-        "y": 640,
+        "x": 1070,
+        "y": 560,
         "wires": []
     },
     {
@@ -819,9 +639,9 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 500,
+        "y": 420,
         "wires": [
             []
         ]
@@ -837,8 +657,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 500,
+        "x": 1480,
+        "y": 420,
         "wires": [
             [
                 "f5d28deabe332574"
@@ -856,8 +676,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 560,
+        "x": 1480,
+        "y": 480,
         "wires": [
             [
                 "f5f38c500d2f72b0"
@@ -871,9 +691,9 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 560,
+        "y": 480,
         "wires": [
             []
         ]
@@ -889,8 +709,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 620,
+        "x": 1480,
+        "y": 540,
         "wires": [
             [
                 "5b3cae6ecfa4611b"
@@ -904,11 +724,75 @@
         "mydb": "dd7f8134e015a1cb",
         "sqlquery": "prepared",
         "sql": "INSERT INTO sensordata (mac_address, sensor_idnr, sensor_value, timestamp) VALUES ($val0, $val1, $val2, datetime(\"now\"))\n",
-        "name": "",
+        "name": "Database",
         "x": 1680,
-        "y": 620,
+        "y": 540,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "b924d64887cda7b3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "192.168.111.237",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "6c548a6d.a13c28",
+        "type": "ui_group",
+        "name": "WasteBin1",
+        "tab": "cfab1c69.f6155",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dd7f8134e015a1cb",
+        "type": "sqlitedb",
+        "db": "C:/Users/crtak/HAN/S6 projects 22-23 - Insyte - Insyte/ESE/Software/WasteBinData.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "13f9f82a3f9e1545",
+        "type": "ui_group",
+        "name": "WasteBin2",
+        "tab": "cfab1c69.f6155",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cfab1c69.f6155",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
     }
 ]
