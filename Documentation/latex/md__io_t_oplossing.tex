@@ -80,10 +80,13 @@ In deze flow ontvangt de eerste node (paars) de MQTT-\/gegevens. Vervolgens word
 Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-\/\+ID) en deze als query naar een SQLite-\/database sturen.\hypertarget{md__io_t_oplossing_autotoc_md30}{}\doxysection{Database}\label{md__io_t_oplossing_autotoc_md30}
 Alle informatie wordt via Node-\/\+Red doorgestuurd naar een SQLite-\/database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
 
-De database is als volgt opgebouwd\+:  
-\begin{DoxyInlineImage}
-\includegraphics[height=\baselineskip,keepaspectratio=true]{WasteBinDBER.png}%Databaseontwerp
-\end{DoxyInlineImage}
+De database is als volgt opgebouwd\+:
+
+ 
+\begin{DoxyImage}
+\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{WasteBinDBER.png}
+\doxyfigcaption{Databaseontwerp}
+\end{DoxyImage}
    
 
 Hierbij zijn alle onderstreepte woorden sleutelwaarden. Helaas toont het Database Entity Relationship-\/diagram (DBER) niet alle details, maar het geeft wel een goed overzicht van de databasestructuur.

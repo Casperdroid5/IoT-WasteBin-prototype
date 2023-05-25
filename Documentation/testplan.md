@@ -105,4 +105,4 @@ I.v.m. energiekosten en de slechte isolatie van de testopstelling kiezen wij erv
 1. Verander de huidige ventilator naar een ander, hoger kwaliteitsmodel, met onder andere betere lagers.
 2. Vergroot de heatsink of maak de heatsink zelfs een deel van de vuilnisbakbehuizing (metalen vuilnisbak).
 
-Dit zijn de resultaten van het testplan voor de ESE op 8 februari 2023. Met deze resultaten kunnen we beoordelen of de Peltier-modules geschikt zijn voor onze koeling, hoe we de ventilatoren kunnen regelen om het geluidsniveau te verminderen en of we de temperatuur en luchtvochtigheid nauwkeurig kunnen meten in de testopstelling.
+Dit zijn de resultaten van het testplan voor de ESE op 8 februari 2023. Met deze resultaten kunnen we beoordelen of de Peltier-modules geschikt zijn voor onze koeling, hoe we de ventilatoren kunnen regelen om het geluidsniveau te verminderen en of we de temperatuur en luchtvochtigheid nauwkeurig kunnen meten in de testopstelling. Helaas was het i.v.m. het onverwachte vertrek van mijn mede-ESE-er Roan, niet meer mogelijk en reëel om alle opties uit te testen. Hiervoor doen wij aannamens.

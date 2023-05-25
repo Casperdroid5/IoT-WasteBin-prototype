@@ -7,9 +7,9 @@ In dit document worden de functionele en technische specificaties besproken voor
 | # | MoSCoW | Beschrijving |
 |---|--------|------------|
 | F1 | M | Het product moet de verspreiding van de GFE-afvalgeur voorkomen. |
-| F1 | M | Het GFE-rottingsproces moet vier dagen worden vertraagd door het product. |
-| F1.1 | M | Het GFE-afval moet gekoeld worden. |
-| F1.1.1 | S | Het product moet zo efficiënt mogelijk de bak gekoeld krijgen en behouden. |
+| F1.1 | M | Het GFE-rottingsproces moet vier dagen worden vertraagd door het product. |
+| F1.1.1 | M | Het GFE-afval moet gekoeld worden. |
+| F1.1.2 | S | Het product moet zo efficiënt mogelijk de bak gekoeld krijgen en behouden. |
 | F2 | M | De prijs moet onder de €50 blijven voor de consument bij afname van 100 stuks. |
 | F3 | S | Het product moet gebruikersindicatoren hebben voor te lang openstaan. |
 | F3.1 | S | Het product moet een temperatuurindicator (te warm/te koud) hebben. |
