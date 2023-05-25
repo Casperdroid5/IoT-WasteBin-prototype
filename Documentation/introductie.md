@@ -1,10 +1,20 @@
-## WasteBin Project: Het creëren van een innovatieve oplossing voor geurvrije en milieuvriendelijke afvalverwerking
+# WasteBin Project: Het creëren van een innovatieve oplossing voor geurvrije en milieuvriendelijke afvalverwerking
 
-### Inleiding
+## Inleiding
 
 Het WasteBin Project heeft tot doel het probleem van onaangename geuren in kleine leefruimtes, zoals appartementen, aan te pakken, terwijl het efficiënte afvalscheiding en milieubehoud bevordert. Door de ontwikkeling van een uniek apparaat voorkomt dit project niet alleen onaangename geuren, maar stimuleert het ook gebruikers om verschillende soorten afval te scheiden, wat leidt tot effectievere recycling en een verminderde milieubelasting.
 
-### Belangrijkste doelstellingen
+Op dit moment wordt afval helaas niet goed gescheden en uit onderzoek van de HvA blijkt dat hier een aantal redenen voor zijn.
+
+![redenen om afval niet te scheiden](redenenomafvalniettescheiden.png)
+
+en hiervoorafgaand is ook intrinsieke motivatie een factor. Hoe groter het gemak van scheiden, hoe groter de kans dat dit daadwerkelijk gedaan word.
+
+![afval afwegingjourney](afval_afwegingsjourney.png)
+
+Om deze motivatie te vergroten hebben wij daarom de volgende doelen opgesteld.
+
+## Belangrijkste doelstellingen
 
 1. Geurpreventie: Het primaire doel van het WasteBin Project is het creëren van een apparaat dat onaangename geuren die uit afvalbakken komen effectief opvangt en neutraliseert. Dit zal de leefomgeving aanzienlijk verbeteren voor mensen die in kleine ruimtes wonen.
 
@@ -12,7 +22,7 @@ Het WasteBin Project heeft tot doel het probleem van onaangename geuren in klein
 
 3. Milieueffect: Het WasteBin Project draagt bij aan milieubehoud door de hoeveelheid afval die op de vuilnisbelt terechtkomt te minimaliseren. Door een betere scheiding van afval kunnen waardevolle recyclebare materialen gemakkelijker worden teruggewonnen, wat de winning van ruwe materialen vermindert en natuurlijke hulpbronnen beschermt.
 
-### Kenmerken en functionaliteit van het apparaat
+## Kenmerken en functionaliteit van het apparaat
 
 Het WasteBin-apparaat heeft verschillende innovatieve kenmerken om zijn doelstellingen te bereiken:
 
@@ -22,7 +32,7 @@ Het WasteBin-apparaat heeft verschillende innovatieve kenmerken om zijn doelstel
 
 3. Gebruiksvriendelijk ontwerp: Het WasteBin-apparaat is ontworpen om compact, esthetisch aantrekkelijk en gemakkelijk te gebruiken te zijn. Het past naadloos in kleine leefruimtes en vormt een aanvulling op het algehele interieurontwerp. De verwijderbare compartiment van het apparaat vereenvoudigd het afvalbeheer en de schoonmaakproces.
 
-### Voordelen en impact
+## Voordelen en impact
 
 Het WasteBin Project biedt talrijke voordelen en positieve effecten:
 
@@ -34,6 +44,6 @@ Het WasteBin Project biedt talrijke voordelen en positieve effecten:
 
 4. Langetermijnduurzaamheid: Door het WasteBin Project wordt de adoptie van duurzame afvalbeheerpraktijken mainstream, wat een cultuur van milieubewustzijn bevordert en blijvende positieve veranderingen in afvalverwerkingsgewoonten teweegbrengt.
 
-### Conclusie
+## Conclusie
 
 Het WasteBin Project streeft ernaar een innovatief apparaat te creëren dat niet alleen onaangename geuren in kleine leefruimtes elimineert, maar ook afvalscheiding en milieuvriendelijkheid bevordert. Door geavanceerde mechanismen voor geurbeheersing, hulp bij afvalscheiding en gebruiksvriendelijke kenmerken te integreren, stelt het apparaat individuen in staat om actief een rol te spelen in het behoud van het milieu en tegelijkertijd hun levenskwaliteit te verbeteren. Met dit project streven we ernaar bij te dragen aan een schonere, groenere en meer duurzame toekomst voor iedereen.

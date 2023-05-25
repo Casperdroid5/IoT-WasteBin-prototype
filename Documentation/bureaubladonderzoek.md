@@ -36,7 +36,7 @@ Voor het WasteBin project zijn we gevraagd om een GFE-bak te ontwerpen die GFE-a
 | Een gegeven materiaal houd zijn temperatuur beter vast dan lucht. | Thermoskan idee: hoe voller de thermoskan is gevuld met hete drank, hoe langer het duurt voor de inhoud is afgekoeld. Dus lucht ontnemen of de bak vullen met water om de optimale temperatuur makkelijk te behouden. |
 | Water geleid temperatuur beter dan lucht. | Door de vuilnisbak met water te vullen en het GFE-afval in een zak hierin te koelen, zal dit een efficiëntere thermische overdracht hebben dan via de lucht. De verspreiding van de geur van het rottingsproces zal door het koelen van het GFE-afval minder snel plaatsvinden. Hierdoor is de ozon-generator overbodig. |
 | Het invriezen van het GFE-afval stopt het rottingsproces volledig. | Het invriezen van het GFE-afval zal ervoor zorgen dat de micro-organismen die zich in het afval bevinden niet verder kunnen groeien. Sommige organismen kunnen dit alsnog doen, maar dit gebeurt langzamer en zal in de prullenbak nog niet plaatsvinden. |
-| Het ontnemen van (een deel van) de zuurstof in combinatie met een ozon-generator remt het rottingsproces voldoende af. | De combinatie van ozon en minder zuurstof zal zorgen dat het afval dusdanig lang geremd wordt dat koeling niet nodig is. |
+| Het ontnemen van (een deel van) de zuurstof in combinatie met een ozon-generator remt het rottingsproces voldoende af. | De combinatie van een ozon-generator en minder zuurstof zal zorgen dat het afval dusdanig lang geremd wordt dat koeling niet nodig is. |
 
 Hoofd- en deelvragen:
 
@@ -66,12 +66,12 @@ Ons onderzoek, testen en documentatie zijn gebaseerd op het prototype dat ESE on
 ### Uitwerking vragen
 
 **1. Wat heeft de grootste invloed op het rottingsproces?**
-   De grootste invloed is bla bla bla.
+   De grootste invloed op het rottingsprocess is temperatuur.
 
    a. **Welk effect heeft de omgevingstemperatuur op het rottingsproces?**
-   Volgens onderstaande grafiek neemt de afbraak van planten toe wanneer de temperatuur stijgt. Dit kan worden verklaard doordat veel bacteriën beter functioneren bij hogere temperaturen. Bij lagere temperaturen wordt het voor deze bacteriën moeilijker om te functioneren, waardoor het rottingsproces van planten vertraagt. Bij 40 graden Fahrenheit (4 graden Celsius) hebben deze groenten ongeveer 400 uur (16 dagen) nodig om het rottingsproces goed te starten. Het is gunstig om de omgevingstemperatuur laag te houden om het rottingsproces te vertragen.
+   Volgens onderstaande grafiek neemt de afbraak van planten toe wanneer de temperatuur stijgt. Dit kan worden verklaard doordat veel bacteriën beter functioneren bij hogere temperaturen (broeien). Bij lagere temperaturen wordt het voor deze bacteriën moeilijker om te functioneren, waardoor het rottingsproces van planten vertraagt. Bij 40 graden Fahrenheit (4 graden Celsius) hebben deze groenten ongeveer 400 uur (16 dagen) nodig om het rottingsproces goed te starten. Het is gunstig om de omgevingstemperatuur laag te houden om het rottingsproces te vertragen.
 
-   ![Figuur 1 Verloop van rottingsproces bij een gegeven temperatuur (Platenius, 1939)](image_link)
+   ![Figuur 2 Tijd-temperatuur bogen op basis van opslag kamer temperatuur(Platenius, 1939)](figure2storage.png)
 
    b. **Welk effect heeft luchtvochtigheid op het rottingsproces?**
    Bij een hoge luchtvochtigheid (vooral in combinatie met een hoge omgevingstemperatuur) kan er broei ontstaan in een bak, wat leidt tot de vorming van schimmels. Schimmels spelen ook een rol in het rottingsproces en kunnen onaangename geuren veroorzaken. Het is daarom belangrijk om de luchtvochtigheid zo laag mogelijk te houden.
@@ -80,7 +80,7 @@ Ons onderzoek, testen en documentatie zijn gebaseerd op het prototype dat ESE on
    Schimmels zijn aerobe organismen, maar zelfs bij zeer lage zuurstofconcentraties is groei mogelijk (Wösten, 2017). Dit betekent dat het gunstig is om een omgeving met weinig zuurstof te creëren, maar het is niet het enige middel om het rottingsproces te voorkomen.
 
    d. **Wat is de maximale tijd waarop het rottingsproces kan worden uitgesteld of vertraagd rekening houdend met de drie eerder genoemde factoren?**
-   De maximale tijd is bla bla bla. Dit is ook afhankelijk van de inhoud van de bak en het gewenste energielabel.
+   Dit is afhankelijk van onder andere de inhoudsgrootte van de vuilnisbak, de staat van het GFE-afval tijdens wegwerpen en het gewenste energielabel in combinatie met de isolatie van de vuilnisbak.
 
    e. **Is het mogelijk om het effect van ozon-generatie te compenseren met koeling (tot en met het vriespunt)?**
    Op internet hebben we meerdere keren gelezen dat onjuist gebruik van ozongeneratoren kan leiden tot hoge concentraties ozon (O3), wat schadelijk is voor de gezondheid van organismen. Sommige mensen zijn gevoeliger dan anderen en kunnen negatieve gezondheidseffecten ervaren. Mensen die bijzonder kwetsbaar zijn, zijn onder andere kinderen, ouderen en mensen met astma (Government, 2015).
@@ -124,7 +124,7 @@ Verschillende categorieën, uiteindelijk is alles een warmtepomp. Verschillende 
 - Peltier-effect
 - Magnetische koeling
 
-Voor ons onderzoek hebben we besloten ons te richten op Peltier-modules. Deze modules hebben de volgende voordelen ten opzichte van andere koeloplossingen:
+Voor ons onderzoek hebben we besloten ons te richten op Peltier-modules. We hebben helaas niet genoeg tijd en geld om alle opties te onderzoeken en de peltier modules zijn bewezen effectief met koelen en betaalbaar. Deze modules hebben de volgende voordelen ten opzichte van andere koeloplossingen:
 
 - Ze zijn verkrijgbaar in verschillende formaten, waaronder compacte formaten.
 - Ze zijn relatief goedkoop in vergelijking met andere koeltechnieken.
@@ -133,31 +133,9 @@ Voor ons onderzoek hebben we besloten ons te richten op Peltier-modules. Deze mo
 
 Het is echter belangrijk om het te koelen gebied goed te isoleren. Op deze manier kan de Peltier-module op een efficiënte manier koelen zonder constant op vol vermogen te werken, wat ook warmte genereert vanwege het feit dat het een warmtepomp is.
 
-## Onderzoek naar koelmogelijkheden
-
-Verschillende categorieën, uiteindelijk is alles een warmtepomp. Verschillende categorieën kunnen worden onderscheiden op basis van techniek, volume en temperatuur. Enkele voorbeelden van koeltechnieken zijn:
-
-- Compressor
-- Peltier-effect
-- Magnetische koeling
-
-Opstelling met Peltier module
-
-Om aan de binnenkant van de buitenbak de modules te monteren zo, dat de binnenbak tegen de koude kant raakt van de modules. We hebben besloten dat we het beste onze tijd en energie kunnen steken in Peltier modules omdat deze:
-
-- Beschikbaar in veel (compacte) formaten is
-- Relatief goedkoop zijn (kijkend naar andere koeloplossingen)
-- Geluidloos functioneren (solid state cooling)
-- Geen extra gassen, waterleidingen et cetera nodig
-
-Wel is het zeer belangrijk om het te koelen gebied goed te isoleren. Op deze manier hoeft de Peltier module niet constant op vol vermogen te koelen (waarbij ook hitte ontstaat, aangezien het een warmtepomp is).
-
 ## Wat weerhoudt veel hoogbouwwoningbewoners ervan om hun GFE-afval te scheiden?
 
 Uit het onderzoek "Vuilnis in de flat" van de Design Innovation Group kunnen we zien hoe de meeste mensen (22 in totaal) hun keuzes maken met betrekking tot afvalscheiding.
-![afval afwegingsjourny](afval_afwegingsjourney.png)
-
-![redenen om afval niet te scheiden](redenenomafvalniettescheiden.png)
 
 Op basis van dit onderzoek kunnen we concluderen dat voornamelijk de geur de uiteindelijke oorzaak lijkt te zijn voor het niet scheiden van GFE-afval. Om ervoor te zorgen dat dit scheidingsproces wel wordt uitgevoerd, kunnen we realistisch gezien de volgende drempels verlagen:
 
