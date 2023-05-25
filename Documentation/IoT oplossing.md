@@ -90,7 +90,7 @@ In deze flow ontvangt de eerste node (paars) de MQTT-gegevens. Vervolgens wordt 
 
 Nadat de berichten zijn gescheiden, komen ze in een grote functieblok (oranje) dat het bericht analyseert en verdeelt over de uit puts van het functieblok. Ik heb hiervoor gekozen, zodat het functieblok modulair blijft en de uitvoer flexibel is. De uitvoer wordt gestuurd naar dashboardblokken (blauw) en naar nieuwe functieblokken die extra gegevens toevoegen (zoals sensor-ID) en deze als query naar een SQLite-database sturen.
 
-## Database
+# Database
 
 Alle informatie wordt via Node-Red doorgestuurd naar een SQLite-database. Het doel van de database is om een doorzoekbare geschiedenis van alle ontvangen gegevens van de vuilnisbakken te creëren en een overzicht te bieden van alle gebruikers (testpersonen) en hun gegevens.
 
@@ -100,28 +100,55 @@ De database is als volgt opgebouwd:
 
 Hierbij zijn alle onderstreepte woorden sleutelwaarden. Helaas toont het Database Entity Relationship-diagram (DBER) niet alle details, maar het geeft wel een goed overzicht van de databasestructuur.
 
-De tabellen en relaties in de database zijn als volgt:
+## sensor Table
 
-| Tabelnaam           | Veldnaam              | Type         | Relatie       |
-|---------------------|-----------------------|--------------|---------------|
-| Users               | UserID                | INTEGER      | PRIMARY KEY   |
-|                     | Name                  | TEXT         |               |
-|                     | Email                 | TEXT         |               |
-|                     | Phone                 | TEXT         |               |
-| WasteBins           | WasteBinID            | INTEGER      | PRIMARY KEY   |
-|                     | Location              | TEXT         |               |
-|                     | SensorID              | INTEGER      |               |
-|                     | UserID                | INTEGER      | FOREIGN KEY   |
-| SensorData          | SensorDataID          | INTEGER      | PRIMARY KEY   |
-|                     | WasteBinID            | INTEGER      | FOREIGN KEY   |
-|                     | Timestamp             | TIMESTAMP    |               |
-|                     | Temperature           | REAL         |               |
-|                     | Humidity              | REAL         |               |
-|                     | ValveStatus           | INTEGER      |               |
-|                     | ErrorCode             | INTEGER      |               |
-| SensorStatus        | SensorID              | INTEGER      | PRIMARY KEY   |
-|                     | Status                | TEXT         |               |
-|                     | LastUpdated           | TIMESTAMP    |               |
+| Column Name | Data Type | Constraints |
+| --- | --- | --- |
+| sensor_idnr | INTEGER | PRIMARY KEY |
+| sensor_type | TEXT | NOT NULL, UNIQUE |
+| sensor_unit | TEXT | NOT NULL |
+
+## sensordata Table
+
+| Column Name | Data Type | Constraints |
+| --- | --- | --- |
+| mac_address | TEXT | NOT NULL, FOREIGN KEY REFERENCES wastebin(mac_adress) |
+| sensor_idnr | INTEGER | NOT NULL |
+| sensor_value | INTEGER | NOT NULL |
+| timestamp | TEXT | NOT NULL |
+
+## settings Table
+
+| Column Name | Data Type | Constraints |
+| --- | --- | --- |
+| mac_adress | TEXT | FOREIGN KEY REFERENCES wastebin(mac_adress) |
+| SSID | TEXT | NOT NULL |
+| password | TEXT | |
+| mqtt_server | TEXT | NOT NULL |
+| mqtt_username | TEXT | |
+| mqtt_password | TEXT | |
+| mqtt_port | INTEGER | NOT NULL |
+| sensor_data_topic | TEXT | NOT NULL |
+
+## testperson Table
+
+| Column Name | Data Type | Constraints |
+| --- | --- | --- |
+| idnr | INTEGER | PRIMARY KEY |
+| surname | TEXT | NOT NULL |
+| birthyear | INTEGER | |
+| nrofroommates | INTEGER | |
+| postalcode | TEXT | NOT NULL |
+| housenr | TEXT | NOT NULL |
+| streetname | TEXT | NOT NULL |
+
+## wastebin Table
+
+| Column Name | Data Type | Constraints |
+| --- | --- | --- |
+| mac_adress | TEXT | FOREIGN KEY REFERENCES testperson(idnr) |
+| testperson | INTEGER | PRIMARY KEY |
+| wastebinnr | INTEGER | UNIQUE NOT NULL |
 
 Dit is de tabelstructuur voor de database, waarbij elke tabel de bijbehorende velden en datatypes bevat. De tabelrelaties zijn aangegeven met "PRIMARY KEY" en "FOREIGN KEY" om de verbanden tussen de tabellen weer te geven.
 
@@ -129,7 +156,7 @@ De database kan worden doorzocht met behulp van "views" in SQLiteStudio. Deze ku
 
 Dit is een overzicht van de opzet voor het gebruik van meerdere ESP32-microcontrollers met Node-Red. Met deze configuratie kunnen we gegevens loggen van verschillende sensoren of apparaten, deze visualiseren op een dashboard en ze opslaan in een database voor verdere analyse en beheer.
 
-### Views
+# Views
 
 Er zijn 3 views beschikbaar gemaakt voor de database.
 
@@ -137,7 +164,7 @@ Deze views zijn gemaakt om een sneller en beter inzicht te krijgen in bepaalde d
 
 Hier is een Markdown representatie van de drie views:
 
-### View 1 : view_al_testpersons_with_wastebinnr
+## View 1 : view_al_testpersons_with_wastebinnr
 
 ```
 SELECT tp.*,
@@ -149,7 +176,7 @@ SELECT tp.*,
 
 Deze query selecteert alle kolommen (`*`) uit de `testperson`-tabel en voegt de kolom `wastebinnr` uit de `wastebin`-tabel toe. De JOIN-operatie wordt uitgevoerd op basis van de overeenkomstige `idnr`-kolommen tussen de `testperson`- en `wastebin`-tabellen.
 
-### View 2: view_all_sensors_data
+## View 2: view_all_sensors_data
 
 ```
 SELECT s.sensor_type,
@@ -165,7 +192,7 @@ SELECT s.sensor_type,
 
 Deze query selecteert de kolommen `sensor_type`, `sensorvalue`, `timestamp` en `mac_address`. De `CASE`-expressie wordt gebruikt om de waarde van `sensorvalue` te bepalen op basis van voorwaarden. De JOIN-operatie wordt uitgevoerd op basis van de overeenkomstige `sensor_idnr`-kolommen tussen de `sensor`- en `sensordata`-tabellen.
 
-### View 3: view_all_wastebin_settings
+## View 3: view_all_wastebin_settings
 
 ```
 SELECT w.wastebinnr,
@@ -189,7 +216,9 @@ De bovenstaande weergave is bedoeld om de query's in een leesbare vorm te presen
 
 Er word aangemoedigd om de views uit te breiden of aan te passen naar wens van de gebruiker.
 
-De database tabellen en query's:
+# Alle Query's
+
+Met al deze Query's is de database opnieuw op te bouwen mocht dit gewenst zijn.
 
 ```
 
