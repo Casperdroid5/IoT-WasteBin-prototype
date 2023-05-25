@@ -1,0 +1,59 @@
+This manual provides guidance on setting up and using the Mosquitto broker with the provided Arduino script. The Mosquitto broker enables communication between the Arduino device and other MQTT clients. Follow the instructions below to configure the necessary settings for successful communication.\hypertarget{md_latex__mosquittosetup_autotoc_md32}{}\doxysection{Requirements}\label{md_latex__mosquittosetup_autotoc_md32}
+
+\begin{DoxyItemize}
+\item Arduino board (e.\+g., ESP32)
+\item Arduino IDE (Integrated Development Environment)
+\item Mosquitto broker installed and running
+\end{DoxyItemize}\hypertarget{md_latex__mosquittosetup_autotoc_md33}{}\doxysection{Arduino Script Configuration}\label{md_latex__mosquittosetup_autotoc_md33}
+Open the Arduino script ({\ttfamily .ino} file) in the Arduino IDE and locate the following section\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// WiFi settings}}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a0bd682e71bad5172281d3ac1431d5736}{SSID}} = \textcolor{stringliteral}{"{}WWegvanons3"{}};       }
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_af83abf406808bc5d2465c2a1d48b7d27}{PASSWORD}} = \textcolor{stringliteral}{"{}JuCasSan27@\#"{}};  }
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// MQTT Broker settings}}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a8efceabccad60498b050829ff6a34bed}{MQTT\_SERVER}} = \textcolor{stringliteral}{"{}192.168.111.237"{}};  }
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a3d66ea8c358aa3e9058e447b74e36781}{MQTT\_USERNAME}} = \textcolor{stringliteral}{"{}mqtt"{}};           }
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{char}* \mbox{\hyperlink{waste__bin__controller_8h_a171256120ce451554c1190d6706ff651}{MQTT\_PASSWORD}} = \textcolor{stringliteral}{"{}WasteBin5\#"{}};     }
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{waste__bin__controller_8h_aa32e3aeeb7b509d0fa0bd31df3196101}{MQTT\_PORT}} = 1883;                   }
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Wi\+Fi settings}}\+: Update the {\ttfamily SSID} and {\ttfamily PASSWORD} variables with the credentials of your Wi\+Fi network.
+\item {\bfseries{MQTT Broker settings}}\+: Modify the {\ttfamily MQTT\+\_\+\+SERVER}, {\ttfamily MQTT\+\_\+\+USERNAME}, {\ttfamily MQTT\+\_\+\+PASSWORD}, and {\ttfamily MQTT\+\_\+\+PORT} variables to match your Mosquitto broker configuration. The {\ttfamily MQTT\+\_\+\+SERVER} should contain the IP address or hostname of your MQTT broker.
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md34}{}\doxysection{Connecting to Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md34}
+To connect the Arduino device to the Mosquitto broker, ensure that the broker is running and accessible from the Arduino\textquotesingle{}s network. Follow these steps\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Setup Wi\+Fi Connection}}\+: The Arduino script includes a {\ttfamily \mbox{\hyperlink{waste__bin__controller_8h_ad2a97dbe5f144cd247e3b15c6af7c767}{setup\+Wi\+Fi()}}} function, which handles connecting to your Wi\+Fi network. It automatically connects using the provided {\ttfamily SSID} and {\ttfamily PASSWORD}. Make sure the Arduino device is within range of your Wi\+Fi network.
+\item {\bfseries{Configure MQTT Client}}\+: The script has a {\ttfamily \mbox{\hyperlink{waste__bin__controller_8h_a4f4e7c5a1b59dd4aa0a5e5a1a9e36d1b}{setup\+MQTTClient()}}} function that sets up the MQTT client with the provided broker settings. Verify that the {\ttfamily MQTT\+\_\+\+SERVER}, {\ttfamily MQTT\+\_\+\+USERNAME}, {\ttfamily MQTT\+\_\+\+PASSWORD}, and {\ttfamily MQTT\+\_\+\+PORT} variables match your Mosquitto broker configuration.
+\item {\bfseries{Upload and Run}}\+: Upload the modified Arduino script to your Arduino board and monitor the Serial Monitor for connection status and any error messages.
+\item {\bfseries{Verify Connection}}\+: After successfully uploading the script, the Arduino device should attempt to connect to the Mosquitto broker. Check the Serial Monitor for the \char`\"{}\+Wi\+Fi connected\char`\"{} message followed by the Arduino\textquotesingle{}s assigned IP address. If the connection fails, ensure that the broker settings and Wi\+Fi credentials are correct.
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md35}{}\doxysection{Interacting with the Mosquitto Broker}\label{md_latex__mosquittosetup_autotoc_md35}
+The Arduino script performs the following tasks\+:
+
+
+\begin{DoxyItemize}
+\item Reads sensor data from an SHT4x sensor.
+\item Updates the lid position based on a button state.
+\item Controls a Peltier module based on temperature error.
+\item Publishes sensor data to the MQTT broker.
+\end{DoxyItemize}
+
+To interact with the Mosquitto broker and receive data published by the Arduino, you need an MQTT client such as MQTT.\+fx, MQTT Explorer, or a custom application.
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Subscribe to Sensor Data}}\+: In your MQTT client, subscribe to the topic specified in the {\ttfamily SENSOR\+\_\+\+DATA\+\_\+\+TOPIC} variable (\char`\"{}/data/sensors/\char`\"{}). This allows you to receive sensor data published by the Arduino.
+\item {\bfseries{Publish Messages to Control Arduino}}\+: To send messages to the Arduino device and control its behavior, publish messages to specific topics that the Arduino script can handle. Refer to the script\textquotesingle{}s code for available topics and their corresponding actions.
+\item {\bfseries{Monitor MQTT Messages}}\+: In your MQTT
+
+client, observe the incoming messages from the Arduino on the subscribed topic. The Arduino will publish sensor data periodically based on the {\ttfamily msg\+\_\+interval} variable.
+\end{DoxyEnumerate}\hypertarget{md_latex__mosquittosetup_autotoc_md36}{}\doxysection{Conclusion}\label{md_latex__mosquittosetup_autotoc_md36}
+By following the instructions provided in this manual, you can configure the Mosquitto broker and the Arduino script to establish communication between your Arduino device and MQTT clients. 

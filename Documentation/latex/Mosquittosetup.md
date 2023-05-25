@@ -1,64 +1,64 @@
-# Mosquitto Broker Setup Manual
+# Handleiding voor het opzetten van de Mosquitto Broker
 
-This manual provides guidance on setting up and using the Mosquitto broker with the provided Arduino script. The Mosquitto broker enables communication between the Arduino device and other MQTT clients. Follow the instructions below to configure the necessary settings for successful communication.
+Deze handleiding biedt begeleiding bij het instellen en gebruiken van de Mosquitto broker met het meegeleverde Arduino-script. De Mosquitto broker maakt communicatie mogelijk tussen het Arduino-apparaat en andere MQTT-clients. Volg de onderstaande instructies om de benodigde instellingen te configureren voor succesvolle communicatie.
 
-## Requirements
+## Vereisten
 
-- Arduino board (e.g., ESP32)
+- Arduino-bord (bijv. ESP32)
 - Arduino IDE (Integrated Development Environment)
-- Mosquitto broker installed and running
+- Geïnstalleerde en actieve Mosquitto broker
 
-## Arduino Script Configuration
+## Configuratie van het Arduino-script
 
-Open the Arduino script (`.ino` file) in the Arduino IDE and locate the following section:
+Open het Arduino-script (`.ino`-bestand) in de Arduino IDE en zoek het volgende gedeelte:
 
 ```cpp
-// WiFi settings
-const char* SSID = "WWegvanons3";       ///< SSID of the WiFi network
-const char* PASSWORD = "JuCasSan27@#";  ///< Password for the WiFi network
+// WiFi-instellingen
+const char* SSID = "WWegvanons3";       ///< SSID van het WiFi-netwerk
+const char* PASSWORD = "JuCasSan27@#";  ///< Wachtwoord voor het WiFi-netwerk
 
-// MQTT Broker settings
-const char* MQTT_SERVER = "192.168.111.237";  ///< MQTT broker server IP address
-const char* MQTT_USERNAME = "mqtt";           ///< MQTT broker username
-const char* MQTT_PASSWORD = "WasteBin5#";     ///< MQTT broker password
-const int MQTT_PORT = 1883;                   ///< MQTT broker port number
+// MQTT Broker-instellingen
+const char* MQTT_SERVER = "192.168.111.237";  ///< IP-adres van de MQTT broker-server
+const char* MQTT_USERNAME = "mqtt";           ///< Gebruikersnaam van de MQTT broker
+const char* MQTT_PASSWORD = "WasteBin5#";     ///< Wachtwoord van de MQTT broker
+const int MQTT_PORT = 1883;                   ///< Poortnummer van de MQTT broker
 ```
 
-1. **WiFi settings**: Update the `SSID` and `PASSWORD` variables with the credentials of your WiFi network.
+1. **WiFi-instellingen**: Werk de `SSID`- en `PASSWORD`-variabelen bij met de gegevens van jouw WiFi-netwerk.
 
-2. **MQTT Broker settings**: Modify the `MQTT_SERVER`, `MQTT_USERNAME`, `MQTT_PASSWORD`, and `MQTT_PORT` variables to match your Mosquitto broker configuration. The `MQTT_SERVER` should contain the IP address or hostname of your MQTT broker.
+2. **MQTT Broker-instellingen**: Wijzig de `MQTT_SERVER`, `MQTT_USERNAME`, `MQTT_PASSWORD` en `MQTT_PORT`-variabelen om overeen te komen met jouw Mosquitto broker-configuratie. De `MQTT_SERVER` moet het IP-adres of de hostnaam van jouw MQTT broker bevatten.
 
-## Connecting to Mosquitto Broker
+## Verbinding maken met de Mosquitto Broker
 
-To connect the Arduino device to the Mosquitto broker, ensure that the broker is running and accessible from the Arduino's network. Follow these steps:
+Om het Arduino-apparaat met de Mosquitto broker te verbinden, zorg ervoor dat de broker actief is en toegankelijk is vanaf het netwerk van de Arduino. Volg deze stappen:
 
-1. **Setup WiFi Connection**: The Arduino script includes a `setupWiFi()` function, which handles connecting to your WiFi network. It automatically connects using the provided `SSID` and `PASSWORD`. Make sure the Arduino device is within range of your WiFi network.
+1. **WiFi-verbinding instellen**: Het Arduino-script bevat een `setupWiFi()`-functie die de verbinding met jouw WiFi-netwerk afhandelt. Het maakt automatisch verbinding met behulp van de opgegeven `SSID` en `PASSWORD`. Zorg ervoor dat het Arduino-apparaat binnen het bereik van jouw WiFi-netwerk bevindt.
 
-2. **Configure MQTT Client**: The script has a `setupMQTTClient()` function that sets up the MQTT client with the provided broker settings. Verify that the `MQTT_SERVER`, `MQTT_USERNAME`, `MQTT_PASSWORD`, and `MQTT_PORT` variables match your Mosquitto broker configuration.
+2. **MQTT-client configureren**: Het script heeft een `setupMQTTClient()`-functie die de MQTT-client configureert met de opgegeven broker-instellingen. Controleer of de `MQTT_SERVER`, `MQTT_USERNAME`, `MQTT_PASSWORD` en `MQTT_PORT`-variabelen overeenkomen met jouw Mosquitto broker-configuratie.
 
-3. **Upload and Run**: Upload the modified Arduino script to your Arduino board and monitor the Serial Monitor for connection status and any error messages.
+3. **Uploaden en uitvoeren**: Upload het aangepaste Arduino-script naar jouw Arduino-bord en bekijk de Seriële Monitor voor de verbindingsstatus en eventuele foutmeldingen.
 
-4. **Verify Connection**: After successfully uploading the script, the Arduino device should attempt to connect to the Mosquitto broker. Check the Serial Monitor for the "WiFi connected" message followed by the Arduino's assigned IP address. If the connection fails, ensure that the broker settings and WiFi credentials are correct.
+4. **Verbinding verifiëren**: Nadat het script succesvol is geüpload, zou het Arduino-apparaat proberen verbinding te maken met de Mosquitto broker. Controleer de Seriële Monitor op het bericht "
 
-## Interacting with the Mosquitto Broker
+WiFi connected" gevolgd door het toegewezen IP-adres van de Arduino. Als de verbinding mislukt, zorg er dan voor dat de broker-instellingen en WiFi-inloggegevens correct zijn.
 
-The Arduino script performs the following tasks:
+## Interactie met de Mosquitto Broker
 
-- Reads sensor data from an SHT4x sensor.
-- Updates the lid position based on a button state.
-- Controls a Peltier module based on temperature error.
-- Publishes sensor data to the MQTT broker.
+Het Arduino-script voert de volgende taken uit:
 
-To interact with the Mosquitto broker and receive data published by the Arduino, you need an MQTT client such as MQTT.fx, MQTT Explorer, or a custom application.
+- Leest sensordata uit een SHT4x-sensor.
+- Update de positie van de deksel op basis van de status van een knop.
+- Bestuurt een Peltier-module op basis van temperatuurfout.
+- Publiceert sensordata naar de MQTT-broker.
 
-1. **Subscribe to Sensor Data**: In your MQTT client, subscribe to the topic specified in the `SENSOR_DATA_TOPIC` variable ("/data/sensors/"). This allows you to receive sensor data published by the Arduino.
+Om te communiceren met de Mosquitto broker en gegevens te ontvangen die door de Arduino zijn gepubliceerd, heb je een MQTT-client nodig, zoals MQTT.fx, MQTT Explorer of een aangepaste toepassing.
 
-2. **Publish Messages to Control Arduino**: To send messages to the Arduino device and control its behavior, publish messages to specific topics that the Arduino script can handle. Refer to the script's code for available topics and their corresponding actions.
+1. **Inschrijven op sensordata**: Abonneer je in jouw MQTT-client op het onderwerp dat is gespecificeerd in de `SENSOR_DATA_TOPIC`-variabele ("/data/sensors/"). Hiermee kun je sensordata ontvangen die door de Arduino is gepubliceerd.
 
-3. **Monitor MQTT Messages**: In your MQTT
+2. **Berichten publiceren om Arduino te besturen**: Om berichten naar het Arduino-apparaat te sturen en het gedrag ervan te besturen, publiceer je berichten naar specifieke onderwerpen die het Arduino-script kan verwerken. Raadpleeg de code van het script voor beschikbare onderwerpen en hun overeenkomstige acties.
 
- client, observe the incoming messages from the Arduino on the subscribed topic. The Arduino will publish sensor data periodically based on the `msg_interval` variable.
+3. **MQTT-berichten controleren**: Bekijk in jouw MQTT-client de inkomende berichten van de Arduino op het geabonneerde onderwerp. De Arduino zal periodiek sensordata publiceren op basis van de `msg_interval`-variabele.
 
-## Conclusion
+## Conclusie
 
-By following the instructions provided in this manual, you can configure the Mosquitto broker and the Arduino script to establish communication between your Arduino device and MQTT clients.
+Door de instructies in deze handleiding te volgen, kun je de Mosquitto broker en het Arduino-script configureren om communicatie tot stand te brengen tussen jouw Arduino-apparaat en MQTT-clients.
