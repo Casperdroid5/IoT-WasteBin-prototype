@@ -42,7 +42,7 @@ Door `allow_anonymous` op `false` in te stellen en een `password_file` te specif
 
 Het is belangrijk op te merken dat deze instellingen deel uitmaken van de algemene configuratie en dat er mogelijk aanvullende instellingen specifiek voor de Mosquitto broker zijn die niet worden weergegeven in het verstrekte fragment.
 
-## Verbinding maken met de Mosquitto Broker
+# Verbinding maken met de Mosquitto Broker
 
 Om het IoT-apparaat met de Mosquitto broker te verbinden, zorg ervoor dat de broker actief is en toegankelijk is vanaf het netwerk van het IoT-apparaat. Volg deze stappen:
 
@@ -73,4 +73,4 @@ Om te communiceren met de Mosquitto broker en gegevens te ontvangen die door het
 
 ## Conclusie
 
-Door de instructies in deze handleiding te volgen, kun je de Mosquitto broker en het script configureren om communicatie tot stand te brengen tussen het IoT-apparaat en MQTT-clients.
+Door de instructies in deze handleiding te volgen, kun je de Mosquitto broker en het bijbehorende IoT-apparaat script configureren om communicatie tot stand te brengen tussen het IoT-apparaat en MQTT-clients.
