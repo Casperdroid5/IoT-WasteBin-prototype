@@ -8,7 +8,7 @@ Deze handleiding biedt begeleiding bij het instellen en gebruiken van de Mosquit
 - Arduino IDE
 - Geïnstalleerde en actieve Mosquitto broker
 
-## Configuratie van het Arduino-script
+## Configuratie van het script
 
 Open het script (`.ino`-bestand) in de Arduino IDE en zoek het volgende gedeelte:
 
@@ -27,6 +27,20 @@ const int MQTT_PORT = 1883;                   ///< Poortnummer van de MQTT broke
 1. **WiFi-instellingen**: Werk de `SSID`- en `PASSWORD`-variabelen bij met de gegevens van jouw WiFi-netwerk.
 
 2. **MQTT Broker-instellingen**: Wijzig de `MQTT_SERVER`, `MQTT_USERNAME`, `MQTT_PASSWORD` en `MQTT_PORT`-variabelen om overeen te komen met jouw Mosquitto broker-configuratie. De `MQTT_SERVER` moet het IP-adres of de hostnaam van jouw MQTT broker bevatten.
+
+# De instellingen van de Mosquitto Broker
+
+Deze instellingen hebben betrekking op de algemene configuratie van de Mosquitto broker (bestand: mosquitto.conf). Laten we elk van de instellingen doornemen en hun betekenis:
+
+- `allow_anonymous`: Deze instelling bepaalt of anonieme clients (clients zonder authenticatie) verbinding mogen maken met de broker. In dit geval is het ingesteld op `false`, wat betekent dat anonieme clients niet zijn toegestaan.
+
+- `listener`: Deze optie specificeert het poortnummer waarop de broker luistert naar inkomende MQTT-verbindingen. De waarde `1883` geeft aan dat de broker luistert op poort 1883 voor MQTT-verkeer.
+
+- `password_file`: Deze instelling specificeert het pad naar het wachtwoordbestand dat wordt gebruikt voor authenticatie. Het wachtwoordbestand bevat gebruikersnamen en bijbehorende wachtwoorden voor clients die verbinding mogen maken met de broker.
+
+Door `allow_anonymous` op `false` in te stellen en een `password_file` te specificeren, zorgt de configuratie ervoor dat alleen geauthenticeerde clients met geldige referenties verbinding kunnen maken met de broker. Dit verbetert de beveiliging door ongeautoriseerde toegang te voorkomen.
+
+Het is belangrijk op te merken dat deze instellingen deel uitmaken van de algemene configuratie en dat er mogelijk aanvullende instellingen specifiek voor de Mosquitto broker zijn die niet worden weergegeven in het verstrekte fragment.
 
 ## Verbinding maken met de Mosquitto Broker
 
